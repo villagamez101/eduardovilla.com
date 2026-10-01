@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "diagnostico-digital",
+    "area": "transformacion-digital",
+    "titulo": {
+      "es": "Diagnóstico y ruta digital",
+      "en": "Digital diagnosis & roadmap"
+    },
+    "descripcion": {
+      "es": "Entrevisto el negocio, mapeo procesos y canales, y entrego un mapa claro: qué necesita, en qué orden y con qué herramientas. Sin humo: un plan que se puede ejecutar.",
+      "en": "I interview the business, map processes and channels, and deliver a clear map: what's needed, in what order, with which tools. No smoke: a plan you can execute."
+    }
+  },
+  {
+    "slug": "presencia-digital",
+    "area": "branding-diseno",
+    "titulo": {
+      "es": "Presencia digital",
+      "en": "Digital presence"
+    },
+    "descripcion": {
+      "es": "Sitios web, Google Business, lanzamientos y perfiles ordenados. La fachada digital del negocio, coherente de punta a punta.",
+      "en": "Websites, Google Business, launches and tidy profiles. The business's digital façade, coherent end to end."
+    }
+  },
+  {
+    "slug": "ecommerce-catalogos",
+    "area": "ecommerce-desarrollo-web",
+    "titulo": {
+      "es": "E-commerce y catálogos",
+      "en": "E-commerce & catalogs"
+    },
+    "descripcion": {
+      "es": "Tiendas, catálogos digitales y marketplaces. Experiencia real operando 20+ plataformas y catálogos de 3,000 productos.",
+      "en": "Online stores, digital catalogs and marketplaces. Real experience running 20+ platforms and 3,000-product catalogs."
+    }
+  },
+  {
+    "slug": "automatizacion",
+    "area": "ia-automatizacion",
+    "titulo": {
+      "es": "Automatización y sistemas internos",
+      "en": "Automation & internal systems"
+    },
+    "descripcion": {
+      "es": "Flujos que eliminan trabajo repetitivo: formularios que se vuelven procesos, datos que se cruzan solos, ERPs ligeros y suites bien configuradas (Lark 800+ usuarios).",
+      "en": "Flows that kill repetitive work: forms that become processes, data that crosses itself, lightweight ERPs and well-configured suites (Lark, 800+ users)."
+    }
+  },
+  {
+    "slug": "marca",
+    "area": "branding-diseno",
+    "titulo": {
+      "es": "Identidad y branding",
+      "en": "Identity & branding"
+    },
+    "descripcion": {
+      "es": "De cero o de rescate: logo, aplicación, materiales y sistemas de marca que la gente recuerda.",
+      "en": "From scratch or rescue mission: logo, application, materials and brand systems people remember."
+    }
+  }
+]

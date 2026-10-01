@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@import "@fontsource/montserrat/latin-400.css";
+@import "@fontsource/montserrat/latin-500.css";
+@import "@fontsource/montserrat/latin-600.css";
+@import "@fontsource/montserrat/latin-700.css";
+@import "@fontsource/montserrat/latin-ext-400.css";
+@import "@fontsource/montserrat/latin-ext-600.css";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+}
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100dvh;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+::selection { background: var(--sel); }
+
+a { color: inherit; }
+
+.elev { background: var(--bg-elev); }
+.rule { border-color: var(--line); }
+
+/* Enlace de acento editorial */
+.a-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--ink-faint);
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 0.2s ease;
+}
+.a-link:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* Kicker/categoría editorial */
+.kicker {
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Fade-in sutil al cargar */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.rise-2 { animation: rise 0.6s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.rise-3 { animation: rise 0.6s 0.16s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .rise-2, .rise-3 { animation: none; }
+  body { transition: none; }
+}

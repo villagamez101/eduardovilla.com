@@ -1,0 +1,35 @@
+---
+import { t, getLang } from "@i18n/ui";
+import Logo from "@components/Logo.astro";
+import contacto from "@data/contacto.json";
+
+interface Props {
+  lang: "es" | "en";
+}
+const { lang } = Astro.props;
+const l = getLang(lang);
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 border-t rule">
+  <div class="mx-auto grid w-full max-w-[var(--max-w)] gap-8 px-[var(--gutter)] py-10 md:grid-cols-3">
+    <div class="flex items-start gap-3">
+      <Logo class="h-8 w-8" />
+      <div>
+        <p class="text-sm font-semibold">Eduardo Villa</p>
+        <p class="text-xs text-[var(--ink-soft)]">{t.footer.hecho[l]}</p>
+      </div>
+    </div>
+    <div class="text-sm text-[var(--ink-soft)]">
+      <a class="a-link block py-0.5" href={`mailto:${contacto.email}`}>{contacto.email}</a>
+      <a class="a-link block py-0.5" href={`https://wa.me/${contacto.whatsapp}`}>{contacto.telefono}</a>
+      <p class="py-0.5">{contacto.ubicacion}</p>
+    </div>
+    <div class="flex items-start justify-start gap-4 text-sm md:justify-end">
+      <a class="a-link" href="/rss.xml">RSS</a>
+      <a class="a-link" href={contacto.github} rel="me noopener" target="_blank">GitHub</a>
+    </div>
+  </div>
+  <div class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)] pb-8">
+    <p class="text-xs text-[var(--ink-faint)]">© {year} Eduardo Villa</p>
+  </div>
+</footer>

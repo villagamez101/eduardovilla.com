@@ -1,0 +1,25 @@
+---
+// Toggle light/dark persistido. Fija (bottom-left) y discreto.
+interface Props {}
+---
+<button
+  id="theme-switch"
+  class="fixed bottom-4 left-4 z-50 flex h-9 w-9 items-center justify-center rounded-full border rule text-sm transition-colors"
+  style="background: var(--bg-elev); color: var(--ink-soft);"
+  aria-label="Cambiar tema"
+  title="Modo claro / oscuro"
+>
+  <span aria-hidden="true">◐</span>
+</button>
+
+<script>
+  const btn = document.getElementById("theme-switch");
+  const apply = () => {
+    const cur = document.documentElement.dataset.theme;
+    const next = cur === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("ev-theme", next);
+  };
+  btn?.addEventListener("click", apply);
+  // Sin JS: no se degrada nada — solo no hay toggle.
+</script>

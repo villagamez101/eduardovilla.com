@@ -61,9 +61,19 @@ separate folders so agents load the right material at the right moment.
 
 ## Commands
 
-This template is documentation-only by default: `git` adds/commits are the only
-commands. When a derived project adds a build system or scripts, document them
-here (copy-paste runnable) before any agent uses them.
+Sitio personal (Astro) en `03_outputs/web/eduardovilla.com/`:
+
+```bash
+cd 03_outputs/web/eduardovilla.com
+npm run dev            # dev server
+npm run build          # build estático a dist/
+docker compose build   # imagen Docker (nginx, puerto 8088)
+docker compose up -d   # servir en http://localhost:8088
+```
+
+Deploy: la imagen `eduardovilla.com` sirve el sitio; el dominio real se
+migra al final (la web WordPress convive mientras tanto).
+
 
 ## Boundaries
 

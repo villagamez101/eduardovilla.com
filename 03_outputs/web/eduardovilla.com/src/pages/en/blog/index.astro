@@ -1,0 +1,28 @@
+---
+import Base from "@layouts/Base.astro";
+import { t } from "@i18n/ui";
+---
+<Base
+  lang="en"
+  title={`${t.blog.indexTitle.en} — Eduardo Villa`}
+  description="Eduardo Villa's writings: lessons, processes and notes on systems, design and minimalism."
+>
+  <section class="py-[calc(var(--space-unit)*2)]">
+    <p class="kicker">{t.blog.indexTitle.en}</p>
+    <h1 class="mt-3 font-semibold" style="font-size: var(--fs-h2);">
+      Notes along the way.
+    </h1>
+    <p class="mt-4 max-w-[34rem] text-[var(--ink-soft)]">
+      {t.blog.vacio.en} — the collection is already in place; the first essays go
+      in once the content is ready.
+    </p>
+    <div class="mt-12 divide-y rule border-y rule" aria-hidden="true">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <article class="grid gap-1 py-6 md:grid-cols-[8rem_1fr] md:items-baseline">
+          <p class="kicker">Up next</p>
+          <p class="font-semibold">Lorem ipsum: essay title {i + 1}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

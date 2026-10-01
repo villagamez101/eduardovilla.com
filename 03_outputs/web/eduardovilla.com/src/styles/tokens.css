@@ -1,0 +1,108 @@
+/* ============================================================
+   Design tokens — Eduardo Villa
+   Tres alternativas de paleta (A/B/C). Cambiar de paleta = solo
+   tocar data-palette en <html>. Cada paleta define light/dark.
+   ADN de marca: azul profundo #213c90 sobre navy #1d2240.
+   ============================================================ */
+
+:root {
+  /* --- Paleta A (default): Editorial Oscuro — ADN de marca --- */
+  /* Dark */
+  --bg: color-mix(in oklab, #1d2240 88%, black);
+  --bg-elev: color-mix(in oklab, #1d2240 72%, black);
+  --ink: color-mix(in oklab, #f5f3ee 96%, white);
+  --ink-soft: color-mix(in oklab, #f5f3ee 55%, transparent);
+  --ink-faint: color-mix(in oklab, #f5f3ee 28%, transparent);
+  --line: color-mix(in oklab, #f5f3ee 14%, transparent);
+  --accent: #5b7cfa;
+  --accent-ink: #f5f3ee;
+  --opuesto: #f5f3ee;
+  --sel: rgba(91, 124, 250, 0.25);
+
+  /* Light */
+  --l-bg: #f7f5ef;
+  --l-bg-elev: #fffdf8;
+  --l-ink: color-mix(in oklab, #1d2240 92%, black);
+  --l-ink-soft: color-mix(in oklab, #1d2240 62%, transparent);
+  --l-ink-faint: color-mix(in oklab, #1d2240 30%, transparent);
+  --l-line: color-mix(in oklab, #1d2240 14%, transparent);
+  --l-accent: #213c90;
+  --l-accent-ink: #f7f5ef;
+
+  --font-sans: "Montserrat", system-ui, sans-serif;
+}
+
+/* --- Paleta B: Tinta — carbón cálido + ámbar, más personal --- */
+[data-palette="b"] {
+  --bg: #14120f;
+  --bg-elev: #1d1a16;
+  --ink: #f3efe7;
+  --ink-soft: rgba(243, 239, 231, 0.55);
+  --ink-faint: rgba(243, 239, 231, 0.28);
+  --line: rgba(243, 239, 231, 0.14);
+  --accent: #e8a13c;
+  --accent-ink: #14120f;
+  --opuesto: #f3efe7;
+  --sel: rgba(232, 161, 60, 0.25);
+
+  --l-bg: #f4f0e6;
+  --l-bg-elev: #fbf8f1;
+  --l-ink: #26221c;
+  --l-ink-soft: rgba(38, 34, 28, 0.62);
+  --l-ink-faint: rgba(38, 34, 28, 0.3);
+  --l-line: rgba(38, 34, 28, 0.14);
+  --l-accent: #b06a10;
+  --l-accent-ink: #f4f0e6;
+}
+
+/* --- Paleta C: Duo atrevido — navy + lima eléctrico --- */
+[data-palette="c"] {
+  --bg: #0c1024;
+  --bg-elev: #131836;
+  --ink: #eef1ff;
+  --ink-soft: rgba(238, 241, 255, 0.55);
+  --ink-faint: rgba(238, 241, 255, 0.26);
+  --line: rgba(238, 241, 255, 0.13);
+  --accent: #c8f24e;
+  --accent-ink: #0c1024;
+  --opuesto: #eef1ff;
+  --sel: rgba(200, 242, 78, 0.22);
+
+  --l-bg: #f2f4ff;
+  --l-bg-elev: #ffffff;
+  --l-ink: #131a3d;
+  --l-ink-soft: rgba(19, 26, 61, 0.62);
+  --l-ink-faint: rgba(19, 26, 61, 0.3);
+  --l-line: rgba(19, 26, 61, 0.13);
+  --l-accent: #213c90;
+  --l-accent-ink: #f2f4ff;
+}
+
+/* --- Tema: dark (default) / light vía [data-theme] --- */
+:root { color-scheme: dark; }
+[data-theme="light"] { color-scheme: light; }
+
+[data-theme="light"] {
+  --bg: var(--l-bg);
+  --bg-elev: var(--l-bg-elev);
+  --ink: var(--l-ink);
+  --ink-soft: var(--l-ink-soft);
+  --ink-faint: var(--l-ink-faint);
+  --line: var(--l-line);
+  --accent: var(--l-accent);
+  --accent-ink: var(--l-accent-ink);
+  --opuesto: var(--l-ink);
+}
+
+/* Escalas tipográficas fluidas */
+:root {
+  --fs-display: clamp(2.6rem, 8vw, 5.5rem);
+  --fs-h2: clamp(1.6rem, 4vw, 2.6rem);
+  --fs-lede: clamp(1.05rem, 2vw, 1.35rem);
+  --fs-body: 1rem;
+  --fs-small: 0.85rem;
+
+  --space-unit: clamp(1rem, 2.5vw, 2rem);
+  --max-w: 68rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}

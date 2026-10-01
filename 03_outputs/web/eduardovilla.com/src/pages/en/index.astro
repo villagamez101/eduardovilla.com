@@ -1,0 +1,49 @@
+---
+import Base from "@layouts/Base.astro";
+import { t } from "@i18n/ui";
+import areas from "@data/areas.json";
+
+const l = "en" as const;
+const title = "Eduardo Villa — " + t.home.tagline.en;
+const description =
+  "Eduardo Villa's personal site: design, code, systems, automation and play. A digital refuge of what I build, think and learn.";
+const ordenadas = [...areas].sort((a, b) => a.orden - b.orden);
+---
+<Base lang="en" title={title} description={description}>
+  <section class="py-[calc(var(--space-unit)*3)]">
+    <p class="kicker rise">{t.home.tagline.en}</p>
+    <h1 class="rise-2 mt-4 font-semibold leading-[1.05]" style="font-size: var(--fs-display);">
+      Eduardo<br />Villa<span class="text-[var(--accent)]">.</span>
+    </h1>
+    <p class="rise-3 mt-8 max-w-[36rem] text-[var(--fs-lede)] leading-relaxed text-[var(--ink-soft)]">
+      {t.home.intro.en}
+    </p>
+    <a href="/en/areas" class="rise-3 a-link mt-6 inline-block text-sm">{t.home.verAreas.en} →</a>
+  </section>
+
+  <section class="border-t rule py-[calc(var(--space-unit)*2)]" aria-labelledby="areas-kicker">
+    <p id="areas-kicker" class="kicker">{t.home.areasKicker.en}</p>
+    <ol class="mt-6 grid gap-0 md:grid-cols-2">
+      {ordenadas.map((a) => (
+        <li class="border-b rule md:[&:nth-child(odd)]:border-r md:[&:nth-child(odd)]:pr-8 md:[&:nth-child(even)]:pl-8">
+          <a href={`/en/areas/${a.slug}`} class="group flex items-baseline gap-4 py-5">
+            <span class="text-lg text-[var(--ink-faint)] group-hover:text-[var(--accent)] transition-colors" aria-hidden="true">{a.icono}</span>
+            <span>
+              <span class="block font-semibold leading-snug group-hover:text-[var(--accent)] transition-colors">{a.titulo.en}</span>
+              <span class="mt-1 block text-sm text-[var(--ink-soft)]">{a.lema.en}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="border-t rule py-[calc(var(--space-unit)*3)]">
+    <h2 class="max-w-[40rem] font-medium leading-snug" style="font-size: var(--fs-h2);">
+      {t.manifiesto.titulo.en}
+    </h2>
+    <p class="mt-6 max-w-[36rem] leading-relaxed text-[var(--ink-soft)]">
+      {t.manifiesto.cuerpo.en}
+    </p>
+  </section>
+</Base>

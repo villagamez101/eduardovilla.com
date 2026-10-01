@@ -1,0 +1,72 @@
+---
+import { t, getLang } from "@i18n/ui";
+import Logo from "@components/Logo.astro";
+
+interface Props {
+  lang: "es" | "en";
+}
+const { lang } = Astro.props;
+const l = getLang(lang);
+const base = lang === "en" ? "/en" : "";
+
+const items = [
+  { href: `${base}/acerca`, label: t.nav.acerca },
+  { href: `${base}/areas`, label: t.nav.areas },
+  { href: `${base}/proyectos`, label: t.nav.proyectos },
+  { href: `${base}/servicios`, label: t.nav.servicios },
+  { href: `${base}/blog`, label: t.nav.blog },
+  { href: `${base}/contacto`, label: t.nav.contacto },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  path === href ||
+  path === `${href}/` ||
+  (href !== "/" && path.startsWith(`${href}/`));
+---
+<header class="sticky top-0 z-40 border-b rule backdrop-blur-md" style="background: color-mix(in srgb, var(--bg) 82%, transparent);">
+  <div class="mx-auto flex w-full max-w-[var(--max-w)] items-center justify-between px-[var(--gutter)] py-3">
+    <a href={`${base}/`} class="flex items-center gap-2" aria-label="Eduardo Villa — inicio">
+      <Logo class="h-7 w-7" />
+      <span class="text-sm font-semibold tracking-wide">Eduardo Villa</span>
+    </a>
+    <nav class="hidden items-center gap-5 md:flex" aria-label="Principal">
+      {items.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            "text-sm transition-colors",
+            isActive(item.href) ? "text-[var(--accent)]" : "text-[var(--ink-soft)] hover:text-[var(--ink)]",
+          ]}
+        >
+          {item.label[l]}
+        </a>
+      ))}
+    </nav>
+    <button
+      id="nav-toggle"
+      class="flex h-9 w-9 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="nav-mobile"
+      aria-label="Menú"
+    >
+      <span class="text-lg" aria-hidden="true">≡</span>
+    </button>
+  </div>
+  <div id="nav-mobile" class="hidden border-t rule px-[var(--gutter)] py-3 md:hidden">
+    <div class="grid grid-cols-2 gap-2">
+      {items.map((item) => (
+        <a href={item.href} class="py-1 text-sm text-[var(--ink-soft)]">{item.label[l]}</a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-mobile");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", String(!open));
+  });
+</script>

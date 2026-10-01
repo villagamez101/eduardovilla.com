@@ -1,0 +1,35 @@
+---
+import Base from "@layouts/Base.astro";
+import { t } from "@i18n/ui";
+import contacto from "@data/contacto.json";
+---
+<Base
+  lang="en"
+  title={`${t.recursos.indexTitle.en} — Eduardo Villa`}
+  description="Eduardo Villa's resources: downloadable CV, templates and guides under construction."
+>
+  <section class="py-[calc(var(--space-unit)*2)]">
+    <p class="kicker">{t.recursos.indexTitle.en}</p>
+    <h1 class="mt-3 font-semibold" style="font-size: var(--fs-h2);">
+      Take it and use it.
+    </h1>
+    <p class="mt-4 max-w-[34rem] text-[var(--ink-soft)]">{t.recursos.nota.en}</p>
+
+    <ol class="mt-12 divide-y rule border-y rule">
+      <li class="grid gap-2 py-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <h2 class="font-semibold">CV — Eduardo Villa (2026)</h2>
+          <p class="mt-1 text-sm text-[var(--ink-soft)]">Full trajectory, as a PDF (Spanish).</p>
+        </div>
+        <a class="a-link text-sm" href="/recursos/cv-eduardo-villa-2026.pdf" download>Download PDF</a>
+      </li>
+      <li class="grid gap-2 py-6 md:grid-cols-[1fr_auto] md:items-center opacity-40" aria-hidden="true">
+        <div>
+          <h2 class="font-semibold">Guide: a digital diagnosis in one afternoon</h2>
+          <p class="mt-1 text-sm text-[var(--ink-soft)]">Under construction.</p>
+        </div>
+        <span class="text-sm text-[var(--ink-faint)]">Soon</span>
+      </li>
+    </ol>
+  </section>
+</Base>

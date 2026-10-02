@@ -8,28 +8,46 @@ interface Props {
 }
 const { lang } = Astro.props;
 const l = getLang(lang);
+const base = lang === "en" ? "/en" : "";
 const year = new Date().getFullYear();
+const nav = [
+  { href: `${base}/acerca`, label: t.nav.acerca },
+  { href: `${base}/areas`, label: t.nav.areas },
+  { href: `${base}/proyectos`, label: t.nav.proyectos },
+  { href: `${base}/servicios`, label: t.nav.servicios },
+  { href: `${base}/blog`, label: t.nav.blog },
+  { href: `${base}/contacto`, label: t.nav.contacto },
+];
 ---
-<footer class="mt-24 border-t rule">
-  <div class="mx-auto grid w-full max-w-[var(--max-w)] gap-8 px-[var(--gutter)] py-10 md:grid-cols-3">
-    <div class="flex items-start gap-3">
-      <Logo class="h-8 w-8" />
-      <div>
-        <p class="text-sm font-semibold">Eduardo Villa</p>
-        <p class="text-xs text-[var(--ink-soft)]">{t.footer.hecho[l]}</p>
+<footer class="relative mt-28 border-t border-line px-[var(--gutter)] pt-14 pb-10">
+  <div class="mx-auto grid w-full max-w-[var(--max-w)] gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="flex flex-col gap-4">
+      <a href={`${base}/`} class="flex items-center gap-2.5">
+        <Logo class="h-9 w-9" />
+        <span class="font-bold tracking-tight">Eduardo Villa</span>
+      </a>
+      <p class="max-w-xs text-sm ink-soft">
+        {lang === "es"
+          ? "Refugio digital de un generalista: diseño, código, sistemas y juego."
+          : "A generalist's digital refuge: design, code, systems and play."}
+      </p>
+      <p class="text-xs ink-faint">{t.footer.hecho[l]} · © {year}</p>
+    </div>
+
+    <nav class="flex flex-col gap-2 text-sm" aria-label="Pie">
+      {nav.map((item) => (
+        <a href={item.href} class="w-fit text-[var(--ink-soft)] transition-colors hover:text-[var(--accent)]">{item.label[l]}</a>
+      ))}
+    </nav>
+
+    <div class="flex flex-col gap-2 text-sm">
+      <a class="link-accent w-fit" href={`mailto:${contacto.email}`}>{contacto.email}</a>
+      <a class="link-accent w-fit" href={`https://wa.me/${contacto.whatsapp}`}>{contacto.telefono}</a>
+      <span class="w-fit ink-soft">{contacto.ubicacion}</span>
+      <div class="mt-2 flex gap-4 text-xs">
+        <a class="link-accent" href="/rss.xml">RSS</a>
+        <a class="link-accent" href={contacto.github} rel="me noopener" target="_blank">GitHub</a>
       </div>
     </div>
-    <div class="text-sm text-[var(--ink-soft)]">
-      <a class="a-link block py-0.5" href={`mailto:${contacto.email}`}>{contacto.email}</a>
-      <a class="a-link block py-0.5" href={`https://wa.me/${contacto.whatsapp}`}>{contacto.telefono}</a>
-      <p class="py-0.5">{contacto.ubicacion}</p>
-    </div>
-    <div class="flex items-start justify-start gap-4 text-sm md:justify-end">
-      <a class="a-link" href="/rss.xml">RSS</a>
-      <a class="a-link" href={contacto.github} rel="me noopener" target="_blank">GitHub</a>
-    </div>
-  </div>
-  <div class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)] pb-8">
-    <p class="text-xs text-[var(--ink-faint)]">© {year} Eduardo Villa</p>
   </div>
 </footer>

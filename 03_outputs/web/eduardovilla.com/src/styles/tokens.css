@@ -1,108 +1,73 @@
 /* ============================================================
    Design tokens — Eduardo Villa
-   Tres alternativas de paleta (A/B/C). Cambiar de paleta = solo
-   tocar data-palette en <html>. Cada paleta define light/dark.
-   ADN de marca: azul profundo #213c90 sobre navy #1d2240.
+   Un solo color de acento vivo (índigo eléctrico) + su cian
+   para degradados sutiles. Oscuro por defecto.
    ============================================================ */
 
 :root {
-  /* --- Paleta A (default): Editorial Oscuro — ADN de marca --- */
-  /* Dark */
-  --bg: color-mix(in oklab, #1d2240 88%, black);
-  --bg-elev: color-mix(in oklab, #1d2240 72%, black);
-  --ink: color-mix(in oklab, #f5f3ee 96%, white);
-  --ink-soft: color-mix(in oklab, #f5f3ee 55%, transparent);
-  --ink-faint: color-mix(in oklab, #f5f3ee 28%, transparent);
-  --line: color-mix(in oklab, #f5f3ee 14%, transparent);
-  --accent: #5b7cfa;
-  --accent-ink: #f5f3ee;
-  --opuesto: #f5f3ee;
-  --sel: rgba(91, 124, 250, 0.25);
+  /* --- Tema oscuro (default) --- */
+  --bg: #070a18;
+  --bg-2: #0b1024;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --elev: #0e1430;
+  --ink: #f5f7ff;
+  --ink-soft: rgba(245, 247, 255, 0.66);
+  --ink-faint: rgba(245, 247, 255, 0.4);
+  --line: rgba(245, 247, 255, 0.1);
+  --line-strong: rgba(245, 247, 255, 0.18);
 
-  /* Light */
-  --l-bg: #f7f5ef;
-  --l-bg-elev: #fffdf8;
-  --l-ink: color-mix(in oklab, #1d2240 92%, black);
-  --l-ink-soft: color-mix(in oklab, #1d2240 62%, transparent);
-  --l-ink-faint: color-mix(in oklab, #1d2240 30%, transparent);
-  --l-line: color-mix(in oklab, #1d2240 14%, transparent);
-  --l-accent: #213c90;
-  --l-accent-ink: #f7f5ef;
+  /* Acento único + familia para degradados */
+  --accent: #6d5dfc;
+  --accent-2: #22d3ee;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(109, 93, 252, 0.16);
+  --accent-glow: rgba(109, 93, 252, 0.45);
+  --grad: linear-gradient(120deg, var(--accent), var(--accent-2));
+  --sel: rgba(109, 93, 252, 0.35);
 
-  --font-sans: "Montserrat", system-ui, sans-serif;
+  /* Blanco/negro de contraste para el logo */
+  --opuesto: #f5f7ff;
 }
 
-/* --- Paleta B: Tinta — carbón cálido + ámbar, más personal --- */
-[data-palette="b"] {
-  --bg: #14120f;
-  --bg-elev: #1d1a16;
-  --ink: #f3efe7;
-  --ink-soft: rgba(243, 239, 231, 0.55);
-  --ink-faint: rgba(243, 239, 231, 0.28);
-  --line: rgba(243, 239, 231, 0.14);
-  --accent: #e8a13c;
-  --accent-ink: #14120f;
-  --opuesto: #f3efe7;
-  --sel: rgba(232, 161, 60, 0.25);
+:root[data-theme="light"] {
+  --bg: #f4f5fb;
+  --bg-2: #eef0fa;
+  --surface: rgba(11, 16, 32, 0.03);
+  --surface-2: rgba(11, 16, 32, 0.05);
+  --elev: #ffffff;
+  --ink: #0b1020;
+  --ink-soft: rgba(11, 16, 32, 0.66);
+  --ink-faint: rgba(11, 16, 32, 0.42);
+  --line: rgba(11, 16, 32, 0.1);
+  --line-strong: rgba(11, 16, 32, 0.18);
 
-  --l-bg: #f4f0e6;
-  --l-bg-elev: #fbf8f1;
-  --l-ink: #26221c;
-  --l-ink-soft: rgba(38, 34, 28, 0.62);
-  --l-ink-faint: rgba(38, 34, 28, 0.3);
-  --l-line: rgba(38, 34, 28, 0.14);
-  --l-accent: #b06a10;
-  --l-accent-ink: #f4f0e6;
+  --accent: #4f46e5;
+  --accent-2: #0891b2;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(79, 70, 229, 0.1);
+  --accent-glow: rgba(79, 70, 229, 0.3);
+  --sel: rgba(79, 70, 229, 0.2);
+
+  --opuesto: #0b1020;
 }
 
-/* --- Paleta C: Duo atrevido — navy + lima eléctrico --- */
-[data-palette="c"] {
-  --bg: #0c1024;
-  --bg-elev: #131836;
-  --ink: #eef1ff;
-  --ink-soft: rgba(238, 241, 255, 0.55);
-  --ink-faint: rgba(238, 241, 255, 0.26);
-  --line: rgba(238, 241, 255, 0.13);
-  --accent: #c8f24e;
-  --accent-ink: #0c1024;
-  --opuesto: #eef1ff;
-  --sel: rgba(200, 242, 78, 0.22);
-
-  --l-bg: #f2f4ff;
-  --l-bg-elev: #ffffff;
-  --l-ink: #131a3d;
-  --l-ink-soft: rgba(19, 26, 61, 0.62);
-  --l-ink-faint: rgba(19, 26, 61, 0.3);
-  --l-line: rgba(19, 26, 61, 0.13);
-  --l-accent: #213c90;
-  --l-accent-ink: #f2f4ff;
-}
-
-/* --- Tema: dark (default) / light vía [data-theme] --- */
-:root { color-scheme: dark; }
-[data-theme="light"] { color-scheme: light; }
-
-[data-theme="light"] {
-  --bg: var(--l-bg);
-  --bg-elev: var(--l-bg-elev);
-  --ink: var(--l-ink);
-  --ink-soft: var(--l-ink-soft);
-  --ink-faint: var(--l-ink-faint);
-  --line: var(--l-line);
-  --accent: var(--l-accent);
-  --accent-ink: var(--l-accent-ink);
-  --opuesto: var(--l-ink);
-}
-
-/* Escalas tipográficas fluidas */
+/* Tipografía y ritmo */
 :root {
-  --fs-display: clamp(2.6rem, 8vw, 5.5rem);
-  --fs-h2: clamp(1.6rem, 4vw, 2.6rem);
-  --fs-lede: clamp(1.05rem, 2vw, 1.35rem);
-  --fs-body: 1rem;
-  --fs-small: 0.85rem;
+  --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  --space-unit: clamp(1rem, 2.5vw, 2rem);
-  --max-w: 68rem;
-  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --fs-display: clamp(3rem, 11vw, 8.5rem);
+  --fs-h2: clamp(1.8rem, 4.6vw, 3.2rem);
+  --fs-lede: clamp(1.1rem, 2.1vw, 1.5rem);
+  --fs-body: 1rem;
+  --fs-small: 0.82rem;
+
+  --max-w: 74rem;
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --radius: 1.1rem;
+  --radius-sm: 0.7rem;
+
+  color-scheme: dark;
 }
+:root[data-theme="light"] { color-scheme: light; }

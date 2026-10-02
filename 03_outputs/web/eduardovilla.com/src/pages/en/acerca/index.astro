@@ -1,44 +1,72 @@
 ---
 import Base from "@layouts/Base.astro";
 import { t } from "@i18n/ui";
+
+const milestones = [
+  { k: "2022–2026", t: "Project manager", d: "Custom ERP in production in under 6 months · Lark Suite for 800+ users." },
+  { k: "2019–2022", t: "E-commerce lead", d: "~$5M MXN/month · 20+ marketplaces · 3,000-product catalog · team of 6." },
+  { k: "2018–2019", t: "Graphic designer", d: "Where it all started: identity, form and color." },
+];
 ---
 <Base
   lang="en"
   title={`${t.acerca.indexTitle.en} — Eduardo Villa`}
   description="Who Eduardo Villa is: creative generalist, process and systems analyst, and why this site exists."
 >
-  <article class="py-[calc(var(--space-unit)*2)]">
-    <p class="kicker">{t.acerca.indexTitle.en}</p>
-    <h1 class="mt-3 max-w-[40rem] font-semibold leading-tight" style="font-size: var(--fs-h2);">
-      I do few things, but I do them fully.
+  <article class="py-16">
+    <p class="kicker rise">{t.acerca.indexTitle.en}</p>
+    <h1 class="rise-2 mt-4 max-w-[40rem] font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
+      I do few things, <span class="grad-text">but I do them fully.</span>
     </h1>
 
-    <div class="mt-10 max-w-[38rem] space-y-5 leading-relaxed">
-      <p>
-        I'm Eduardo Villa, from Córdoba, Veracruz (Mexico). I started out designing
-        (Sisco, 2018), ended up running e-commerce (three years, twenty marketplaces,
-        three thousand products) and settled where design and systems meet:
-        technology applied with judgment to real businesses.
-      </p>
-      <p>
-        At Linkbits — seven years — I built catalogs and stores, then managed
-        projects: a custom ERP in production in under six months, Lark Suite for
-        800+ users. Along the way I learned almost no problem is "a design problem"
-        or "a systems problem": it's the whole picture.
-      </p>
-      <p>
-        This site is my refuge: a place to write what I learn, keep what I build
-        and show the full path of a generalist — without the polished showcase
-        you'd expect from a portfolio.
-      </p>
+    <div class="mt-12 grid gap-10 lg:grid-cols-[1.6fr_1fr]">
+      <div class="reveal space-y-5 leading-relaxed text-[var(--fs-lede)]">
+        <p>
+          I'm Eduardo Villa, from Córdoba, Veracruz (Mexico). I started out designing,
+          ended up running e-commerce (three years, twenty marketplaces, three thousand
+          products) and settled where design and systems meet: technology applied with
+          judgment to real businesses.
+        </p>
+        <p class="ink-soft">
+          At Linkbits — seven years — I built catalogs and stores, then managed
+          projects: a custom ERP in production in under six months, Lark Suite for
+          800+ users. I learned almost no problem is "a design problem" or "a systems
+          problem": it's the whole picture.
+        </p>
+        <p class="ink-soft">
+          This site is my refuge: a place to write what I learn, keep what I build and
+          show the full path of a generalist.
+        </p>
+      </div>
+
+      <aside class="reveal flex flex-col gap-4">
+        <div class="card p-6">
+          <span class="flex items-center gap-3">
+            <span class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">Now</span>
+            <span class="h-px flex-1" style="background: var(--line);"></span>
+          </span>
+          <p class="mt-3 text-sm ink-soft">
+            Exploring AI applied to real operations, building this site and making room
+            to write. Updated: 2026.
+          </p>
+        </div>
+        <a href="/en/contacto" class="btn btn-accent w-fit">Let's talk →</a>
+      </aside>
     </div>
 
-    <section class="mt-14 border-t rule pt-8">
-      <p class="kicker">Now</p>
-      <p class="mt-3 max-w-[34rem] text-sm text-[var(--ink-soft)]">
-        Exploring AI applied to real operations, building this site and making room
-        to write. Updated: 2026.
-      </p>
+    <section class="reveal mt-20">
+      <p class="kicker">Trajectory</p>
+      <ol class="mt-6 flex flex-col gap-3">
+        {milestones.map((h) => (
+          <li class="card flex flex-col gap-2 p-6 sm:flex-row sm:items-baseline sm:gap-8">
+            <span class="w-28 shrink-0 text-xs font-semibold text-[var(--accent)]">{h.k}</span>
+            <span class="flex-1">
+              <span class="block font-semibold">{h.t}</span>
+              <span class="mt-1 block text-sm ink-soft">{h.d}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
     </section>
   </article>
 </Base>

@@ -1,7 +1,5 @@
 ---
 import "@styles/global.css";
-import ThemeSwitch from "@components/ThemeSwitch.astro";
-import PaletteSwitch from "@components/PaletteSwitch.astro";
 import Nav from "@components/Nav.astro";
 import Footer from "@components/Footer.astro";
 
@@ -15,7 +13,7 @@ const { lang, title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
-<html lang={lang} data-theme="dark" data-palette="a" class="scroll-smooth">
+<html lang={lang} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,29 +22,48 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#070a18" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og-fallback.png" />
     <script is:inline>
-      // Anti-FOUC: aplicar tema y paleta guardados antes del primer paint
+      // Tema: oscuro por defecto, salvo preferencia guardada.
       (() => {
-        const storedTheme = localStorage.getItem("ev-theme");
-        const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-        document.documentElement.dataset.theme =
-          storedTheme || (prefersLight ? "light" : "dark");
-        const storedPalette = localStorage.getItem("ev-palette");
-        if (storedPalette) document.documentElement.dataset.palette = storedPalette;
+        const stored = localStorage.getItem("ev-theme");
+        if (stored) document.documentElement.dataset.theme = stored;
       })();
     </script>
   </head>
-  <body class="antialiased">
+  <body>
+    <div class="aurora" aria-hidden="true"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
     <Nav lang={lang} />
     <main id="main" class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)]">
       <slot />
     </main>
     <Footer lang={lang} />
-    <ThemeSwitch />
-    <PaletteSwitch />
+    <script is:inline>
+      // Reveal on scroll
+      (() => {
+        const els = document.querySelectorAll(".reveal");
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("is-in"));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+    </script>
   </body>
 </html>

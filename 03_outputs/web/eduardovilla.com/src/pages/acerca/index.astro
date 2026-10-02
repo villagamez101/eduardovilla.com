@@ -1,44 +1,72 @@
 ---
 import Base from "@layouts/Base.astro";
 import { t } from "@i18n/ui";
+
+const hitos = [
+  { k: "2022–2026", t: "Administrador de proyectos", d: "ERP a medida en producción en <6 meses · Lark Suite para 800+ usuarios." },
+  { k: "2019–2022", t: "Encargado de e-commerce", d: "~$5M MXN/mes · 20+ marketplaces · catálogo de 3,000 productos · equipo de 6." },
+  { k: "2018–2019", t: "Diseñador gráfico", d: "Donde empezó todo: identidad, forma y color." },
+];
 ---
 <Base
   lang="es"
   title={`${t.acerca.indexTitle.es} — Eduardo Villa`}
   description="Quién es Eduardo Villa: generalista creativo, analista de procesos y sistemas, y por qué este sitio existe."
 >
-  <article class="py-[calc(var(--space-unit)*2)]">
-    <p class="kicker">{t.acerca.indexTitle.es}</p>
-    <h1 class="mt-3 max-w-[40rem] font-semibold leading-tight" style="font-size: var(--fs-h2);">
-      Hago pocas cosas, pero las hago completas.
+  <article class="py-16">
+    <p class="kicker rise">{t.acerca.indexTitle.es}</p>
+    <h1 class="rise-2 mt-4 max-w-[40rem] font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
+      Hago pocas cosas, <span class="grad-text">pero las hago completas.</span>
     </h1>
 
-    <div class="mt-10 max-w-[38rem] space-y-5 leading-relaxed">
-      <p>
-        Soy Eduardo Villa, de Córdoba, Veracruz. Empecé diseñando (Sisco, 2018),
-        terminé operando e-commerce (tres años, veinte marketplaces, tres mil
-        productos) y me quedé en el punto donde el diseño y los sistemas se
-        encuentran: la tecnología aplicada con criterio a negocios reales.
-      </p>
-      <p>
-        En Linkbits — siete años — monté catálogos y tiendas, y después administré
-        proyectos: un ERP a la medida en producción en menos de seis meses, Lark
-        Suite para más de ochocientos usuarios. En el camino aprendí que casi
-        ningún problema es "de diseño" o "de sistemas": es del panorama completo.
-      </p>
-      <p>
-        Este sitio es mi refugio: un lugar para escribir lo que aprendo, guardar
-        lo que construyo y mostrar el recorrido completo de un generalista — sin
-        la vitrina pulida que esperarías de un portafolio.
-      </p>
+    <div class="mt-12 grid gap-10 lg:grid-cols-[1.6fr_1fr]">
+      <div class="reveal space-y-5 leading-relaxed text-[var(--fs-lede)]">
+        <p>
+          Soy Eduardo Villa, de Córdoba, Veracruz. Empecé diseñando, terminé operando
+          e-commerce (tres años, veinte marketplaces, tres mil productos) y me quedé en
+          el punto donde el diseño y los sistemas se encuentran: tecnología aplicada
+          con criterio a negocios reales.
+        </p>
+        <p class="ink-soft">
+          En Linkbits — siete años — monté catálogos y tiendas, y después administré
+          proyectos: un ERP a la medida en producción en menos de seis meses, Lark
+          Suite para más de ochocientos usuarios. Aprendí que casi ningún problema es
+          "de diseño" o "de sistemas": es del panorama completo.
+        </p>
+        <p class="ink-soft">
+          Este sitio es mi refugio: un lugar para escribir lo que aprendo, guardar lo
+          que construyo y mostrar el recorrido completo de un generalista.
+        </p>
+      </div>
+
+      <aside class="reveal flex flex-col gap-4">
+        <div class="card p-6">
+          <span class="flex items-center gap-3">
+            <span class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">Ahora</span>
+            <span class="h-px flex-1" style="background: var(--line);"></span>
+          </span>
+          <p class="mt-3 text-sm ink-soft">
+            Explorando IA aplicada a operaciones reales, construyendo este sitio y
+            abriendo espacio para escribir. Actualizado: 2026.
+          </p>
+        </div>
+        <a href="/contacto" class="btn btn-accent w-fit">Hablemos →</a>
+      </aside>
     </div>
 
-    <section class="mt-14 border-t rule pt-8">
-      <p class="kicker">Ahora</p>
-      <p class="mt-3 max-w-[34rem] text-sm text-[var(--ink-soft)]">
-        Explorando IA aplicada a operaciones reales, construyendo este sitio y
-        abriendo espacio para escribir. Actualizado: 2026.
-      </p>
+    <section class="reveal mt-20">
+      <p class="kicker">Trayectoria</p>
+      <ol class="mt-6 flex flex-col gap-3">
+        {hitos.map((h) => (
+          <li class="card flex flex-col gap-2 p-6 sm:flex-row sm:items-baseline sm:gap-8">
+            <span class="w-28 shrink-0 text-xs font-semibold text-[var(--accent)]">{h.k}</span>
+            <span class="flex-1">
+              <span class="block font-semibold">{h.t}</span>
+              <span class="mt-1 block text-sm ink-soft">{h.d}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
     </section>
   </article>
 </Base>

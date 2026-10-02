@@ -2,37 +2,37 @@
 import Base from "@layouts/Base.astro";
 import { t } from "@i18n/ui";
 import contacto from "@data/contacto.json";
+
+const canales = [
+  { k: "Email", v: contacto.email, href: `mailto:${contacto.email}` },
+  { k: "Teléfono", v: contacto.telefono, href: `tel:${contacto.telefono.replace(/\s/g, "")}` },
+  { k: "WhatsApp", v: "Abrir chat", href: `https://wa.me/${contacto.whatsapp}` },
+  { k: "Dónde", v: contacto.ubicacion, href: null },
+];
 ---
 <Base
   lang="es"
-  title={`Contacto — Eduardo Villa`}
+  title="Contacto — Eduardo Villa"
   description="Escríbeme: email, teléfono o WhatsApp. La puerta está abierta."
 >
-  <section class="py-[calc(var(--space-unit)*3)]">
-    <p class="kicker">Contacto</p>
-    <h1 class="mt-3 font-semibold" style="font-size: var(--fs-display);">
+  <section class="py-16">
+    <p class="kicker rise">Contacto</p>
+    <h1 class="rise-2 mt-4 font-extrabold leading-[0.95] tracking-tight" style="font-size: var(--fs-display);">
       Hablemos<span class="text-[var(--accent)]">.</span>
     </h1>
-    <p class="mt-6 max-w-[34rem] leading-relaxed text-[var(--ink-soft)]">
-      {t.contacto.saludo.es}
-    </p>
-    <div class="mt-10 grid max-w-[34rem] gap-4 border-t rule pt-8 text-sm">
-      <div class="flex items-baseline justify-between gap-4">
-        <span class="kicker">Email</span>
-        <a class="a-link" href={`mailto:${contacto.email}`}>{contacto.email}</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">Teléfono</span>
-        <a class="a-link" href={`tel:${contacto.telefono.replace(/\s/g, "")}`}>{contacto.telefono}</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">WhatsApp</span>
-        <a class="a-link" href={`https://wa.me/${contacto.whatsapp}`}>Abrir chat</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">Dónde</span>
-        <span>{contacto.ubicacion}</span>
-      </div>
+    <p class="rise-3 mt-6 max-w-[34rem] leading-relaxed ink-soft">{t.contacto.saludo.es}</p>
+
+    <div class="reveal mt-12 grid max-w-[38rem] gap-3">
+      {canales.map((c) => (
+        <div class="card flex items-center justify-between gap-4 p-5">
+          <span class="kicker">{c.k}</span>
+          {c.href ? (
+            <a class="link-accent font-semibold" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.v}</a>
+          ) : (
+            <span class="font-semibold">{c.v}</span>
+          )}
+        </div>
+      ))}
     </div>
   </section>
 </Base>

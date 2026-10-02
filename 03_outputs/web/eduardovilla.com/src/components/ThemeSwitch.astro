@@ -1,25 +1,26 @@
 ---
-// Toggle light/dark persistido. Fija (bottom-left) y discreto.
-interface Props {}
+// Toggle de tema. Oscuro por defecto; sol en oscuro, luna en claro.
 ---
 <button
   id="theme-switch"
-  class="fixed bottom-4 left-4 z-50 flex h-9 w-9 items-center justify-center rounded-full border rule text-sm transition-colors"
-  style="background: var(--bg-elev); color: var(--ink-soft);"
+  class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-[var(--ink-soft)] transition-colors hover:border-[var(--accent)] hover:text-[var(--ink)]"
   aria-label="Cambiar tema"
   title="Modo claro / oscuro"
 >
-  <span aria-hidden="true">◐</span>
+  <svg class="icon-sun h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+    <circle cx="12" cy="12" r="4.2" />
+    <path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" />
+  </svg>
+  <svg class="icon-moon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" />
+  </svg>
 </button>
 
 <script>
   const btn = document.getElementById("theme-switch");
-  const apply = () => {
-    const cur = document.documentElement.dataset.theme;
-    const next = cur === "light" ? "dark" : "light";
+  btn?.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
     document.documentElement.dataset.theme = next;
     localStorage.setItem("ev-theme", next);
-  };
-  btn?.addEventListener("click", apply);
-  // Sin JS: no se degrada nada — solo no hay toggle.
+  });
 </script>

@@ -1,3 +1,7 @@
+# Sitio estático de eduardovilla.com.
+# NO publica el puerto al exterior: solo 127.0.0.1 (accesible únicamente desde
+# este servidor). En producción, un reverse proxy (Caddy/Nginx/Traefik) apunta
+# a este contenedor; nunca lo expongas directo a Internet.
 services:
   web:
     build: .
@@ -5,6 +9,6 @@ services:
     container_name: eduardovilla-web
     restart: unless-stopped
     ports:
-      - "8088:80"
+      - "127.0.0.1:8088:80"
     environment:
       - SITE_URL=https://eduardovilla.com

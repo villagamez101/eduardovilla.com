@@ -1,28 +1,40 @@
 ---
 import Base from "@layouts/Base.astro";
+import { getCollection } from "astro:content";
 import { t } from "@i18n/ui";
+
+const posts = (await getCollection("blog", ({ data }) => data.lang === "es" && !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <Base
   lang="es"
   title={`${t.blog.indexTitle.es} — Eduardo Villa`}
   description="Escritos de Eduardo Villa: aprendizajes, procesos y notas sobre sistemas, diseño y minimalismo."
 >
-  <section class="py-[calc(var(--space-unit)*2)]">
-    <p class="kicker">{t.blog.indexTitle.es}</p>
-    <h1 class="mt-3 font-semibold" style="font-size: var(--fs-h2);">
-      Notas del recorrido.
+  <section class="py-16">
+    <p class="kicker rise">{t.blog.indexTitle.es}</p>
+    <h1 class="rise-2 mt-4 font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
+      Notas <span class="grad-text">del recorrido.</span>
     </h1>
-    <p class="mt-4 max-w-[34rem] text-[var(--ink-soft)]">
-      {t.blog.vacio.es} — la collection ya está armada; los primeros ensayos entran
-      cuando el contenido esté listo.
+    <p class="rise-3 mt-5 max-w-[36rem] ink-soft">
+      Aprendizajes, procesos y lo que se rompe por el camino.
     </p>
-    <div class="mt-12 divide-y rule border-y rule" aria-hidden="true">
-      {Array.from({ length: 3 }).map((_, i) => (
-        <article class="grid gap-1 py-6 md:grid-cols-[8rem_1fr] md:items-baseline">
-          <p class="kicker">Próximo</p>
-          <p class="font-semibold">Lorem ipsum: título del ensayo {i + 1}</p>
-        </article>
-      ))}
-    </div>
+  </section>
+
+  <section class="flex flex-col gap-3 pb-10">
+    {posts.length === 0 && (
+      <p class="card p-6 text-sm ink-soft">{t.blog.vacio.es}</p>
+    )}
+    {posts.map((post) => (
+      <a href={`/blog/${post.data.slug || post.id.replace(/\.md$/, "")}/`} class="card reveal group flex flex-col gap-2 p-6 sm:flex-row sm:items-baseline sm:justify-between">
+        <span>
+          <span class="block font-bold group-hover:text-[var(--accent)] transition-colors">{post.data.title}</span>
+          <span class="mt-1 block max-w-[40rem] text-sm ink-soft">{post.data.description}</span>
+        </span>
+        <time class="shrink-0 text-xs ink-faint" datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString("es-MX", { year: "numeric", month: "long" })}
+        </time>
+      </a>
+    ))}
   </section>
 </Base>

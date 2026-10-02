@@ -2,37 +2,37 @@
 import Base from "@layouts/Base.astro";
 import { t } from "@i18n/ui";
 import contacto from "@data/contacto.json";
+
+const channels = [
+  { k: "Email", v: contacto.email, href: `mailto:${contacto.email}` },
+  { k: "Phone", v: contacto.telefono, href: `tel:${contacto.telefono.replace(/\s/g, "")}` },
+  { k: "WhatsApp", v: "Open chat", href: `https://wa.me/${contacto.whatsapp}` },
+  { k: "Where", v: "Córdoba, Veracruz — MX", href: null },
+];
 ---
 <Base
   lang="en"
-  title={`Contact — Eduardo Villa`}
+  title="Contact — Eduardo Villa"
   description="Write to me: email, phone or WhatsApp. The door is open."
 >
-  <section class="py-[calc(var(--space-unit)*3)]">
-    <p class="kicker">Contact</p>
-    <h1 class="mt-3 font-semibold" style="font-size: var(--fs-display);">
+  <section class="py-16">
+    <p class="kicker rise">Contact</p>
+    <h1 class="rise-2 mt-4 font-extrabold leading-[0.95] tracking-tight" style="font-size: var(--fs-display);">
       Let's talk<span class="text-[var(--accent)]">.</span>
     </h1>
-    <p class="mt-6 max-w-[34rem] leading-relaxed text-[var(--ink-soft)]">
-      {t.contacto.saludo.en}
-    </p>
-    <div class="mt-10 grid max-w-[34rem] gap-4 border-t rule pt-8 text-sm">
-      <div class="flex items-baseline justify-between gap-4">
-        <span class="kicker">Email</span>
-        <a class="a-link" href={`mailto:${contacto.email}`}>{contacto.email}</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">Phone</span>
-        <a class="a-link" href={`tel:${contacto.telefono.replace(/\s/g, "")}`}>{contacto.telefono}</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">WhatsApp</span>
-        <a class="a-link" href={`https://wa.me/${contacto.whatsapp}`}>Open chat</a>
-      </div>
-      <div class="flex items-baseline justify-between gap-4 border-t rule pt-4">
-        <span class="kicker">Where</span>
-        <span>Córdoba, Veracruz — MX</span>
-      </div>
+    <p class="rise-3 mt-6 max-w-[34rem] leading-relaxed ink-soft">{t.contacto.saludo.en}</p>
+
+    <div class="reveal mt-12 grid max-w-[38rem] gap-3">
+      {channels.map((c) => (
+        <div class="card flex items-center justify-between gap-4 p-5">
+          <span class="kicker">{c.k}</span>
+          {c.href ? (
+            <a class="link-accent font-semibold" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.v}</a>
+          ) : (
+            <span class="font-semibold">{c.v}</span>
+          )}
+        </div>
+      ))}
     </div>
   </section>
 </Base>

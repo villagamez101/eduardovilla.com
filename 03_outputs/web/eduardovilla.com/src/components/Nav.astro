@@ -12,34 +12,42 @@ const l = getLang(lang);
 const base = lang === "en" ? "/en" : "";
 
 const items = [
+  { href: `${base}/`, label: t.nav.inicio },
   { href: `${base}/acerca`, label: t.nav.acerca },
   { href: `${base}/areas`, label: t.nav.areas },
   { href: `${base}/proyectos`, label: t.nav.proyectos },
   { href: `${base}/servicios`, label: t.nav.servicios },
+  { href: `${base}/recursos`, label: t.nav.recursos },
   { href: `${base}/blog`, label: t.nav.blog },
   { href: `${base}/contacto`, label: t.nav.contacto },
 ];
 
 const path = Astro.url.pathname;
-const isActive = (href: string) =>
-  path === href || path === `${href}/` || (href !== "/" && path.startsWith(`${href}/`));
+const isActive = (href: string) => {
+  const home = href.endsWith("/");
+  const h = href.replace(/\/+$/, "") || "/";
+  const p = path.replace(/\/+$/, "") || "/";
+  if (home) return p === h;
+  return p === h || p.startsWith(`${h}/`);
+};
 ---
-<header class="sticky top-0 z-50">
+<header class="site-header sticky top-0 z-50">
   <div class="glass border-x-0 border-t-0 px-[var(--gutter)]">
     <div class="mx-auto flex w-full max-w-[var(--max-w)] items-center justify-between gap-4 py-3">
-      <a href={`${base}/`} class="flex items-center gap-2.5" aria-label="Eduardo Villa — inicio">
+      <a href={`${base}/`} class="logo flex items-center gap-2.5" aria-label="Eduardo Villa — inicio">
         <Logo class="h-8 w-8" />
         <span class="text-sm font-bold tracking-tight">Eduardo Villa</span>
       </a>
 
-      <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">
+      <nav class="hidden items-center gap-0 lg:flex" aria-label="Principal">
         {items.map((item) => (
           <a
             href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
             class:list={[
-              "relative rounded-full px-3 py-1.5 text-sm transition-colors",
+              "nav-link relative rounded-full px-2 py-1.5 text-[0.8rem] transition-colors",
               isActive(item.href)
-                ? "text-[var(--accent)]"
+                ? "text-[var(--accent-text)]"
                 : "text-[var(--ink-soft)] hover:text-[var(--ink)]",
             ]}
           >
@@ -66,14 +74,15 @@ const isActive = (href: string) =>
     </div>
   </div>
 
-  <div id="nav-mobile" class="hidden glass border-x-0 lg:hidden">
+  <div id="nav-mobile" class="site-menu glass border-x-0 lg:hidden">
     <nav class="mx-auto grid w-full max-w-[var(--max-w)] grid-cols-2 gap-1 px-[var(--gutter)] py-4">
       {items.map((item) => (
         <a
           href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
           class:list={[
             "rounded-lg px-3 py-2 text-sm",
-            isActive(item.href) ? "text-[var(--accent)]" : "text-[var(--ink-soft)]",
+            isActive(item.href) ? "text-[var(--accent-text)]" : "text-[var(--ink-soft)]",
           ]}
         >
           {item.label[l]}
@@ -84,10 +93,23 @@ const isActive = (href: string) =>
 </header>
 
 <script>
+  const header = document.querySelector(".site-header");
+  if (header) {
+    const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
   const toggle = document.getElementById("nav-toggle");
   const menu = document.getElementById("nav-mobile");
   toggle?.addEventListener("click", () => {
-    const hidden = menu?.classList.toggle("hidden");
-    toggle.setAttribute("aria-expanded", String(!hidden));
+    const open = menu?.classList.toggle("is-open") ?? false;
+    toggle.setAttribute("aria-expanded", String(open));
   });
+  menu?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      menu.classList.remove("is-open");
+      toggle?.setAttribute("aria-expanded", "false");
+    })
+  );
 </script>

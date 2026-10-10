@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "createdAt": "2026-10-09T23:59:14.064Z",
+        "reason": "Montserrat es la familia primaria mandatada por la identidad (PRODUCT.md)"
+      }
+    ]
+  }
+}

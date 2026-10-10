@@ -1,73 +1,110 @@
 /* ============================================================
    Design tokens — Eduardo Villa
-   Un solo color de acento vivo (índigo eléctrico) + su cian
-   para degradados sutiles. Oscuro por defecto.
+   Editorial system. Base navy de identidad. El azul de marca
+   (#213c90) gobierna enlaces, hover, foco, selección y estado
+   activo. El naranja queda reservado a la acción principal.
    ============================================================ */
 
 :root {
   /* --- Tema oscuro (default) --- */
-  --bg: #070a18;
-  --bg-2: #0b1024;
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-2: rgba(255, 255, 255, 0.07);
-  --elev: #0e1430;
-  --ink: #f5f7ff;
-  --ink-soft: rgba(245, 247, 255, 0.66);
-  --ink-faint: rgba(245, 247, 255, 0.4);
-  --line: rgba(245, 247, 255, 0.1);
-  --line-strong: rgba(245, 247, 255, 0.18);
+  --bg: #0b0e1d;
+  --bg-2: #0e1226;
+  --surface: rgba(244, 245, 248, 0.035);
+  --surface-2: rgba(244, 245, 248, 0.06);
+  --elev: #131837;
+  --ink: #f4f5f8;
+  --ink-soft: rgba(244, 245, 248, 0.72);
+  --ink-faint: rgba(244, 245, 248, 0.56);
+  --line: rgba(244, 245, 248, 0.12);
+  --line-strong: rgba(244, 245, 248, 0.24);
 
-  /* Acento único + familia para degradados */
-  --accent: #6d5dfc;
-  --accent-2: #22d3ee;
-  --accent-ink: #ffffff;
-  --accent-soft: rgba(109, 93, 252, 0.16);
-  --accent-glow: rgba(109, 93, 252, 0.45);
-  --grad: linear-gradient(120deg, var(--accent), var(--accent-2));
-  --sel: rgba(109, 93, 252, 0.35);
+  /* Azul de marca: enlaces, hover, foco, selección y estado activo.
+     --accent rellena; --accent-text es el azul legible como texto. */
+  --accent: #2f4bb8;
+  --accent-text: #8aa6ff;
+  --accent-ink: #f4f5f8;
+  --accent-soft: rgba(64, 96, 208, 0.18);
+  --accent-line: rgba(138, 166, 255, 0.5);
+  --glow: rgba(52, 84, 190, 0.22);
+  --sel: rgba(74, 111, 224, 0.4);
 
-  /* Blanco/negro de contraste para el logo */
-  --opuesto: #f5f7ff;
+  /* Naranja: reservado a la acción principal (botón CTA). */
+  --cta: #f97316;
+  --cta-ink: #1a1206;
+
+  /* Contraste para el logo */
+  --opuesto: #f4f5f8;
 }
 
 :root[data-theme="light"] {
-  --bg: #f4f5fb;
-  --bg-2: #eef0fa;
-  --surface: rgba(11, 16, 32, 0.03);
-  --surface-2: rgba(11, 16, 32, 0.05);
-  --elev: #ffffff;
-  --ink: #0b1020;
-  --ink-soft: rgba(11, 16, 32, 0.66);
-  --ink-faint: rgba(11, 16, 32, 0.42);
-  --line: rgba(11, 16, 32, 0.1);
-  --line-strong: rgba(11, 16, 32, 0.18);
+  --bg: #f6f4ee;
+  --bg-2: #efece3;
+  --surface: rgba(20, 23, 44, 0.03);
+  --surface-2: rgba(20, 23, 44, 0.05);
+  --elev: #fffdf9;
+  --ink: #14172c;
+  --ink-soft: rgba(20, 23, 44, 0.72);
+  --ink-faint: rgba(20, 23, 44, 0.56);
+  --line: rgba(20, 23, 44, 0.14);
+  --line-strong: rgba(20, 23, 44, 0.28);
 
-  --accent: #4f46e5;
-  --accent-2: #0891b2;
-  --accent-ink: #ffffff;
-  --accent-soft: rgba(79, 70, 229, 0.1);
-  --accent-glow: rgba(79, 70, 229, 0.3);
-  --sel: rgba(79, 70, 229, 0.2);
+  /* Azul de marca para el tema claro: mismo rol que en oscuro. */
+  --accent: #2f4bb8;
+  --accent-text: #24379b;
+  --accent-ink: #f6f4ee;
+  --accent-soft: rgba(33, 60, 144, 0.09);
+  --accent-line: rgba(33, 60, 144, 0.5);
+  --glow: rgba(33, 60, 144, 0.1);
+  --sel: rgba(33, 60, 144, 0.2);
 
-  --opuesto: #0b1020;
+  /* Naranja: reservado a la acción principal (botón CTA). */
+  --cta: #ea580c;
+  --cta-ink: #1a1206;
+
+  --opuesto: #14172c;
 }
 
 /* Tipografía y ritmo */
 :root {
-  --font-sans: "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-sans: "Montserrat", "Montserrat Fallback", system-ui, -apple-system,
+    sans-serif;
+  --font-serif: "Libre Caslon Display", "Caslon Fallback", "Iowan Old Style",
+    Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  --fs-display: clamp(3rem, 11vw, 8.5rem);
-  --fs-h2: clamp(1.8rem, 4.6vw, 3.2rem);
-  --fs-lede: clamp(1.1rem, 2.1vw, 1.5rem);
+  --fs-mega: clamp(4rem, 15vw, 10rem);
+  --fs-display: clamp(2.9rem, 9vw, 7.5rem);
+  --fs-h1: clamp(2.4rem, 6.5vw, 4.6rem);
+  --fs-h2: clamp(1.9rem, 5vw, 3.4rem);
+  --fs-h3: clamp(1.35rem, 2.6vw, 1.75rem);
+  --fs-lede: clamp(1.08rem, 1.7vw, 1.35rem);
   --fs-body: 1rem;
-  --fs-small: 0.82rem;
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+
+  --leading-display: 0.98;
+  --leading-body: 1.7;
+
+  --measure: 66ch;
 
   --max-w: 74rem;
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
-  --radius: 1.1rem;
-  --radius-sm: 0.7rem;
+  --radius: 0.4rem;
+  --radius-sm: 0.3rem;
 
   color-scheme: dark;
+}
+
+/* Movimiento — una curva de entrada, una escala temporal y una
+   distancia de revelado. El estado por defecto es siempre visible:
+   ninguna animación es requisito para leer la página. */
+:root {
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 140ms;
+  --dur-mid: 240ms;
+  --dur-slow: 420ms;
+  --dur-reveal: 640ms;
+  --reveal-distance: 16px;
 }
 :root[data-theme="light"] { color-scheme: light; }

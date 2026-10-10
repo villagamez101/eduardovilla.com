@@ -7,26 +7,35 @@ import { t } from "@i18n/ui";
   title={`${t.recursos.indexTitle.en} — Eduardo Villa`}
   description="Eduardo Villa's resources: downloadable CV, templates and guides under construction."
 >
-  <section class="py-16">
-    <p class="kicker rise">{t.recursos.indexTitle.en}</p>
-    <h1 class="rise-2 mt-4 font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
-      Take it <span class="grad-text">and use it.</span>
-    </h1>
-    <p class="rise-3 mt-5 max-w-[36rem] ink-soft">{t.recursos.nota.en}</p>
+  <section class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display-2 rise measure">Take it and use it.</h1>
+    <p class="rise-2 mt-6 measure ink-soft">{t.recursos.nota.en}</p>
   </section>
 
-  <section class="grid gap-4 pb-10 sm:grid-cols-2">
-    <a href="/recursos/cv-eduardo-villa-2026.pdf" download class="card reveal group flex flex-col gap-4 p-6">
-      <span class="flex h-11 w-11 items-center justify-center rounded-xl text-lg text-[var(--accent)]" style="background: var(--accent-soft);">↓</span>
-      <h2 class="font-bold group-hover:text-[var(--accent)] transition-colors">CV — Eduardo Villa (2026)</h2>
-      <p class="text-sm ink-soft">Full trajectory, as a PDF (Spanish).</p>
-      <span class="mt-auto text-xs font-semibold text-[var(--accent)]">Download PDF →</span>
-    </a>
-    <div class="card flex flex-col gap-4 p-6 opacity-50">
-      <span class="flex h-11 w-11 items-center justify-center rounded-xl text-lg ink-faint" style="background: var(--surface-2);">✦</span>
-      <h2 class="font-bold">Guide: a digital diagnosis in one afternoon</h2>
-      <p class="text-sm ink-soft">Under construction.</p>
-      <span class="mt-auto text-xs ink-faint">Soon</span>
-    </div>
+  <section class="mt-14">
+    <ul class="border-t border-[var(--line)]">
+      <li class="border-b border-[var(--line)]">
+        <a
+          href="/recursos/cv-eduardo-villa-2026.pdf"
+          download
+          class="reveal group grid gap-2 py-8 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8"
+        >
+          <span>
+            <span class="display-3 block transition-colors group-hover:text-[var(--accent-text)]">CV — Eduardo Villa (2026)</span>
+            <span class="mt-2 block text-sm ink-soft">Full trajectory, as a PDF (Spanish).</span>
+          </span>
+          <span class="label text-[var(--accent-text)]">Download PDF →</span>
+        </a>
+      </li>
+      <li class="border-b border-[var(--line)]">
+        <div class="reveal grid gap-2 py-8 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8" style="--d:80ms">
+          <span>
+            <span class="display-3 block ink-soft">Guide: a digital diagnosis in one afternoon</span>
+            <span class="mt-2 block text-sm ink-faint">Under construction.</span>
+          </span>
+          <span class="label">Soon</span>
+        </div>
+      </li>
+    </ul>
   </section>
 </Base>

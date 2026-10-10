@@ -16,27 +16,28 @@ const demo = [
   title={`${t.listas.indexTitle.en} — Eduardo Villa`}
   description="Eduardo Villa's projects: stores, systems, brands and experiments. The real work, when it's ready."
 >
-  <section class="py-16">
-    <p class="kicker rise">{t.listas.indexTitle.en}</p>
-    <h1 class="rise-2 mt-4 font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
-      Built <span class="grad-text">work</span>
-    </h1>
-    <p class="rise-3 mt-5 max-w-[36rem] ink-soft">
+  <section class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display-2 rise measure">Built work.</h1>
+    <p class="rise-2 mt-6 measure ink-soft">
       {t.listas.vacio.en} Each project is tagged with its area.
     </p>
   </section>
 
-  <section class="grid gap-4 pb-10 sm:grid-cols-2">
-    {demo.map((p) => (
-      <article class="card reveal group flex flex-col gap-4 p-6">
-        <div class="flex items-center justify-between">
-          <span class="tag">{byslug[p.area]?.titulo.en ?? p.area}</span>
-          <span class="text-xs ink-faint">{p.year}</span>
-        </div>
-        <h2 class="font-bold group-hover:text-[var(--accent)] transition-colors">{p.title}</h2>
-        <p class="text-sm leading-relaxed ink-soft">{p.desc}</p>
-        <span class="mt-auto text-xs ink-faint">Placeholder — replaced with the real project</span>
-      </article>
-    ))}
+  <section class="mt-14">
+    <ul class="border-t border-[var(--line)]">
+      {demo.map((p, i) => (
+        <li class="border-b border-[var(--line)]">
+          <article class="reveal grid gap-2 py-8 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8" style={`--d:${Math.min(i * 60, 240)}ms`}>
+            <div>
+              <span class="label">{byslug[p.area]?.titulo.en ?? p.area}</span>
+              <h2 class="display-3 mt-2">{p.title}</h2>
+              <p class="measure mt-2 text-sm ink-soft">{p.desc}</p>
+            </div>
+            <span class="label tabular-nums">{p.year}</span>
+          </article>
+          <span class="label -mt-4 mb-8 block">Placeholder — replaced with the real project</span>
+        </li>
+      ))}
+    </ul>
   </section>
 </Base>

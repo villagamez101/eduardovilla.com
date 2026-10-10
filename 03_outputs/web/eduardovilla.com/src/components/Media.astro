@@ -1,0 +1,68 @@
+---
+/**
+ * Marco de imagen reutilizable.
+ *
+ * Deja el espacio listo: pasa `src` con la ruta del archivo en /public
+ * (p. ej. "/img/retrato.jpg"). Si el archivo todavía no existe, se muestra
+ * un marcador de marca; en cuanto subas la imagen, aparece sola.
+ */
+import fs from "node:fs";
+import path from "node:path";
+
+interface Props {
+  src?: string;
+  alt?: string;
+  ratio?: string;
+  caption?: string;
+  placeholder?: string;
+  index?: string;
+  class?: string;
+  style?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  src,
+  alt = "",
+  ratio = "4 / 5",
+  caption,
+  placeholder,
+  index,
+  class: cls,
+  style,
+  loading = "lazy",
+} = Astro.props;
+
+const hasImage = Boolean(
+  src &&
+    (/^https?:\/\//.test(src) ||
+      fs.existsSync(path.join(process.cwd(), "public", src.replace(/^\//, ""))))
+);
+---
+<figure class:list={["media", cls]} style={style}>
+  <div class="media__frame" style={`aspect-ratio: ${ratio}`}>
+    {!hasImage && (
+      <div class="media__ph" aria-hidden="true">
+        <svg class="media__mark" viewBox="0 0 1001 1001" fill="none">
+          <path style="fill: var(--accent)" d="M750.5,278.28l-250,444.44-92.98-155.98c-3.09-5.47-8.52-10.67-14.8-10.68h-142.22v-55.3l163.33-.26c14.36.08,27.65,8.88,35,21.21l5.05,8.48,16,27.86,30.62,52.45,194.44-332.22h55.56Z" />
+          <polygon style="fill: var(--ink)" points="472.72 333.83 250.5 333.83 250.5 278.28 445.75 278.28 472.72 333.83" />
+          <polygon style="fill: var(--ink)" points="472.72 444.94 250.5 444.94 250.5 389.39 445.75 389.39 472.72 444.94" />
+        </svg>
+        {index && <span class="media__ph-index label tabular-nums">{index}</span>}
+        {placeholder && <span class="media__ph-note label">{placeholder}</span>}
+      </div>
+    )}
+    {hasImage && (
+      <img
+        class="media__img"
+        src={src}
+        alt={alt}
+        loading={loading}
+        decoding="async"
+        onerror="this.removeAttribute('src')"
+      />
+    )}
+  </div>
+  {caption && <figcaption class="media__caption label">{caption}</figcaption>}
+</figure>
+

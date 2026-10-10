@@ -2,6 +2,11 @@
 import "@styles/global.css";
 import Nav from "@components/Nav.astro";
 import Footer from "@components/Footer.astro";
+import montserrat400 from "@fontsource/montserrat/files/montserrat-latin-400-normal.woff2?url";
+import montserrat500 from "@fontsource/montserrat/files/montserrat-latin-500-normal.woff2?url";
+import montserrat600 from "@fontsource/montserrat/files/montserrat-latin-600-normal.woff2?url";
+import montserrat700 from "@fontsource/montserrat/files/montserrat-latin-700-normal.woff2?url";
+import caslon400 from "@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2?url";
 
 interface Props {
   lang: "es" | "en";
@@ -11,6 +16,7 @@ interface Props {
 
 const { lang, title, description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslon400];
 ---
 <!doctype html>
 <html lang={lang} data-theme="dark">
@@ -22,22 +28,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#070a18" />
+    {fonts.map((href) => (
+      <link rel="preload" as="font" type="font/woff2" href={href} crossorigin="anonymous" />
+    ))}
+    <meta name="theme-color" content="#0b0e1d" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/og-fallback.png" />
+    <style is:inline>
+      /* Estilos críticos: pintan la página correctamente antes de que
+         entre el CSS. En producción el CSS es render-blocking y esto es
+         redundante; en dev Vite inyecta el CSS por JS y evita el
+         parpadeo de "estilos por defecto (bold) → editorial". */
+      :root { --ev-bg: #0b0e1d; --ev-ink: #f4f5f8; }
+      html {
+        background: var(--ev-bg);
+        color: var(--ev-ink);
+        font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+      }
+      body { margin: 0; }
+      h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; margin: 0; }
+      h4, h5, h6 { font-weight: 600; margin: 0; }
+    </style>
     <script is:inline>
-      // Tema: oscuro por defecto, salvo preferencia guardada.
+      // Tema y colores base antes del primer pintado (evita flash).
       (() => {
-        const stored = localStorage.getItem("ev-theme");
-        if (stored) document.documentElement.dataset.theme = stored;
+        const theme = localStorage.getItem("ev-theme") === "light" ? "light" : "dark";
+        const root = document.documentElement;
+        root.dataset.theme = theme;
+        root.style.setProperty("--ev-bg", theme === "light" ? "#f6f4ee" : "#0b0e1d");
+        root.style.setProperty("--ev-ink", theme === "light" ? "#14172c" : "#f4f5f8");
       })();
     </script>
+    <noscript><style>.reveal { opacity: 1; transform: none; }</style></noscript>
   </head>
   <body>
-    <div class="aurora" aria-hidden="true"></div>
-    <div class="grid-bg" aria-hidden="true"></div>
     <Nav lang={lang} />
     <main id="main" class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)]">
       <slot />
@@ -61,6 +87,43 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
             });
           },
           { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+
+      // Cifras que cuentan al llegar a la vista.
+      (() => {
+        const els = document.querySelectorAll("[data-count]");
+        if (!els.length) return;
+        const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || !("IntersectionObserver" in window)) return;
+        const run = (el) => {
+          const target = el.dataset.count || el.textContent || "";
+          const m = target.match(/^(\D*)(\d+)(\D*)$/);
+          if (!m) return;
+          const [, pre, digits, post] = m;
+          const end = parseInt(digits, 10);
+          const start = performance.now();
+          const dur = 900;
+          const ease = (t) => 1 - Math.pow(1 - t, 3);
+          const step = (now) => {
+            const p = Math.min(1, (now - start) / dur);
+            el.textContent = pre + Math.round(ease(p) * end) + post;
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+          };
+          requestAnimationFrame(step);
+        };
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                run(e.target);
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.6 }
         );
         els.forEach((el) => io.observe(el));
       })();

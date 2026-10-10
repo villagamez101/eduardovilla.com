@@ -5,7 +5,7 @@ interface Props {
 const { class: cls } = Astro.props;
 ---
 <!-- Isotipo 2026 vectorial (fuente: 02_resources/assets/logo) -->
-<svg class={cls} viewBox="0 0 1001 1001" fill="none" aria-hidden="true">
+<svg class:list={["logo-mark", cls]} viewBox="0 0 1001 1001" fill="none" aria-hidden="true">
   <path style="fill: var(--accent)" d="M750.5,278.28l-250,444.44-92.98-155.98c-3.09-5.47-8.52-10.67-14.8-10.68h-142.22v-55.3l163.33-.26c14.36.08,27.65,8.88,35,21.21l5.05,8.48,16,27.86,30.62,52.45,194.44-332.22h55.56Z"/>
   <polygon style="fill: var(--ink)" points="472.72 333.83 250.5 333.83 250.5 278.28 445.75 278.28 472.72 333.83"/>
   <polygon style="fill: var(--ink)" points="472.72 444.94 250.5 444.94 250.5 389.39 445.75 389.39 472.72 444.94"/>

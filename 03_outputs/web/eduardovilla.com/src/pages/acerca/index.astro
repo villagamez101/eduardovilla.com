@@ -13,14 +13,13 @@ const hitos = [
   title={`${t.acerca.indexTitle.es} — Eduardo Villa`}
   description="Quién es Eduardo Villa: generalista creativo, analista de procesos y sistemas, y por qué este sitio existe."
 >
-  <article class="py-16">
-    <p class="kicker rise">{t.acerca.indexTitle.es}</p>
-    <h1 class="rise-2 mt-4 max-w-[40rem] font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
-      Hago pocas cosas, <span class="grad-text">pero las hago completas.</span>
+  <article class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display-2 rise measure">
+      Hago pocas cosas,<br />pero las hago completas.
     </h1>
 
-    <div class="mt-12 grid gap-10 lg:grid-cols-[1.6fr_1fr]">
-      <div class="reveal space-y-5 leading-relaxed text-[var(--fs-lede)]">
+    <div class="mt-14 grid gap-12 lg:grid-cols-[1.7fr_1fr]">
+      <div class="reveal space-y-6 lede">
         <p>
           Soy Eduardo Villa, de Córdoba, Veracruz. Empecé diseñando, terminé operando
           e-commerce (tres años, veinte marketplaces, tres mil productos) y me quedé en
@@ -39,12 +38,9 @@ const hitos = [
         </p>
       </div>
 
-      <aside class="reveal flex flex-col gap-4">
-        <div class="card p-6">
-          <span class="flex items-center gap-3">
-            <span class="text-xs font-semibold uppercase tracking-widest text-[var(--accent)]">Ahora</span>
-            <span class="h-px flex-1" style="background: var(--line);"></span>
-          </span>
+      <aside class="reveal flex flex-col gap-8">
+        <div>
+          <p class="label border-t border-[var(--line)] pt-3">Ahora</p>
           <p class="mt-3 text-sm ink-soft">
             Explorando IA aplicada a operaciones reales, construyendo este sitio y
             abriendo espacio para escribir. Actualizado: 2026.
@@ -54,19 +50,22 @@ const hitos = [
       </aside>
     </div>
 
-    <section class="reveal mt-20">
-      <p class="kicker">Trayectoria</p>
-      <ol class="mt-6 flex flex-col gap-3">
-        {hitos.map((h) => (
-          <li class="card flex flex-col gap-2 p-6 sm:flex-row sm:items-baseline sm:gap-8">
-            <span class="w-28 shrink-0 text-xs font-semibold text-[var(--accent)]">{h.k}</span>
-            <span class="flex-1">
+    <section class="mt-20">
+      <p class="label reveal border-t border-[var(--line)] pt-3">Trayectoria</p>
+      <ol class="mt-6">
+        {hitos.map((h, i) => (
+          <li class="reveal grid gap-1 border-b border-[var(--line)] py-6 sm:grid-cols-[10rem_1fr] sm:gap-8" style={`--d:${i * 70}ms`}>
+            <span class="label tabular-nums sm:pt-1">{h.k}</span>
+            <span>
               <span class="block font-semibold">{h.t}</span>
               <span class="mt-1 block text-sm ink-soft">{h.d}</span>
             </span>
           </li>
         ))}
       </ol>
+      <p class="mt-8 text-sm">
+        <a class="a-link" href="/recursos">CV 2026 completo y recursos →</a>
+      </p>
     </section>
   </article>
 </Base>

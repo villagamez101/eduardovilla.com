@@ -10,30 +10,28 @@ const ordenadas = [...areas].sort((a, b) => a.orden - b.orden);
   title={`${t.areas.indexTitle.en} — Eduardo Villa`}
   description="Eduardo Villa's six areas: six lenses on the same problem — digital structure for businesses and for life."
 >
-  <section class="py-16">
-    <p class="kicker rise">{t.areas.indexTitle.en}</p>
-    <h1 class="rise-2 mt-4 max-w-[40rem] font-extrabold leading-[0.95] tracking-tight" style="font-size: var(--fs-h2);">
-      Six lenses, <span class="grad-text">one problem</span>
-    </h1>
-    <p class="rise-3 mt-5 max-w-[36rem] ink-soft">
+  <section class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display-2 rise measure">Six lenses, one problem</h1>
+    <p class="rise-2 mt-6 measure ink-soft">
       They aren't service categories: they're ways of looking. Each area crosses the others.
     </p>
   </section>
 
-  <section class="grid gap-4 pb-10 sm:grid-cols-2">
+  <ol class="mt-14 border-t border-[var(--line)]">
     {ordenadas.map((a, i) => (
-      <a href={`/en/areas/${a.slug}`} class="card reveal group flex flex-col gap-4 p-6 sm:p-7">
-        <div class="flex items-center justify-between">
-          <span class="flex h-11 w-11 items-center justify-center rounded-xl text-lg text-[var(--accent)]" style="background: var(--accent-soft);" aria-hidden="true">{a.icono}</span>
-          <span class="text-xs font-semibold ink-faint">{String(i + 1).padStart(2, "0")}</span>
-        </div>
-        <div class="flex items-center justify-between gap-3">
-          <h2 class="font-bold group-hover:text-[var(--accent)] transition-colors">{a.titulo.en}</h2>
-          <span class="text-[var(--ink-faint)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--accent)]">→</span>
-        </div>
-        <p class="text-sm leading-relaxed ink-soft">{a.lema.en}</p>
-        {a.mision && <span class="tag mt-auto w-fit">The mission</span>}
-      </a>
+      <li class="border-b border-[var(--line)]">
+        <a
+          href={`/en/areas/${a.slug}`}
+          class="reveal group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-5 gap-y-2 py-8 sm:grid-cols-[3rem_16rem_1fr_auto]"
+          style={`--d:${Math.min(i * 55, 280)}ms`}
+        >
+          <span class="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+          <h2 class="display-3 transition-colors group-hover:text-[var(--accent-text)]">{a.titulo.en}</h2>
+          <p class="col-span-3 text-sm ink-soft sm:col-span-1 sm:text-[0.95rem]">{a.lema.en}</p>
+          <span class="ink-faint transition-all group-hover:translate-x-1 group-hover:text-[var(--accent-text)]" aria-hidden="true">→</span>
+          {a.mision && <span class="label col-span-3 text-[var(--accent-text)] sm:col-span-1 sm:col-start-2">The mission</span>}
+        </a>
+      </li>
     ))}
-  </section>
+  </ol>
 </Base>

@@ -32,6 +32,15 @@ export const t = {
       en: "I'm Eduardo Villa. For seven years I've done the same kind of work from different angles: helping messy businesses get digital structure — stores, ERPs, brands, automations. This site is my refuge: what I build, what I think and what I learn, without over-polishing it.",
     } satisfies Dict,
     verAreas: { es: "Ver las áreas", en: "See the areas" } satisfies Dict,
+    heroImageAlt: { es: "Retrato de Eduardo Villa", en: "Portrait of Eduardo Villa" } satisfies Dict,
+    heroImageCaption: {
+      es: "Eduardo Villa · Córdoba, Veracruz",
+      en: "Eduardo Villa · Córdoba, Veracruz",
+    } satisfies Dict,
+    taller: { es: "En el taller", en: "In the workshop" } satisfies Dict,
+    tallerMeta: { es: "Proceso · en imágenes", en: "Process · in images" } satisfies Dict,
+    imgPlaceholder: { es: "Imagen en camino", en: "Image on the way" } satisfies Dict,
+    imgCaption: { es: "Notas del proceso", en: "Process notes" } satisfies Dict,
     areasKicker: {
       es: "Seis lentes sobre el mismo problema",
       en: "Six lenses on the same problem",

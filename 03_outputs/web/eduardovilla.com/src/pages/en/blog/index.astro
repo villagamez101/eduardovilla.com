@@ -11,30 +11,35 @@ const posts = (await getCollection("blog", ({ data }) => data.lang === "en" && !
   title={`${t.blog.indexTitle.en} — Eduardo Villa`}
   description="Eduardo Villa's writings: lessons, processes and notes on systems, design and minimalism."
 >
-  <section class="py-16">
-    <p class="kicker rise">{t.blog.indexTitle.en}</p>
-    <h1 class="rise-2 mt-4 font-extrabold leading-[0.98] tracking-tight" style="font-size: var(--fs-h2);">
-      Notes <span class="grad-text">along the way.</span>
-    </h1>
-    <p class="rise-3 mt-5 max-w-[36rem] ink-soft">
+  <section class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display-2 rise measure">Notes along the way.</h1>
+    <p class="rise-2 mt-6 measure ink-soft">
       Lessons, processes and what breaks along the way.
     </p>
   </section>
 
-  <section class="flex flex-col gap-3 pb-10">
+  <section class="mt-14">
     {posts.length === 0 && (
-      <p class="card p-6 text-sm ink-soft">{t.blog.vacio.en}</p>
+      <p class="border-t border-[var(--line)] pt-6 text-sm ink-soft">{t.blog.vacio.en}</p>
     )}
-    {posts.map((post) => (
-      <a href={`/en/blog/${post.data.slug || post.id.replace(/\.md$/, "")}/`} class="card reveal group flex flex-col gap-2 p-6 sm:flex-row sm:items-baseline sm:justify-between">
-        <span>
-          <span class="block font-bold group-hover:text-[var(--accent)] transition-colors">{post.data.title}</span>
-          <span class="mt-1 block max-w-[40rem] text-sm ink-soft">{post.data.description}</span>
-        </span>
-        <time class="shrink-0 text-xs ink-faint" datetime={post.data.date.toISOString()}>
-          {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "long" })}
-        </time>
-      </a>
-    ))}
+    <ul class="border-t border-[var(--line)]">
+      {posts.map((post, i) => (
+        <li class="border-b border-[var(--line)]">
+          <a
+            href={`/en/blog/${post.data.slug || post.id.replace(/\.md$/, "")}/`}
+            class="reveal group grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8"
+            style={`--d:${Math.min(i * 60, 240)}ms`}
+          >
+            <span>
+              <span class="display-3 block transition-colors group-hover:text-[var(--accent-text)]">{post.data.title}</span>
+              <span class="measure mt-2 block text-sm ink-soft">{post.data.description}</span>
+            </span>
+            <time class="label tabular-nums" datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString("en-US", { year: "numeric", month: "long" })}
+            </time>
+          </a>
+        </li>
+      ))}
+    </ul>
   </section>
 </Base>

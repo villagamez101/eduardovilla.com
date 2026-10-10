@@ -15,24 +15,23 @@ const channels = [
   title="Contact — Eduardo Villa"
   description="Write to me: email, phone or WhatsApp. The door is open."
 >
-  <section class="py-16">
-    <p class="kicker rise">Contact</p>
-    <h1 class="rise-2 mt-4 font-extrabold leading-[0.95] tracking-tight" style="font-size: var(--fs-display);">
-      Let's talk<span class="text-[var(--accent)]">.</span>
-    </h1>
-    <p class="rise-3 mt-6 max-w-[34rem] leading-relaxed ink-soft">{t.contacto.saludo.en}</p>
+  <section class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display rise">Let's talk<span class="text-[var(--accent-text)]">.</span></h1>
+    <p class="rise-2 measure lede mt-8 ink-soft">{t.contacto.saludo.en}</p>
 
-    <div class="reveal mt-12 grid max-w-[38rem] gap-3">
-      {channels.map((c) => (
-        <div class="card flex items-center justify-between gap-4 p-5">
-          <span class="kicker">{c.k}</span>
-          {c.href ? (
-            <a class="link-accent font-semibold" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.v}</a>
-          ) : (
-            <span class="font-semibold">{c.v}</span>
-          )}
+    <dl class="mt-14 max-w-[42rem] border-t border-[var(--line)]">
+      {channels.map((c, i) => (
+        <div class="reveal flex items-baseline justify-between gap-4 border-b border-[var(--line)] py-5" style={`--d:${i * 70}ms`}>
+          <dt class="label">{c.k}</dt>
+          <dd class="text-right">
+            {c.href ? (
+              <a class="link-accent font-medium" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.v}</a>
+            ) : (
+              <span class="font-medium">{c.v}</span>
+            )}
+          </dd>
         </div>
       ))}
-    </div>
+    </dl>
   </section>
 </Base>

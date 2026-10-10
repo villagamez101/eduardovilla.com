@@ -1,5 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
+import Media from "@components/Media.astro";
 import { t } from "@i18n/ui";
 import areas from "@data/areas.json";
 
@@ -7,7 +8,6 @@ const title = "Eduardo Villa — " + t.home.tagline.en;
 const description =
   "Eduardo Villa's personal site: design, code, systems, automation and play. A digital refuge of what I build, think and learn.";
 const ordenadas = [...areas].sort((a, b) => a.orden - b.orden);
-const marquee = ["Digital Transformation", "AI", "E-commerce", "Branding", "Minimalism", "Video Games", "Automation", "Design"];
 const stats = [
   { n: "7+", label: "years solving" },
   { n: "800+", label: "Lark users" },
@@ -16,93 +16,130 @@ const stats = [
 ];
 ---
 <Base lang="en" title={title} description={description}>
-  <!-- Hero -->
-  <section class="relative flex min-h-[86vh] flex-col justify-center py-20">
-    <div class="flex items-center gap-2 rise">
-      <span class="pulse-dot"></span>
-      <span class="kicker">Creative generalist</span>
+  <!-- Masthead -->
+  <section class="hero pt-14">
+    <div class="flex items-baseline justify-between gap-4 border-b border-[var(--line-strong)] pb-3">
+      <span class="label">Creative generalist</span>
+      <span class="label">Córdoba, Veracruz · MX</span>
     </div>
 
-    <h1 class="rise-2 mt-6 font-extrabold leading-[0.92] tracking-tight" style="font-size: var(--fs-display);">
-      Eduardo<br />
-      <span class="grad-text">Villa</span>
-    </h1>
+    <div class="hero__grid mt-10 sm:mt-16">
+      <h1 class="hero__name display rise">
+        Eduardo<br />Villa
+        <span class="rule-accent" aria-hidden="true"></span>
+      </h1>
 
-    <p class="rise-3 mt-8 max-w-[38rem] text-[var(--fs-lede)] leading-relaxed ink-soft">
-      {t.home.intro.en}
-    </p>
-
-    <div class="rise-3 mt-9 flex flex-wrap gap-3">
-      <a href="/en/areas" class="btn btn-accent">{t.home.verAreas.en} →</a>
-      <a href="/en/contacto" class="btn">Let's talk</a>
-    </div>
-  </section>
-
-  <!-- Marquee -->
-  <section class="relative -mx-[var(--gutter)] border-y border-line py-4" aria-hidden="true">
-    <div class="marquee">
-      {[0, 1].map(() => (
-        <div class="marquee__track">
-          {[...marquee, ...marquee].map((w) => (
-            <span class="flex items-center gap-2 whitespace-nowrap text-sm tracking-wide ink-faint">
-              <span class="text-[var(--accent)]">✦</span>{w}
-            </span>
-          ))}
+      <div class="hero__body rise-2">
+        <p class="measure lede ink-soft">{t.home.intro.en}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/en/areas" class="btn btn-accent">{t.home.verAreas.en} <span class="btn__arrow">→</span></a>
+          <a href="/en/contacto" class="btn">Let's talk</a>
         </div>
-      ))}
+      </div>
+
+      <Media
+        class="hero__media rise-2"
+        src="/img/retrato.jpg"
+        alt={t.home.heroImageAlt.en}
+        ratio="4 / 5"
+        caption={t.home.heroImageCaption.en}
+        placeholder={t.home.imgPlaceholder.en}
+      />
     </div>
   </section>
 
-  <!-- Areas -->
-  <section class="py-20" aria-labelledby="areas-title">
-    <div class="reveal flex items-end justify-between gap-4">
-      <div>
-        <p class="kicker">{t.home.areasKicker.en}</p>
-        <h2 id="areas-title" class="mt-3 font-bold" style="font-size: var(--fs-h2);">Six lenses</h2>
-      </div>
-      <a href="/en/areas" class="link-accent hidden text-sm sm:block">See all →</a>
+  <!-- Six lenses -->
+  <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="areas-title">
+    <div class="flex items-end justify-between gap-4">
+      <h2 id="areas-title" class="display-2 reveal">Six lenses</h2>
+      <a href="/en/areas" class="link-accent hidden text-sm sm:inline">See all →</a>
     </div>
 
-    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {ordenadas.map((a) => (
-        <a href={`/en/areas/${a.slug}`} class="card reveal group flex flex-col gap-4 p-6">
-          <span class="flex h-11 w-11 items-center justify-center rounded-xl text-lg text-[var(--accent)]" style="background: var(--accent-soft);" aria-hidden="true">{a.icono}</span>
-          <span class="flex items-center justify-between gap-2">
-            <span class="font-semibold group-hover:text-[var(--accent)] transition-colors">{a.titulo.en}</span>
-            <span class="text-[var(--ink-faint)] transition-transform group-hover:translate-x-1 group-hover:text-[var(--accent)]">→</span>
-          </span>
-          <span class="text-sm leading-relaxed ink-soft">{a.lema.en}</span>
-          {a.mision && <span class="tag mt-auto w-fit">The mission</span>}
-        </a>
+    <ol class="mt-10 border-t border-[var(--line)]">
+      {ordenadas.map((a, i) => (
+        <li class="border-b border-[var(--line)]">
+          <a
+            href={`/en/areas/${a.slug}`}
+            class="reveal group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-5 gap-y-1 py-6 sm:grid-cols-[3rem_15rem_1fr_auto]"
+            style={`--d:${Math.min(i * 55, 260)}ms`}
+          >
+            <span class="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="display-3 transition-colors group-hover:text-[var(--accent-text)]">{a.titulo.en}</h3>
+            <p class="col-span-3 text-sm ink-soft sm:col-span-1 sm:text-[0.95rem]">{a.lema.en}</p>
+            <span class="ink-faint transition-all group-hover:translate-x-1 group-hover:text-[var(--accent-text)]" aria-hidden="true">→</span>
+          </a>
+        </li>
       ))}
-    </div>
+    </ol>
   </section>
 
   <!-- Manifesto -->
-  <section class="reveal relative overflow-hidden rounded-[var(--radius)] border border-line px-6 py-14 sm:px-12" style="background: var(--surface);">
-    <div class="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full" style="background: radial-gradient(circle, var(--accent-glow), transparent 70%);" aria-hidden="true"></div>
-    <p class="kicker">Manifesto</p>
-    <h2 class="mt-4 max-w-[46rem] font-bold leading-[1.08]" style="font-size: var(--fs-h2);">
-      The generalist isn't indecision:<br /><span class="grad-text">it's integral vision.</span>
-    </h2>
-    <p class="mt-6 max-w-[40rem] leading-relaxed ink-soft">{t.manifiesto.cuerpo.en}</p>
-  </section>
-
-  <!-- Stats -->
-  <section class="reveal mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius)] border border-line md:grid-cols-4" style="background: var(--line);">
-    {stats.map((s) => (
-      <div class="flex flex-col gap-1 p-6" style="background: var(--bg);">
-        <span class="font-extrabold tracking-tight text-[var(--accent)]" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">{s.n}</span>
-        <span class="text-xs ink-soft">{s.label}</span>
+  <section class="mt-24 border-t border-[var(--line)] pt-14">
+    <div class="grid gap-6 lg:grid-cols-[10rem_1fr] lg:gap-10">
+      <span class="label reveal lg:pt-4">Manifesto</span>
+      <div>
+        <p class="display-2 reveal measure">
+          The generalist isn't indecision: it's <span class="font-sans font-bold">integral vision</span>.
+        </p>
+        <p class="reveal mt-8 measure ink-soft">{t.manifiesto.cuerpo.en}</p>
       </div>
-    ))}
+    </div>
   </section>
 
-  <!-- CTA -->
-  <section class="reveal mt-20 flex flex-col items-start justify-between gap-6 rounded-[var(--radius)] border border-line p-8 sm:flex-row sm:items-center sm:p-10" style="background: var(--surface);">
-    <p class="max-w-[30rem] text-lg font-medium">
+  <!-- In the workshop -->
+  <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="taller-title">
+    <div class="flex items-end justify-between gap-4">
+      <h2 id="taller-title" class="display-2 reveal">{t.home.taller.en}</h2>
+      <span class="label hidden sm:inline">{t.home.tallerMeta.en}</span>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      <Media
+        class="reveal"
+        src="/img/taller-01.jpg"
+        ratio="4 / 5"
+        index="01"
+        caption={t.home.imgCaption.en}
+        placeholder={t.home.imgPlaceholder.en}
+      />
+      <Media
+        class="reveal"
+        style="--d:80ms"
+        src="/img/taller-02.jpg"
+        ratio="4 / 5"
+        index="02"
+        caption={t.home.imgCaption.en}
+        placeholder={t.home.imgPlaceholder.en}
+      />
+      <Media
+        class="reveal"
+        style="--d:160ms"
+        src="/img/taller-03.jpg"
+        ratio="4 / 5"
+        index="03"
+        caption={t.home.imgCaption.en}
+        placeholder={t.home.imgPlaceholder.en}
+      />
+    </div>
+  </section>
+
+  <!-- Figures -->
+  <section class="mt-24 border-t border-[var(--line)] pt-14">
+    <span class="label reveal block">Figures</span>
+    <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
+      {stats.map((s, i) => (
+        <div class="reveal border-t border-[var(--line)] pt-4" style={`--d:${i * 70}ms`}>
+          <dt class="display-2 tabular-nums" data-count={s.n}>{s.n}</dt>
+          <dd class="label mt-2">{s.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- Close -->
+  <section class="mt-24 border-t border-[var(--line)] pt-16 pb-8">
+    <p class="display-2 reveal measure">
       A business with digital mess, or an idea worth building?
     </p>
-    <a href="/en/contacto" class="btn btn-accent shrink-0">Write to me →</a>
+    <a href="/en/contacto" class="btn btn-accent reveal mt-8">Write to me <span class="btn__arrow">→</span></a>
   </section>
 </Base>

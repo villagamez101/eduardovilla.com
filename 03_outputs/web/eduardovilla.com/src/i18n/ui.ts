@@ -24,28 +24,29 @@ export const t = {
 
   home: {
     tagline: {
-      es: "Generalista creativo — diseño, código, sistemas y juego",
-      en: "Creative generalist — design, code, systems and play",
+      es: "Soluciones digitales para pymes y emprendedores",
+      en: "Digital solutions for small businesses and founders",
     } satisfies Dict,
     intro: {
-      es: "Soy Eduardo Villa. Llevo siete años haciendo el mismo tipo de trabajo desde ángulos distintos: ayudar a negocios desordenados a tener estructura digital — tiendas, ERPs, marcas, automatizaciones. Este sitio es mi refugio: lo que construyo, lo que pienso y lo que aprendo, sin pulirlo más de lo necesario.",
-      en: "I'm Eduardo Villa. For seven years I've done the same kind of work from different angles: helping messy businesses get digital structure — stores, ERPs, brands, automations. This site is my refuge: what I build, what I think and what I learn, without over-polishing it.",
+      es: "Siete años de experiencia en transformación digital:\nDiseño, branding, desarrollo web, marketing, e-commerce e IA.\nSoy una persona autodidacta y apasionado por la tecnología.",
+      en: "Seven years of experience in digital transformation:\nDesign, branding, web development, marketing, e-commerce and AI.\nI'm a self-taught person and passionate about technology.",
     } satisfies Dict,
-    verAreas: { es: "Ver las áreas", en: "See the areas" } satisfies Dict,
+    verAreas: { es: "Portafolio", en: "Portfolio" } satisfies Dict,
     heroImageAlt: { es: "Retrato de Eduardo Villa", en: "Portrait of Eduardo Villa" } satisfies Dict,
     heroImageCaption: {
-      es: "Eduardo Villa · Córdoba, Veracruz",
-      en: "Eduardo Villa · Córdoba, Veracruz",
+      es: "Eduardo Villa",
+      en: "Eduardo Villa",
     } satisfies Dict,
     taller: { es: "En el taller", en: "In the workshop" } satisfies Dict,
     tallerMeta: { es: "Proceso · en imágenes", en: "Process · in images" } satisfies Dict,
     imgPlaceholder: { es: "Imagen en camino", en: "Image on the way" } satisfies Dict,
     imgCaption: { es: "Notas del proceso", en: "Process notes" } satisfies Dict,
     areasKicker: {
-      es: "Seis lentes sobre el mismo problema",
-      en: "Six lenses on the same problem",
+      es: "Seis áreas de interés",
+      en: "Six areas of interest",
     } satisfies Dict,
-    leerMas: { es: "Leer área", en: "Read area" } satisfies Dict,
+    areasTitle: { es: "Áreas de interés", en: "Areas of interest" } satisfies Dict,
+    leerMas: { es: "Ver área", en: "View area" } satisfies Dict,
   },
 
   areas: {
@@ -64,14 +65,14 @@ export const t = {
     } satisfies Dict,
   },
 
-  manifiesto: {
+  proposito: {
     titulo: {
-      es: "El generalista no es indecisión: es visión integral.",
-      en: "The generalist isn't indecision: it's integral vision.",
+      es: "Ser un perfil generalista\nes tener visión integral.",
+      en: "Being a generalist profile\nis having an integral vision.",
     } satisfies Dict,
     cuerpo: {
-      es: "Las áreas no son servicios separados; son lentes sobre el mismo problema. Un negocio desordenado no necesita una página web o un logo: necesita alguien que entienda el panorama completo y construya la pieza correcta para su momento. Ese cruce — negocio, tecnología, diseño, automatización — es donde vivo.",
-      en: "The areas aren't separate services; they're lenses on the same problem. A messy business doesn't need a website or a logo: it needs someone who understands the whole picture and builds the right piece for the moment. That crossing — business, technology, design, automation — is where I live.",
+      es: "Gran parte de mi vida he buscado tener un propósito, especializarme y hacer lo que todos los libros de marketing y emprendimiento te recomiendan.\n\nPero entendí que mi principal fortaleza es saber de muchas áreas, involucrarme en todos los procesos, tener una visión general del proyecto y verlo desde diferentes perspectivas.",
+      en: "For much of my life I looked for a purpose, to specialize and to do what every marketing and entrepreneurship book tells you to do.\n\nBut I understood that my main strength is knowing many areas, getting involved in every process, having a general vision of the project and seeing it from different perspectives.",
     } satisfies Dict,
   },
 

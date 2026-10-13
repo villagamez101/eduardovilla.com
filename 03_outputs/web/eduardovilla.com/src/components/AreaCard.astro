@@ -1,0 +1,42 @@
+---
+/**
+ * Tarjeta de área — numeral serif, glifo de trazo, título y lema.
+ * Planas dentro del sistema: borde de 1px, superficie tenue y el azul
+ * de marca como única voz de interacción (borde, regla, flecha).
+ */
+import AreaGlyph from "@components/AreaGlyph.astro";
+
+interface Props {
+  href: string;
+  slug: string;
+  num: string;
+  title: string;
+  lema: string;
+  more: string;
+  delay?: number;
+}
+
+const { href, slug, num, title, lema, more, delay = 0 } = Astro.props;
+---
+
+<a
+  href={href}
+  class="card area-card reveal group"
+  style={`--d:${Math.min(delay, 300)}ms`}
+>
+  <div class="area-card__top">
+    <AreaGlyph slug={slug} />
+    <span class="area-card__num" aria-hidden="true">{num}</span>
+  </div>
+
+  <div>
+    <h3 class="display-3 area-card__title">{title}</h3>
+    <span class="area-card__rule" aria-hidden="true"></span>
+    <p class="area-card__lema">{lema}</p>
+  </div>
+
+  <span class="area-card__more label">
+    {more}
+    <span class="area-card__arrow" aria-hidden="true">→</span>
+  </span>
+</a>

@@ -207,6 +207,78 @@ input, button, textarea { accent-color: var(--accent); }
   background: var(--surface-2);
 }
 
+/* ---------------- Tarjetas de área ----------------
+   El card editorial del sistema, aplicado a las áreas: numeral serif
+   tonal, glifo de trazo en azul, y una regla de acento que se dibuja
+   al pasar. La superficie no se mueve; solo cambia de color y borde. */
+.area-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  padding: 1.6rem 1.5rem 1.4rem;
+  min-height: 15.5rem;
+  text-decoration: none;
+}
+.area-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.area-card__glyph {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: none;
+  color: var(--accent-text);
+  transition: transform var(--dur-mid) var(--ease-entrance);
+}
+.area-card__num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.1rem, 3.4vw, 2.8rem);
+  line-height: 1;
+  color: var(--ink-faint);
+  transition: color var(--dur-mid) var(--ease-standard);
+}
+.area-card__title {
+  transition: color var(--dur-mid) var(--ease-standard);
+}
+.area-card__rule {
+  display: block;
+  height: 1px;
+  margin: 0.9rem 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-entrance);
+}
+.area-card__lema {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.area-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  color: var(--ink-faint);
+  transition: color var(--dur-mid) var(--ease-standard);
+}
+.area-card__arrow {
+  transition: transform var(--dur-mid) var(--ease-entrance);
+}
+.area-card:hover {
+  border-color: var(--accent-line);
+  background: var(--surface-2);
+}
+.area-card:hover .area-card__rule { transform: scaleX(1); }
+.area-card:hover .area-card__glyph { transform: translateY(-2px); }
+.area-card:hover .area-card__num,
+.area-card:hover .area-card__title,
+.area-card:hover .area-card__more { color: var(--accent-text); }
+.area-card:hover .area-card__arrow { transform: translateX(4px); }
+
 .tag {
   display: inline-flex;
   align-items: center;
@@ -338,7 +410,12 @@ input, button, textarea { accent-color: var(--accent); }
 
 /* ---------------- Hero ---------------- */
 .hero__grid { display: grid; gap: 2.5rem; }
-.hero__body { max-width: 34rem; }
+.hero__body { max-width: 38rem; }
+.hero__intro {
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
 
 @media (min-width: 1024px) {
   .hero__grid {
@@ -470,9 +547,12 @@ input, button, textarea { accent-color: var(--accent); }
   .media:hover .media__img { transform: none; }
   .hero__media .media__frame { animation: none; }
   .card, .btn, .nav-link::after, .btn__arrow, .media__frame,
-  .theme-toggle__icons svg, .logo .logo-mark, .site-header { transition: none; }
+  .theme-toggle__icons svg, .logo .logo-mark, .site-header,
+  .area-card__glyph, .area-card__rule, .area-card__arrow,
+  .area-card__num, .area-card__title, .area-card__more { transition: none; }
   .btn:hover, .btn:hover .btn__arrow, .logo:hover .logo-mark { transform: none; }
-  .site-menu { transition: none; }
+  .area-card:hover .area-card__glyph,
+  .area-card:hover .area-card__arrow { transform: none; }
 }
 
 /* ---------------- Contenido de blog ---------------- */

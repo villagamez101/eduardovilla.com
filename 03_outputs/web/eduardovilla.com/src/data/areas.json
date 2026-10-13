@@ -1,114 +1,98 @@
 [
   {
-    "slug": "transformacion-digital",
+    "slug": "diseno-grafico",
     "orden": 1,
-    "mision": true,
-    "icono": "◈",
     "titulo": {
-      "es": "Transformación Digital",
-      "en": "Digital Transformation"
+      "es": "Diseño gráfico",
+      "en": "Graphic Design"
     },
     "lema": {
-      "es": "La misión. Todo lo demás son lentes de esta misma idea.",
-      "en": "The mission. Everything else is a lens on this same idea."
+      "es": "El oficio donde empezó todo.",
+      "en": "The craft where it all started."
     },
     "resumen": {
-      "es": "Entender primero, construir después. Diagnostico la etapa real del negocio y diseño qué necesita digitalizarse, en qué orden y con qué piezas. Ni tecnología por moda, ni paquetes genéricos: la solución correcta para el momento correcto.",
-      "en": "Understand first, build after. I diagnose the real stage of the business and design what needs to be digitized, in what order, and with which pieces. Not tech for its own sake, nor generic packages: the right solution for the right moment."
-    },
-    "conector": {
-      "es": "Esta área coordina a las demás: IA aproxima la automatización, e-commerce ejecuta con código, branding hace la imagen coherente, minimalismo define qué sobra y los videojuegos recuerdan que también se juega.",
-      "en": "This area coordinates the others: AI brings automation, e-commerce executes with code, branding shapes the image, minimalism decides what stays, and games remember that it can also be play."
+      "es": "Composición, color y detalle aplicados con intención, de la pantalla al impreso. El punto de partida (Sisco, 2018) y la base con la que aprendí a mirar antes de construir.",
+      "en": "Composition, color and detail applied with intention, from screen to print. The starting point (Sisco, 2018) and the foundation that taught me to look before building."
     }
   },
   {
-    "slug": "ia-automatizacion",
+    "slug": "branding-marca",
     "orden": 2,
-    "mision": false,
-    "icono": "⌁",
     "titulo": {
-      "es": "IA y Automatización",
-      "en": "AI & Automation"
+      "es": "Branding de marca",
+      "en": "Branding"
     },
     "lema": {
-      "es": "El multiplicador del trabajo aburrido que merece desaparecer.",
-      "en": "The multiplier for boring work that deserves to disappear."
+      "es": "Claridad hecha imagen.",
+      "en": "Clarity made image."
+    },
+    "resumen": {
+      "es": "Sistemas de marca completos, no decoración: la promesa del negocio vuelta forma, tipografía, color y voz, coherente en cada punto de contacto.",
+      "en": "Complete brand systems, not decoration: the business's promise given form, type, color and voice, coherent at every touchpoint."
+    }
+  },
+  {
+    "slug": "desarrollo-web",
+    "orden": 3,
+    "titulo": {
+      "es": "Desarrollo web",
+      "en": "Web Development"
+    },
+    "lema": {
+      "es": "El código como medio, la operación como fin.",
+      "en": "Code as the means, operations as the end."
+    },
+    "resumen": {
+      "es": "Sitios y sistemas a la medida: rendimiento, accesibilidad y una base que se puede mantener. Construyo la pieza correcta para el momento correcto, sin tecnología por moda.",
+      "en": "Sites and systems made to measure: performance, accessibility and a base you can maintain. I build the right piece for the right moment, no tech for tech's sake."
+    }
+  },
+  {
+    "slug": "marketing-digital",
+    "orden": 4,
+    "titulo": {
+      "es": "Marketing digital",
+      "en": "Digital Marketing"
+    },
+    "lema": {
+      "es": "Visibilidad con criterio, no con ruido.",
+      "en": "Visibility with judgment, not noise."
+    },
+    "resumen": {
+      "es": "Estrategia de canales, contenido y campañas para que el negocio correcto llegue a la gente correcta. Decisiones guiadas por métricas reales, no por vanidad.",
+      "en": "Channel strategy, content and campaigns so the right business reaches the right people. Decisions guided by real metrics, not vanity."
+    }
+  },
+  {
+    "slug": "comercio-electronico",
+    "orden": 5,
+    "titulo": {
+      "es": "Comercio electrónico",
+      "en": "E-commerce"
+    },
+    "lema": {
+      "es": "La ejecución más medible.",
+      "en": "The most measurable execution."
+    },
+    "resumen": {
+      "es": "Tiendas, catálogos digitales y marketplaces. Experiencia real operando catálogos de 3,000 productos en 20+ plataformas, con ventas de $5M MXN mensuales.",
+      "en": "Online stores, digital catalogs and marketplaces. Real experience running 3,000-product catalogs across 20+ platforms, with $5M MXN in monthly sales."
+    }
+  },
+  {
+    "slug": "inteligencia-artificial",
+    "orden": 6,
+    "titulo": {
+      "es": "Inteligencia artificial",
+      "en": "Artificial Intelligence"
+    },
+    "lema": {
+      "es": "El multiplicador del trabajo aburrido.",
+      "en": "The multiplier for boring work."
     },
     "resumen": {
       "es": "Agentes, flujos automatizados, integraciones e IA aplicada con criterio. La pregunta que guía todo: ¿qué trabajo repetitivo puede desaparecer para que las personas hagan el trabajo que importa?",
       "en": "Agents, automated flows, integrations and AI applied with judgment. The question that guides it all: what repetitive work can disappear so people do the work that matters?"
-    }
-  },
-  {
-    "slug": "ecommerce-desarrollo-web",
-    "orden": 3,
-    "mision": false,
-    "icono": "▤",
-    "titulo": {
-      "es": "E-commerce y Desarrollo Web",
-      "en": "E-commerce & Web Development"
-    },
-    "lema": {
-      "es": "La ejecución más medible: catálogos, tiendas y webs que venden.",
-      "en": "The most measurable execution: catalogs, stores and websites that sell."
-    },
-    "resumen": {
-      "es": "Años montando catálogos de 3,000 productos en 20+ marketplaces con ventas de $5M MXN mensuales. E-commerce, catálogos digitales, listings y desarrollo web: el código como medio, la operación como fin.",
-      "en": "Years building 3,000-product catalogs across 20+ marketplaces with $5M MXN in monthly sales. E-commerce, digital catalogs, listings and web development: code as the means, operations as the end."
-    }
-  },
-  {
-    "slug": "branding-diseno",
-    "orden": 4,
-    "mision": false,
-    "icono": "◎",
-    "titulo": {
-      "es": "Branding y Diseño",
-      "en": "Branding & Design"
-    },
-    "lema": {
-      "es": "Donde empezó todo: claridad hecha imagen.",
-      "en": "Where it all started: clarity made image."
-    },
-    "resumen": {
-      "es": "Identidad visual desde el diseño gráfico (Sisco, 2018) hasta sistemas de marca completos. No decoración: la promesa del negocio vuelta forma, tipografía y color, coherente en todos los puntos de contacto.",
-      "en": "Visual identity from graphic design (Sisco, 2018) to full brand systems. Not decoration: the business's promise given form, type and color, coherent at every touchpoint."
-    }
-  },
-  {
-    "slug": "minimalismo",
-    "orden": 4,
-    "mision": false,
-    "icono": "○",
-    "titulo": {
-      "es": "Minimalismo",
-      "en": "Minimalism"
-    },
-    "lema": {
-      "es": "Menos piezas, más intención.",
-      "en": "Fewer pieces, more intention."
-    },
-    "resumen": {
-      "es": "Una filosofía de trabajo y de vida que atraviesa todo lo demás: quitar hasta que solo quede lo esencial, y a lo que queda darle todo el peso. Aplica al diseño, al código, a los procesos... y a cómo se vive.",
-      "en": "A philosophy of work and life that runs through everything else: remove until only the essential remains, and give what remains full weight. It applies to design, code, processes... and how one lives."
-    }
-  },
-  {
-    "slug": "videojuegos",
-    "orden": 6,
-    "mision": false,
-    "icono": "▶",
-    "titulo": {
-      "es": "Videojuegos",
-      "en": "Video Games"
-    },
-    "lema": {
-      "es": "El laboratorio lúdico.",
-      "en": "The playful lab."
-    },
-    "resumen": {
-      "es": "Diseño de mecánicas, narrativa interactiva y construcción por gusto. En construcción: es el área más joven del sitio y su honesta presencia incompleta es parte de la tesis del generalista.",
-      "en": "Mechanics design, interactive narrative and building for the sake of it. Under construction: it's the youngest area on the site, and its honest in-progress presence is part of the generalist thesis."
     }
   }
 ]

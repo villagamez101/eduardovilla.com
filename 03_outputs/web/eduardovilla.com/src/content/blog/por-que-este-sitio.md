@@ -3,7 +3,7 @@ title: "Por qué este sitio existe"
 description: "Un generalista necesita un refugio propio: aquí van las razones detrás de eduardovilla.com."
 date: 2026-10-01
 lang: es
-area: transformacion-digital
+area: desarrollo-web
 tags: ["metasitio", "generalista"]
 ---
 

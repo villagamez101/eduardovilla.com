@@ -1,5 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
+import AreaCard from "@components/AreaCard.astro";
 import { t } from "@i18n/ui";
 import areas from "@data/areas.json";
 
@@ -8,30 +9,26 @@ const ordenadas = [...areas].sort((a, b) => a.orden - b.orden);
 <Base
   lang="en"
   title={`${t.areas.indexTitle.en} — Eduardo Villa`}
-  description="Eduardo Villa's six areas: six lenses on the same problem — digital structure for businesses and for life."
+  description="Eduardo Villa's six areas of interest: graphic design, branding, web development, digital marketing, e-commerce and artificial intelligence."
 >
   <section class="mt-14 border-t border-[var(--line)] pt-12">
-    <h1 class="display-2 rise measure">Six lenses, one problem</h1>
+    <h1 class="display-2 rise measure">{t.home.areasTitle.en}</h1>
     <p class="rise-2 mt-6 measure ink-soft">
-      They aren't service categories: they're ways of looking. Each area crosses the others.
+      They aren't service categories: they're interests that cross. A messy business needs integral vision, not loose pieces.
     </p>
   </section>
 
-  <ol class="mt-14 border-t border-[var(--line)]">
+  <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {ordenadas.map((a, i) => (
-      <li class="border-b border-[var(--line)]">
-        <a
-          href={`/en/areas/${a.slug}`}
-          class="reveal group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-5 gap-y-2 py-8 sm:grid-cols-[3rem_16rem_1fr_auto]"
-          style={`--d:${Math.min(i * 55, 280)}ms`}
-        >
-          <span class="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-          <h2 class="display-3 transition-colors group-hover:text-[var(--accent-text)]">{a.titulo.en}</h2>
-          <p class="col-span-3 text-sm ink-soft sm:col-span-1 sm:text-[0.95rem]">{a.lema.en}</p>
-          <span class="ink-faint transition-all group-hover:translate-x-1 group-hover:text-[var(--accent-text)]" aria-hidden="true">→</span>
-          {a.mision && <span class="label col-span-3 text-[var(--accent-text)] sm:col-span-1 sm:col-start-2">The mission</span>}
-        </a>
-      </li>
+      <AreaCard
+        href={`/en/areas/${a.slug}`}
+        slug={a.slug}
+        num={String(i + 1).padStart(2, "0")}
+        title={a.titulo.en}
+        lema={a.lema.en}
+        more={t.home.leerMas.en}
+        delay={i * 55}
+      />
     ))}
-  </ol>
+  </div>
 </Base>

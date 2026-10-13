@@ -28,18 +28,12 @@ const relacionadas = areas.filter((x) => x.slug !== area.slug).slice(0, 3);
           {area.titulo[l]}
         </h1>
         <p class="rise-3 mt-6 measure lede ink-soft">{area.lema[l]}</p>
-        {area.mision && <span class="label mt-5 block text-[var(--accent-text)]">The mission</span>}
       </div>
     </header>
 
     <div class="mt-14 grid gap-12 lg:grid-cols-[1.7fr_1fr]">
       <div class="reveal space-y-8">
         <p class="lede">{area.resumen[l]}</p>
-        {"conector" in area && area.conector && (
-          <blockquote class="border-l border-[var(--accent)] pl-6 display-3">
-            {area.conector[l]}
-          </blockquote>
-        )}
       </div>
 
       <aside class="reveal flex flex-col gap-10">

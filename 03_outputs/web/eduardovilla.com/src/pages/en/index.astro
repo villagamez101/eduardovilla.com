@@ -1,6 +1,7 @@
 ---
 import Base from "@layouts/Base.astro";
 import Media from "@components/Media.astro";
+import AreaCard from "@components/AreaCard.astro";
 import { t } from "@i18n/ui";
 import areas from "@data/areas.json";
 
@@ -19,8 +20,8 @@ const stats = [
   <!-- Masthead -->
   <section class="hero pt-14">
     <div class="flex items-baseline justify-between gap-4 border-b border-[var(--line-strong)] pb-3">
-      <span class="label">Creative generalist</span>
-      <span class="label">Córdoba, Veracruz · MX</span>
+      <span class="label">Digital transformation</span>
+      <span class="label">Digital solutions</span>
     </div>
 
     <div class="hero__grid mt-10 sm:mt-16">
@@ -30,9 +31,9 @@ const stats = [
       </h1>
 
       <div class="hero__body rise-2">
-        <p class="measure lede ink-soft">{t.home.intro.en}</p>
+        <p class="hero__intro whitespace-pre-line text-pretty">{t.home.intro.en}</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/en/areas" class="btn btn-accent">{t.home.verAreas.en} <span class="btn__arrow">→</span></a>
+          <a href="/en/proyectos" class="btn btn-accent">{t.home.verAreas.en} <span class="btn__arrow">→</span></a>
           <a href="/en/contacto" class="btn">Let's talk</a>
         </div>
       </div>
@@ -48,40 +49,38 @@ const stats = [
     </div>
   </section>
 
-  <!-- Six lenses -->
+  <!-- Areas of interest -->
   <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="areas-title">
     <div class="flex items-end justify-between gap-4">
-      <h2 id="areas-title" class="display-2 reveal">Six lenses</h2>
+      <h2 id="areas-title" class="display-2 reveal">{t.home.areasTitle.en}</h2>
       <a href="/en/areas" class="link-accent hidden text-sm sm:inline">See all →</a>
     </div>
 
-    <ol class="mt-10 border-t border-[var(--line)]">
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {ordenadas.map((a, i) => (
-        <li class="border-b border-[var(--line)]">
-          <a
-            href={`/en/areas/${a.slug}`}
-            class="reveal group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-5 gap-y-1 py-6 sm:grid-cols-[3rem_15rem_1fr_auto]"
-            style={`--d:${Math.min(i * 55, 260)}ms`}
-          >
-            <span class="label tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="display-3 transition-colors group-hover:text-[var(--accent-text)]">{a.titulo.en}</h3>
-            <p class="col-span-3 text-sm ink-soft sm:col-span-1 sm:text-[0.95rem]">{a.lema.en}</p>
-            <span class="ink-faint transition-all group-hover:translate-x-1 group-hover:text-[var(--accent-text)]" aria-hidden="true">→</span>
-          </a>
-        </li>
+        <AreaCard
+          href={`/en/areas/${a.slug}`}
+          slug={a.slug}
+          num={String(i + 1).padStart(2, "0")}
+          title={a.titulo.en}
+          lema={a.lema.en}
+          more={t.home.leerMas.en}
+          delay={i * 55}
+        />
       ))}
-    </ol>
+    </div>
   </section>
 
-  <!-- Manifesto -->
+  <!-- Purpose -->
   <section class="mt-24 border-t border-[var(--line)] pt-14">
     <div class="grid gap-6 lg:grid-cols-[10rem_1fr] lg:gap-10">
-      <span class="label reveal lg:pt-4">Manifesto</span>
+      <span class="label reveal lg:pt-4">Purpose</span>
       <div>
         <p class="display-2 reveal measure">
-          The generalist isn't indecision: it's <span class="font-sans font-bold">integral vision</span>.
+          Being a generalist profile<br />
+          Is having an <span class="font-sans font-bold">integral vision</span>.
         </p>
-        <p class="reveal mt-8 measure ink-soft">{t.manifiesto.cuerpo.en}</p>
+        <p class="reveal mt-8 measure whitespace-pre-line ink-soft">{t.proposito.cuerpo.en}</p>
       </div>
     </div>
   </section>

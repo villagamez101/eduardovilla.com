@@ -16,8 +16,6 @@ export const t = {
     acerca: { es: "Acerca de", en: "About" },
     areas: { es: "Áreas", en: "Areas" },
     proyectos: { es: "Proyectos", en: "Projects" },
-    servicios: { es: "Servicios", en: "Services" },
-    recursos: { es: "Recursos", en: "Resources" },
     blog: { es: "Blog", en: "Blog" },
     contacto: { es: "Contacto", en: "Contact" },
   } satisfies Record<string, Dict>,
@@ -34,19 +32,31 @@ export const t = {
     verAreas: { es: "Portafolio", en: "Portfolio" } satisfies Dict,
     heroImageAlt: { es: "Retrato de Eduardo Villa", en: "Portrait of Eduardo Villa" } satisfies Dict,
     heroImageCaption: {
-      es: "Eduardo Villa",
-      en: "Eduardo Villa",
+      es: "Soluciones digitales",
+      en: "Digital solutions",
     } satisfies Dict,
-    taller: { es: "En el taller", en: "In the workshop" } satisfies Dict,
-    tallerMeta: { es: "Proceso · en imágenes", en: "Process · in images" } satisfies Dict,
+    equipos: { es: "Equipos", en: "Teams" } satisfies Dict,
+    equiposMeta: { es: "Imágenes", en: "Images" } satisfies Dict,
+    equiposFrase: {
+      es: "Los mejores equipos llegan de la nada, y los echas de menos cuando ya no están.",
+      en: "The best teams come out of nowhere, and you miss them once they're gone.",
+    } satisfies Dict,
+    equiposAlt: {
+      es: "Equipos con los que he construido",
+      en: "Teams I've built with",
+    } satisfies Dict,
     imgPlaceholder: { es: "Imagen en camino", en: "Image on the way" } satisfies Dict,
-    imgCaption: { es: "Notas del proceso", en: "Process notes" } satisfies Dict,
     areasKicker: {
       es: "Seis áreas de interés",
       en: "Six areas of interest",
     } satisfies Dict,
     areasTitle: { es: "Áreas de interés", en: "Areas of interest" } satisfies Dict,
     leerMas: { es: "Ver área", en: "View area" } satisfies Dict,
+    proyectosTitle: { es: "Proyectos", en: "Projects" } satisfies Dict,
+    articulosTitle: { es: "Artículos", en: "Articles" } satisfies Dict,
+    verTodos: { es: "Ver todos", en: "See all" } satisfies Dict,
+    cierreLabel: { es: "Contacto", en: "Contact" } satisfies Dict,
+    cierreTitulo: { es: "¿Construimos algo juntos?", en: "Let's build something together?" } satisfies Dict,
   },
 
   areas: {
@@ -54,15 +64,38 @@ export const t = {
     back: { es: "← Todas las áreas", en: "← All areas" } satisfies Dict,
   },
 
-  footer: {
-    hecho: { es: "Hecho a mano con Astro", en: "Handmade with Astro" } satisfies Dict,
-  },
-
   contacto: {
     saludo: {
-      es: "Si tienes un negocio con desorden digital o una idea que merece construirse, escríbeme. Dejo la puerta abierta; tú decides si entras.",
-      en: "If you run a business with digital mess, or have an idea worth building, write to me. I leave the door open; you decide whether to walk in.",
+      es: "Si algo de esto te resuena, escríbeme cuando quieras...\n¿Alguna duda? ¿Te gustaría saber más?\nLas mejores ideas las he tenido rebotando información con un amigo.",
+      en: "If something here resonates with you, write to me whenever you like...\nGot a question? Want to know more?\nMy best ideas have come from bouncing things around with a friend.",
     } satisfies Dict,
+    metaTitle: { es: "Contacto — Eduardo Villa", en: "Contact — Eduardo Villa" } satisfies Dict,
+    metaDesc: {
+      es: "Escríbeme: la puerta está abierta para dudas, ideas o simplemente para conversar. Formulario, correo, WhatsApp y redes.",
+      en: "Write to me: my door is open for questions, ideas, or just to talk. Form, email, WhatsApp and socials.",
+    } satisfies Dict,
+    formTitle: { es: "Cuéntame", en: "Tell me" } satisfies Dict,
+    nombreLabel: { es: "Nombre", en: "Name" } satisfies Dict,
+    correoLabel: { es: "Correo", en: "Email" } satisfies Dict,
+    asuntoLabel: { es: "Asunto", en: "Subject" } satisfies Dict,
+    mensajeLabel: { es: "Mensaje", en: "Message" } satisfies Dict,
+    enviar: { es: "Envíame un mensaje", en: "Send me a message" } satisfies Dict,
+    enviado: {
+      es: "Gracias, tu mensaje se envió. Te respondo lo antes posible.",
+      en: "Thanks, your message was sent. I'll reply as soon as I can.",
+    } satisfies Dict,
+    formSubject: { es: "Nuevo mensaje desde eduardovilla.com", en: "New message from eduardovilla.com" } satisfies Dict,
+    datosTitle: { es: "Mis datos", en: "My details" } satisfies Dict,
+    telefonoLabel: { es: "Teléfono", en: "Phone" } satisfies Dict,
+    emailLabel: { es: "Correo", en: "Email" } satisfies Dict,
+    ciudadLabel: { es: "Ciudad", en: "City" } satisfies Dict,
+    redesLabel: { es: "Redes", en: "Social" } satisfies Dict,
+    ctaWhatsapp: { es: "Escribe por WhatsApp", en: "Write on WhatsApp" } satisfies Dict,
+    ctaEmail: { es: "Envíame un correo", en: "Send me an email" } satisfies Dict,
+    mapaAlt: { es: "Mapa de Córdoba, Veracruz", en: "Map of Córdoba, Veracruz" } satisfies Dict,
+    mapaCaption: { es: "Córdoba, Veracruz — México", en: "Córdoba, Veracruz — Mexico" } satisfies Dict,
+    mapaAtrib: { es: "© OpenStreetMap", en: "© OpenStreetMap" } satisfies Dict,
+    mapaAbrir: { es: "Ver en Maps", en: "View on Maps" } satisfies Dict,
   },
 
   proposito: {
@@ -84,25 +117,16 @@ export const t = {
     } satisfies Dict,
   },
 
-  servicios: {
-    indexTitle: { es: "Servicios", en: "Services" } satisfies Dict,
-    nota: {
-      es: "Atiendo poco y bien: arquitectura digital clara antes que piezas sueltas.",
-      en: "I serve a few, and I serve well: clear digital architecture before loose pieces.",
-    } satisfies Dict,
-  },
-
-  recursos: {
-    indexTitle: { es: "Recursos", en: "Resources" } satisfies Dict,
-    nota: {
-      es: "Plantillas, guías y herramientas que suelo recomendar y usar.",
-      en: "Templates, guides and tools I usually recommend and use.",
-    } satisfies Dict,
-  },
-
   blog: {
     indexTitle: { es: "Blog", en: "Blog" } satisfies Dict,
     vacio: { es: "Escritos en camino.", en: "Writings on the way." } satisfies Dict,
+  },
+
+  footer: {
+    navegacion: { es: "Navegación", en: "Navigation" } satisfies Dict,
+    contacto: { es: "Contacto", en: "Contact" } satisfies Dict,
+    disponible: { es: "Disponible para proyectos", en: "Available for projects" } satisfies Dict,
+    hecho: { es: "Hecho a mano con Astro", en: "Handmade with Astro" } satisfies Dict,
   },
 
   acerca: {

@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string;
+  label?: string;
+}
+const { class: cls, label = "Think outside the box" } = Astro.props;
+---
+<figure class:list={["think-box", cls]} role="img" aria-label={label}>
+  <span class="think-box__frame">
+    <span class="think-box__word">Think</span>
+    <span class="think-box__word">Outside</span>
+    <span class="think-box__word">The</span>
+  </span>
+  <span class="think-box__word think-box__out">Box</span>
+</figure>
+
+<style>
+  .think-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: max-content;
+    color: var(--ink);
+  }
+
+  .think-box__frame {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line-strong);
+    padding: 0.65rem 0.75rem 0.95rem;
+  }
+
+  .think-box__word {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .think-box__out {
+    margin-top: 0.18rem;
+  }
+</style>

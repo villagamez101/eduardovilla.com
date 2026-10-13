@@ -11,6 +11,7 @@
   --bg-2: #0e1226;
   --surface: rgba(244, 245, 248, 0.035);
   --surface-2: rgba(244, 245, 248, 0.06);
+  --band: rgba(244, 245, 248, 0.03);
   --elev: #131837;
   --ink: #f4f5f8;
   --ink-soft: rgba(244, 245, 248, 0.72);
@@ -37,31 +38,32 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #f6f4ee;
-  --bg-2: #efece3;
-  --surface: rgba(20, 23, 44, 0.03);
-  --surface-2: rgba(20, 23, 44, 0.05);
-  --elev: #fffdf9;
-  --ink: #14172c;
-  --ink-soft: rgba(20, 23, 44, 0.72);
-  --ink-faint: rgba(20, 23, 44, 0.56);
-  --line: rgba(20, 23, 44, 0.14);
-  --line-strong: rgba(20, 23, 44, 0.28);
+  --bg: #fafafa;
+  --bg-2: #f1f1f3;
+  --band: #e6e6ea;
+  --surface: rgba(16, 16, 19, 0.03);
+  --surface-2: rgba(16, 16, 19, 0.055);
+  --elev: #ffffff;
+  --ink: #101013;
+  --ink-soft: rgba(16, 16, 19, 0.66);
+  --ink-faint: rgba(16, 16, 19, 0.50);
+  --line: rgba(16, 16, 19, 0.12);
+  --line-strong: rgba(16, 16, 19, 0.24);
 
-  /* Azul de marca para el tema claro: mismo rol que en oscuro. */
-  --accent: #2f4bb8;
-  --accent-text: #24379b;
-  --accent-ink: #f6f4ee;
-  --accent-soft: rgba(33, 60, 144, 0.09);
-  --accent-line: rgba(33, 60, 144, 0.5);
-  --glow: rgba(33, 60, 144, 0.1);
-  --sel: rgba(33, 60, 144, 0.2);
+  /* Azul oscuro: acento del tema claro (enlaces, estado, logo). */
+  --accent: #1e3a8a;
+  --accent-text: #1c357e;
+  --accent-ink: #f7f7f8;
+  --accent-soft: rgba(30, 58, 138, 0.05);
+  --accent-line: rgba(30, 58, 138, 0.35);
+  --glow: rgba(30, 58, 138, 0.06);
+  --sel: rgba(30, 58, 138, 0.16);
 
   /* Naranja: reservado a la acción principal (botón CTA). */
-  --cta: #ea580c;
+  --cta: #e2570a;
   --cta-ink: #1a1206;
 
-  --opuesto: #14172c;
+  --opuesto: #101013;
 }
 
 /* Tipografía y ritmo */

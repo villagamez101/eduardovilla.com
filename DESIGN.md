@@ -105,7 +105,8 @@ the page calm enough to read.
 Everything is token-driven: dark and light are the same system with a swapped
 palette, and the theme change is a color change, never a layout change. Depth is
 flat by default; surfaces sit on the page and are separated by one-pixel lines
-and two soft radial washes, never by resting shadows. The whole build is meant to
+and a soft atmospheric wash — two radial glows over a diagonal tonal gradient —
+never by resting shadows. The whole build is meant to
 feel authored — an artifact of one person's practice — rather than generated from
 a template.
 
@@ -212,9 +213,10 @@ void; it anchors to the left rail and lets rules carry the width.
 **Flat by default.** This system does not use resting shadows. Depth is conveyed
 by three things and nothing else: one-pixel hairline borders (`--line` at rest,
 `--line-strong` on hover), a stepped surface pair — canvas → `Elevación` — for
-insets like media placeholders and code blocks, and two soft radial background
-washes behind the page (a blue glow anchored top-right, an accent wash bottom-left)
-that tint the canvas without reading as a component.
+insets like media placeholders and code blocks, and a soft atmospheric background
+wash behind the page — a blue glow anchored top-right and an accent wash anchored
+bottom-left, over a gentle 155° tonal gradient (canvas → `bg-2` → `Elevación`),
+fixed to the viewport — that tints the canvas without reading as a component.
 
 The only shadow in the system is a response to state: when the sticky header
 detaches from the top on scroll, it gains a single low, wide shadow
@@ -225,8 +227,11 @@ never "this card floats".
 ### Shadow Vocabulary
 - **Detached header** (`box-shadow: 0 20px 38px -30px`): applied to `.glass` only
   when `.site-header.is-scrolled` — a contextual lift, not a resting elevation.
-- **Radial canvas wash** (`radial-gradient(... var(--glow) / var(--accent-soft))`):
-  background atmosphere on `body`, not a shadow and not attached to any element.
+- **Canvas atmosphere** (`radial-gradient(... var(--glow) / var(--accent-soft))`
+  plus a `linear-gradient(155deg, var(--bg), var(--bg-2), var(--elev))`, all
+  `background-attachment: fixed`): background atmosphere on `body`, not a shadow
+  and not attached to any element. Fixed so the solid `--bg` header always meets
+  the gradient at its `--bg` start and never seams.
 
 ### Named Rules
 **The Flat-By-Default Rule.** Surfaces are flat at rest. A shadow appears only as

@@ -1,0 +1,61 @@
+---
+/**
+ * Mapa — imagen estática en blanco y negro de Córdoba, Veracruz.
+ *
+ * Sin iframe ni API: es un asset (`public/img/mapa-cordoba.png`) tratado
+ * en escala de grises, con el mismo marco editorial que las imágenes y un
+ * marcador de marca. La leyenda acredita a OpenStreetMap y enlaza al mapa
+ * real como alternativa interactiva.
+ */
+interface Props {
+  src?: string;
+  alt: string;
+  caption?: string;
+  attrib?: string;
+  attribHref?: string;
+  href?: string;
+  openLabel?: string;
+  class?: string;
+  style?: string;
+  ratio?: string;
+}
+
+const {
+  src = "/img/mapa-cordoba.png",
+  alt,
+  caption,
+  attrib,
+  attribHref = "https://www.openstreetmap.org/copyright",
+  href = "https://www.google.com/maps/search/?api=1&query=18.8943%2C-96.9347",
+  openLabel,
+  class: cls,
+  style,
+  ratio = "9 / 7",
+} = Astro.props;
+---
+<figure class:list={["media", cls]} style={style}>
+  <div class="media__frame" style={`aspect-ratio: ${ratio}`}>
+    <img class="media__img" src={src} alt={alt} loading="lazy" decoding="async" onerror="this.removeAttribute('src')" />
+    <span class="map-pin" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2.2c-3.9 0-7 3.02-7 6.75 0 2.05 1.12 4.16 2.5 6.06C9.1 17.35 10.9 19.2 12 20.5c1.1-1.3 2.9-3.15 4.5-5.49C17.88 13.11 19 11 19 8.95c0-3.73-3.1-6.75-7-6.75Zm0 9.3a2.55 2.55 0 1 1 0-5.1 2.55 2.55 0 0 1 0 5.1Z" />
+      </svg>
+    </span>
+  </div>
+  {(caption || openLabel) && (
+    <figcaption class="media__caption label flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+      <span>
+        {caption}
+        {attrib && (
+          <>
+            {" · "}
+            <a class="map-attrib" href={attribHref} target="_blank" rel="noopener">{attrib}</a>
+          </>
+        )}
+      </span>
+      {openLabel && (
+        <a class="map__open link-accent" href={href} target="_blank" rel="noopener">{openLabel} ↗</a>
+      )}
+    </figcaption>
+  )}
+</figure>

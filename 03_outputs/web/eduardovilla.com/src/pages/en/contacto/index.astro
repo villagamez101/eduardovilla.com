@@ -1,37 +1,140 @@
 ---
 import Base from "@layouts/Base.astro";
+import MapCard from "@components/MapCard.astro";
+import SocialLinks from "@components/SocialLinks.astro";
 import { t } from "@i18n/ui";
 import contacto from "@data/contacto.json";
 
-const channels = [
-  { k: "Email", v: contacto.email, href: `mailto:${contacto.email}` },
-  { k: "Phone", v: contacto.telefono, href: `tel:${contacto.telefono.replace(/\s/g, "")}` },
-  { k: "WhatsApp", v: "Open chat", href: `https://wa.me/${contacto.whatsapp}` },
-  { k: "Where", v: "Córdoba, Veracruz — MX", href: null },
+const wa = `https://wa.me/${contacto.whatsapp}`;
+const tel = `tel:${contacto.telefono.replace(/\s/g, "")}`;
+const next = new URL("/en/contacto?enviado=1#form", Astro.site).href;
+
+const details = [
+  { k: t.contacto.telefonoLabel.en, v: contacto.telefono, href: tel },
+  { k: t.contacto.emailLabel.en, v: contacto.email, href: `mailto:${contacto.email}` },
+  { k: t.contacto.ciudadLabel.en, v: contacto.ubicacion, href: null },
 ];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Eduardo Villa",
+  email: contacto.email,
+  telephone: contacto.telefono,
+  url: Astro.site?.toString(),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Córdoba",
+    addressRegion: "Veracruz",
+    addressCountry: "MX",
+  },
+  sameAs: [contacto.github, contacto.x, contacto.instagram, contacto.linkedin, contacto.behance],
+};
 ---
 <Base
   lang="en"
-  title="Contact — Eduardo Villa"
-  description="Write to me: email, phone or WhatsApp. The door is open."
+  title={t.contacto.metaTitle.en}
+  description={t.contacto.metaDesc.en}
 >
-  <section class="mt-14 border-t border-[var(--line)] pt-12">
-    <h1 class="display rise">Let's talk<span class="text-[var(--accent-text)]">.</span></h1>
-    <p class="rise-2 measure lede mt-8 ink-soft">{t.contacto.saludo.en}</p>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-    <dl class="mt-14 max-w-[42rem] border-t border-[var(--line)]">
-      {channels.map((c, i) => (
-        <div class="reveal flex items-baseline justify-between gap-4 border-b border-[var(--line)] py-5" style={`--d:${i * 70}ms`}>
-          <dt class="label">{c.k}</dt>
-          <dd class="text-right">
-            {c.href ? (
-              <a class="link-accent font-medium" href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined}>{c.v}</a>
-            ) : (
-              <span class="font-medium">{c.v}</span>
-            )}
-          </dd>
+  <section id="form" class="mt-14 border-t border-[var(--line)] pt-12">
+    <h1 class="display rise">Let's talk<span class="text-[var(--accent-text)]">.</span></h1>
+    <p class="rise-2 measure lede mt-8 whitespace-pre-line ink-soft">{t.contacto.saludo.en}</p>
+
+    <p id="form-status" class="form-status mt-8" role="status" hidden>
+      {t.contacto.enviado.en}
+    </p>
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal flex flex-col">
+        <h2 class="display-3">{t.contacto.formTitle.en}</h2>
+
+        <form id="contact-form" class="contact-form mt-6 flex-1" action={`https://formsubmit.co/${contacto.email}`} method="POST">
+          <input type="hidden" name="_subject" value={t.contacto.formSubject.en} />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" value={next} />
+          <input type="text" name="_honey" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <label class="field">
+            <span class="label">{t.contacto.nombreLabel.en}</span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+
+          <label class="field">
+            <span class="label">{t.contacto.correoLabel.en}</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+
+          <label class="field">
+            <span class="label">{t.contacto.asuntoLabel.en}</span>
+            <input type="text" name="subject" required />
+          </label>
+
+          <label class="field">
+            <span class="label">{t.contacto.mensajeLabel.en}</span>
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+        </form>
+
+        <div class="mt-10">
+          <button form="contact-form" type="submit" class="btn btn-accent w-full justify-center sm:w-auto">
+            {t.contacto.enviar.en} <span class="btn__arrow" aria-hidden="true">→</span>
+          </button>
         </div>
-      ))}
-    </dl>
+      </div>
+
+      <div class="reveal flex flex-col" style="--d:120ms">
+        <h2 class="display-3">{t.contacto.datosTitle.en}</h2>
+
+        <dl class="mt-6 border-t border-[var(--line)]">
+          {details.map((d) => (
+            <div class="flex items-baseline justify-between gap-4 border-b border-[var(--line)] py-4">
+              <dt class="label">{d.k}</dt>
+              <dd class="text-right">
+                {d.href ? (
+                  <a class="link-accent font-medium" href={d.href}>{d.v}</a>
+                ) : (
+                  <span class="font-medium">{d.v}</span>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <div class="mt-10">
+          <span class="label">{t.contacto.redesLabel.en}</span>
+          <SocialLinks class="mt-3" x={contacto.x} github={contacto.github} instagram={contacto.instagram} linkedin={contacto.linkedin} behance={contacto.behance} />
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap lg:mt-auto">
+          <a class="btn w-full justify-center sm:w-auto" href={wa} target="_blank" rel="noopener">
+            {t.contacto.ctaWhatsapp.en} <span class="btn__arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="btn w-full justify-center sm:w-auto" href={`mailto:${contacto.email}`}>
+            {t.contacto.ctaEmail.en}
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <section class="mt-24 border-t border-[var(--line)] pt-14">
+    <MapCard
+      class="reveal"
+      ratio="2 / 1"
+      alt={t.contacto.mapaAlt.en}
+      caption={t.contacto.mapaCaption.en}
+      attrib={t.contacto.mapaAtrib.en}
+      openLabel={t.contacto.mapaAbrir.en}
+    />
+  </section>
+
+  <script>
+    const status = document.getElementById("form-status");
+    if (status && new URLSearchParams(location.search).has("enviado")) {
+      status.hidden = false;
+    }
+  </script>
 </Base>

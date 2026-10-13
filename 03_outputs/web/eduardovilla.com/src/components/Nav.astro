@@ -16,8 +16,6 @@ const items = [
   { href: `${base}/acerca`, label: t.nav.acerca },
   { href: `${base}/areas`, label: t.nav.areas },
   { href: `${base}/proyectos`, label: t.nav.proyectos },
-  { href: `${base}/servicios`, label: t.nav.servicios },
-  { href: `${base}/recursos`, label: t.nav.recursos },
   { href: `${base}/blog`, label: t.nav.blog },
   { href: `${base}/contacto`, label: t.nav.contacto },
 ];
@@ -34,10 +32,16 @@ const isActive = (href: string) => {
 <header class="site-header sticky top-0 z-50">
   <div class="glass border-x-0 border-t-0 px-[var(--gutter)]">
     <div class="mx-auto flex w-full max-w-[var(--max-w)] items-center justify-between gap-4 py-3">
-      <a href={`${base}/`} class="logo flex items-center gap-2.5" aria-label="Eduardo Villa — inicio">
-        <Logo class="h-8 w-8" />
-        <span class="text-sm font-bold tracking-tight">Eduardo Villa</span>
-      </a>
+      <div class="flex items-center gap-4">
+        <a href={`${base}/`} class="logo flex items-center gap-2.5" aria-label="Eduardo Villa — inicio">
+          <Logo class="h-9 w-9" />
+          <span class="text-sm font-bold tracking-tight">Eduardo Villa</span>
+        </a>
+        <span class="hidden items-center gap-2 border-l border-[var(--line)] pl-4 text-xs ink-faint lg:flex">
+          <span class="status-dot" aria-hidden="true"></span>
+          {t.footer.disponible[l]}
+        </span>
+      </div>
 
       <nav class="hidden items-center gap-0 lg:flex" aria-label="Principal">
         {items.map((item) => (
@@ -75,6 +79,12 @@ const isActive = (href: string) => {
   </div>
 
   <div id="nav-mobile" class="site-menu glass border-x-0 lg:hidden">
+    <div class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)] pt-4">
+      <p class="flex items-center gap-2.5 text-xs ink-faint">
+        <span class="status-dot" aria-hidden="true"></span>
+        {t.footer.disponible[l]}
+      </p>
+    </div>
     <nav class="mx-auto grid w-full max-w-[var(--max-w)] grid-cols-2 gap-1 px-[var(--gutter)] py-4">
       {items.map((item) => (
         <a

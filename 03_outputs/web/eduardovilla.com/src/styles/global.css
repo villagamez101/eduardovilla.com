@@ -92,7 +92,9 @@ body {
   background-color: var(--bg);
   background-image:
     radial-gradient(55rem 45rem at 100% -8%, var(--glow), transparent 62%),
-    radial-gradient(46rem 46rem at -18% 108%, var(--accent-soft), transparent 62%);
+    radial-gradient(46rem 46rem at -18% 108%, var(--accent-soft), transparent 62%),
+    linear-gradient(155deg, var(--bg) 0%, var(--bg-2) 48%, var(--elev) 100%);
+  background-attachment: fixed;
   background-repeat: no-repeat;
   color: var(--ink);
   min-height: 100dvh;
@@ -179,6 +181,14 @@ input, button, textarea { accent-color: var(--accent); }
 
 /* Medida de lectura */
 .measure { max-width: var(--measure); }
+
+/* Banda de sección: rompe el plano del fondo, sangra hasta el borde
+   del contenedor y realinea el contenido con la retícula. */
+.band {
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  background: var(--band);
+}
 
 /* ---------------- Utilidades de color / superficies ---------------- */
 .text-accent { color: var(--accent-text); }
@@ -454,6 +464,12 @@ input, button, textarea { accent-color: var(--accent); }
   object-fit: cover;
   z-index: 2;
   transition: transform 0.8s var(--ease-entrance);
+  /* Disuade la descarga casual: sin arrastrar, sin seleccionar, sin menú contextual. */
+  pointer-events: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .media:hover .media__img { transform: scale(1.035); }
 
@@ -493,6 +509,136 @@ input, button, textarea { accent-color: var(--accent); }
 
 .hero__media .media__frame { animation: mediaReveal 950ms 240ms var(--ease-entrance) both; }
 
+/* ---------------- Mapa ----------------
+   Imagen estática en blanco y negro (`public/img/mapa-cordoba.png`) con
+   el mismo marco que las imágenes y un marcador de marca que cae sobre
+   el centro en un solo gesto. */
+.map-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 2.1rem;
+  height: 2.1rem;
+  transform: translate(-50%, -100%);
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
+  animation: mapDrop 620ms var(--ease-entrance) 340ms both;
+}
+.map-pin svg { display: block; width: 100%; height: 100%; }
+.map-pin svg path { fill: var(--accent); stroke: #fff; stroke-width: 0.6; }
+@keyframes mapDrop {
+  from { opacity: 0; transform: translate(-50%, -78%); }
+  to { opacity: 1; transform: translate(-50%, -100%); }
+}
+.map-attrib { color: inherit; text-decoration: underline; text-underline-offset: 0.2em; }
+.map__open { text-decoration: none; white-space: nowrap; }
+
+/* ---------------- Contacto: formulario y datos ----------------
+   Superficie de entrada serena: cada campo es una línea fina que se
+   tiñe de acento al enfocar, sin ruido de cajas. */
+.contact-form { display: grid; gap: 1.15rem; }
+.field { display: grid; gap: 0.55rem; }
+.field :is(input, textarea) {
+  width: 100%;
+  font: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 0.9rem;
+  transition: border-color var(--dur-mid) var(--ease-standard),
+    background var(--dur-mid) var(--ease-standard);
+}
+.field :is(input, textarea)::placeholder { color: var(--ink-faint); }
+.field :is(input, textarea):focus {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+.field textarea { resize: vertical; min-height: 8.5rem; }
+.form-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  font-size: var(--fs-small);
+}
+.form-status[hidden] { display: none; }
+
+.social-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 99px;
+  color: var(--ink-soft);
+  transition: color var(--dur-mid) var(--ease-standard),
+    border-color var(--dur-mid) var(--ease-standard),
+    transform var(--dur-mid) var(--ease-entrance);
+}
+.social-link:hover {
+  color: var(--accent-text);
+  border-color: var(--accent-line);
+  transform: translateY(-2px);
+}
+.social-link svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+
+/* ---------------- Acerca de: fortalezas ----------------
+   Barras finas que se dibujan al entrar en vista. El nivel vive en
+   `--v`, así el HTML declara la fortaleza y el nivel sin lógica. */
+.skill { display: grid; gap: 0.55rem; }
+.skill__top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.skill__name { font-weight: 600; }
+.skill__val { font-variant-numeric: tabular-nums; }
+.skill__track {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.skill__fill {
+  display: block;
+  width: var(--v, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transform-origin: left;
+}
+.reveal.is-in .skill__fill { animation: skillDraw 900ms var(--ease-entrance) var(--d, 0ms) both; }
+@keyframes skillDraw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ---------------- Pie: disponibilidad ----------------
+   Un punto que late, sobrio: señala que hay espacio para proyectos. */
+.status-dot {
+  position: relative;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 99px;
+  background: var(--accent);
+}
+.status-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  animation: statusPing 2s var(--ease-standard) infinite;
+}
+@keyframes statusPing {
+  0% { transform: scale(1); opacity: 0.5; }
+  70%, 100% { transform: scale(2.6); opacity: 0; }
+}
+
 /* ---------------- Barra superior / navegación ---------------- */
 /* La barra se eleva al dejar la parte alta: la página se desplaza
    por debajo y la cabecera gana un plano propio. */
@@ -501,7 +647,7 @@ input, button, textarea { accent-color: var(--accent); }
   box-shadow: 0 20px 38px -30px rgba(0, 0, 0, 0.85);
 }
 :root[data-theme="light"] .site-header.is-scrolled .glass {
-  box-shadow: 0 20px 38px -30px rgba(20, 23, 44, 0.45);
+  box-shadow: 0 20px 38px -30px rgba(16, 16, 19, 0.35);
 }
 
 /* Menú móvil: se despliega en alto y aparece, en un solo gesto. */
@@ -549,7 +695,12 @@ input, button, textarea { accent-color: var(--accent); }
   .card, .btn, .nav-link::after, .btn__arrow, .media__frame,
   .theme-toggle__icons svg, .logo .logo-mark, .site-header,
   .area-card__glyph, .area-card__rule, .area-card__arrow,
-  .area-card__num, .area-card__title, .area-card__more { transition: none; }
+  .area-card__num, .area-card__title, .area-card__more,
+  .social-link, .field :is(input, textarea) { transition: none; }
+  .map-pin { animation: none; }
+  .social-link:hover { transform: none; }
+  .reveal.is-in .skill__fill { animation: none; }
+  .status-dot::after { animation: none; }
   .btn:hover, .btn:hover .btn__arrow, .logo:hover .logo-mark { transform: none; }
   .area-card:hover .area-card__glyph,
   .area-card:hover .area-card__arrow { transform: none; }

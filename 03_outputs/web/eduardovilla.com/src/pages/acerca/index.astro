@@ -1,71 +1,172 @@
 ---
 import Base from "@layouts/Base.astro";
+import SocialLinks from "@components/SocialLinks.astro";
 import { t } from "@i18n/ui";
+import contacto from "@data/contacto.json";
 
-const hitos = [
-  { k: "2022–2026", t: "Administrador de proyectos", d: "ERP a medida en producción en <6 meses · Lark Suite para 800+ usuarios." },
-  { k: "2019–2022", t: "Encargado de e-commerce", d: "~$5M MXN/mes · 20+ marketplaces · catálogo de 3,000 productos · equipo de 6." },
-  { k: "2018–2019", t: "Diseñador gráfico", d: "Donde empezó todo: identidad, forma y color." },
+const trayectoria = [
+  {
+    k: "2022–2026",
+    t: "Administrador de proyectos",
+    org: "Linkbits",
+    d: "ERP a medida en producción en menos de seis meses · Lark Suite para 800+ usuarios · análisis funcional, QA, documentación y capacitación.",
+  },
+  {
+    k: "2019–2022",
+    t: "Encargado de comercio electrónico",
+    org: "Linkbits",
+    d: "Operación desde cero hasta $5M MXN al mes · 20+ marketplaces · catálogo de 3,000 productos · equipo de 6.",
+  },
+  {
+    k: "2018–2019",
+    t: "Diseñador gráfico",
+    org: "Sisco Tecnología",
+    d: "Material publicitario, fotografía de producto y contenido para redes. Donde empezó todo.",
+  },
+];
+
+const fortalezas = [
+  { n: "Visión integral", v: 95 },
+  { n: "Resolución de problemas", v: 92 },
+  { n: "Aprendizaje autodidacta", v: 95 },
+  { n: "Pensamiento analítico", v: 90 },
+  { n: "Organización y seguimiento", v: 88 },
+  { n: "Enfoque creativo", v: 86 },
+];
+
+const herramientas = [
+  "Excel avanzado",
+  "Lark Suite · Notion",
+  "Sistemas ERP",
+  "Amazon · Mercado Libre",
+  "WordPress · WooCommerce",
+  "Figma · Photoshop · Illustrator",
 ];
 ---
 <Base
   lang="es"
   title={`${t.acerca.indexTitle.es} — Eduardo Villa`}
-  description="Quién es Eduardo Villa: generalista creativo, analista de procesos y sistemas, y por qué este sitio existe."
+  description="Eduardo Villa: analista de procesos y sistemas, generalista creativo. Su historia, su actualidad, su trayectoria, su formación y sus fortalezas."
 >
   <article class="mt-14 border-t border-[var(--line)] pt-12">
-    <h1 class="display-2 rise measure">
-      Hago pocas cosas,<br />pero las hago completas.
-    </h1>
+    <h1 class="display rise">Hola, soy Eduardo<span class="text-[var(--accent-text)]">.</span></h1>
 
-    <div class="mt-14 grid gap-12 lg:grid-cols-[1.7fr_1fr]">
-      <div class="reveal space-y-6 lede">
-        <p>
-          Soy Eduardo Villa, de Córdoba, Veracruz. Empecé diseñando, terminé operando
-          e-commerce (tres años, veinte marketplaces, tres mil productos) y me quedé en
-          el punto donde el diseño y los sistemas se encuentran: tecnología aplicada
-          con criterio a negocios reales.
-        </p>
-        <p class="ink-soft">
-          En Linkbits — siete años — monté catálogos y tiendas, y después administré
-          proyectos: un ERP a la medida en producción en menos de seis meses, Lark
-          Suite para más de ochocientos usuarios. Aprendí que casi ningún problema es
-          "de diseño" o "de sistemas": es del panorama completo.
-        </p>
-        <p class="ink-soft">
-          Este sitio es mi refugio: un lugar para escribir lo que aprendo, guardar lo
-          que construyo y mostrar el recorrido completo de un generalista.
-        </p>
-      </div>
-
-      <aside class="reveal flex flex-col gap-8">
-        <div>
-          <p class="label border-t border-[var(--line)] pt-3">Ahora</p>
-          <p class="mt-3 text-sm ink-soft">
-            Explorando IA aplicada a operaciones reales, construyendo este sitio y
-            abriendo espacio para escribir. Actualizado: 2026.
-          </p>
-        </div>
-        <a href="/contacto" class="btn btn-accent w-fit">Hablemos →</a>
-      </aside>
+    <div class="rise-2 mt-8 measure space-y-5 lede ink-soft">
+      <p>
+        Llevo más de 7 años trabajando en transformación digital, uniendo áreas que
+        casi siempre van por separado: tecnología, diseño, marketing y procesos.
+      </p>
+      <p>
+        En este tiempo aprendí que los problemas de una empresa rara vez son técnicos.
+        Son el desorden, la resistencia al cambio, una administración débil y la falta
+        de digitalización.
+      </p>
+      <p>
+        Por eso no vendo piezas sueltas: integro sistemas y herramientas que se conectan
+        entre sí y van directo a lo más crítico del negocio.
+      </p>
+      <p>
+        Resultados medibles y objetivos enfocados a generar negocio: no bullshit. Y
+        siempre desde la raíz, porque tu empresa necesita cimientos fuertes para
+        aguantar el crecimiento.
+      </p>
     </div>
 
+    <!-- Actualidad -->
+    <section class="mt-20 grid gap-6 border-t border-[var(--line)] pt-14 lg:grid-cols-[10rem_1fr] lg:gap-10">
+      <span class="label reveal lg:pt-2">Ahora</span>
+      <div class="reveal">
+        <p class="label tabular-nums">2026 — actual</p>
+        <p class="mt-3 font-semibold">
+          Gestión de proyectos <span class="ink-faint">· Construrama Marego</span>
+        </p>
+        <p class="mt-4 measure">
+          Llevo los principales proyectos de crecimiento digital de esta empresa de
+          materiales de construcción, ferretería y aceros estructurales.
+        </p>
+        <p class="mt-4 measure ink-soft">
+          Y estoy aprendiendo inteligencia artificial y proyectos digitales con agentes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Trayectoria -->
     <section class="mt-20">
       <p class="label reveal border-t border-[var(--line)] pt-3">Trayectoria</p>
       <ol class="mt-6">
-        {hitos.map((h, i) => (
-          <li class="reveal grid gap-1 border-b border-[var(--line)] py-6 sm:grid-cols-[10rem_1fr] sm:gap-8" style={`--d:${i * 70}ms`}>
+        {trayectoria.map((h, i) => (
+          <li class="reveal grid gap-1 border-b border-[var(--line)] py-6 sm:grid-cols-[9rem_1fr] sm:gap-8" style={`--d:${i * 70}ms`}>
             <span class="label tabular-nums sm:pt-1">{h.k}</span>
             <span>
-              <span class="block font-semibold">{h.t}</span>
+              <span class="block font-semibold">{h.t} <span class="ink-faint">· {h.org}</span></span>
               <span class="mt-1 block text-sm ink-soft">{h.d}</span>
             </span>
           </li>
         ))}
       </ol>
-      <p class="mt-8 text-sm">
-        <a class="a-link" href="/recursos">CV 2026 completo y recursos →</a>
+    </section>
+
+    <!-- Formación y autodidacta -->
+    <section class="mt-20 grid gap-12 border-t border-[var(--line)] pt-14 lg:grid-cols-2 lg:gap-16">
+      <div class="reveal">
+        <p class="label">Educación</p>
+        <p class="mt-4 measure">
+          <span class="block font-semibold">Ingeniería en Sistemas — 4.º semestre</span>
+          <span class="mt-1 block text-sm ink-soft">
+            Instituto Tecnológico de Orizaba · Tecnológico de Huatusco. La carrera
+            quedó inconclusa; las ganas de aprender, no.
+          </span>
+        </p>
+      </div>
+      <div class="reveal" style="--d:110ms">
+        <p class="label">Conocimiento autodidacta</p>
+        <p class="mt-4 measure text-sm ink-soft">
+          Buena parte de lo que sé no vino de un aula: vino de proyectos reales, de
+          equivocarme en producción y de aprender por pura curiosidad —diseño,
+          desarrollo web, automatización de procesos, análisis de datos e IA. Ese es,
+          quizá, mi mejor título.
+        </p>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {herramientas.map((h) => (
+            <li class="tag">{h}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Fortalezas -->
+    <section class="mt-20 border-t border-[var(--line)] pt-14">
+      <p class="label reveal">Fortalezas</p>
+      <div class="mt-8 grid gap-x-14 gap-y-7 sm:grid-cols-2">
+        {fortalezas.map((s, i) => (
+          <div class="skill reveal" style={`--d:${i * 70}ms; --v:${s.v}%`}>
+            <div class="skill__top">
+              <span class="skill__name">{s.n}</span>
+              <span class="skill__val label">{s.v}</span>
+            </div>
+            <div class="skill__track" role="img" aria-label={`${s.n}: ${s.v} de 100`}>
+              <span class="skill__fill"></span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Cierre -->
+    <section class="mt-24 border-t border-[var(--line)] pt-16 pb-8">
+      <p class="display-2 reveal measure">¿Te resuena algo de esto?</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/cv-eduardo-villa-2026.pdf" target="_blank" rel="noopener" class="btn btn-accent rise">
+          Ver CV <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="/cv-eduardo-villa-2026.pdf" download class="btn rise-2">Descargar CV</a>
+      </div>
+      <p class="mt-6 text-sm">
+        <a class="a-link" href="/contacto">¿Prefieres escribirme? Hablemos →</a>
       </p>
+      <div class="reveal mt-8">
+        <SocialLinks x={contacto.x} github={contacto.github} instagram={contacto.instagram} linkedin={contacto.linkedin} behance={contacto.behance} />
+      </div>
     </section>
   </article>
 </Base>

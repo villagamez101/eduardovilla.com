@@ -59,6 +59,8 @@ const hasImage = Boolean(
         alt={alt}
         loading={loading}
         decoding="async"
+        draggable="false"
+        oncontextmenu="return false"
         onerror="this.removeAttribute('src')"
       />
     )}

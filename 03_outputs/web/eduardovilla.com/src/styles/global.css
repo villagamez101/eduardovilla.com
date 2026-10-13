@@ -353,6 +353,11 @@ input, button, textarea { accent-color: var(--accent); }
   filter: brightness(1.06);
 }
 
+/* Interruptor ES/EN. El pill activo debe declararse sin capa para ganar
+   al `a { color: inherit }` base: así el texto queda claro sobre el azul
+   de marca también en modo claro. */
+.lang-switch__active { color: var(--accent-ink); }
+
 /* Navegación: subrayado de acento que crece desde la izquierda */
 .nav-link { position: relative; }
 .nav-link::after {
@@ -508,6 +513,106 @@ input, button, textarea { accent-color: var(--accent); }
 .media__caption { color: var(--ink-faint); }
 
 .hero__media .media__frame { animation: mediaReveal 950ms 240ms var(--ease-entrance) both; }
+
+/* Ampliación de imagen (lightbox)
+   Un botón invisible sobre el marco abre la imagen a color natural,
+   sin filtros, centrada y a un tamaño intermedio sobre un velo azul
+   oscuro. Cierra con la equis, con Escape o al tocar el fondo. */
+.media__zoom {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.media__zoom:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: -4px;
+  border-radius: inherit;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(9, 14, 38, 0.93);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+.lightbox[hidden] { display: none; }
+.lightbox.is-open { opacity: 1; }
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+.lightbox__stage {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: min(92vw, 64rem);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity var(--dur-mid) var(--ease-standard),
+    transform var(--dur-slow) var(--ease-entrance);
+}
+.lightbox.is-open .lightbox__stage { opacity: 1; transform: none; }
+
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  border: 1px solid rgba(244, 245, 248, 0.18);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: -0.85rem;
+  right: -0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 99px;
+  border: 1px solid var(--line-strong);
+  background: var(--elev);
+  color: var(--ink);
+  cursor: pointer;
+  transition: color var(--dur-mid) var(--ease-standard),
+    border-color var(--dur-mid) var(--ease-standard),
+    transform var(--dur-mid) var(--ease-entrance);
+}
+.lightbox__close:hover {
+  color: var(--accent-text);
+  border-color: var(--accent-line);
+  transform: rotate(90deg);
+}
+.lightbox__close svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
 
 /* ---------------- Mapa ----------------
    Imagen estática en blanco y negro (`public/img/mapa-cordoba.png`) con
@@ -699,6 +804,8 @@ input, button, textarea { accent-color: var(--accent); }
   .social-link, .field :is(input, textarea) { transition: none; }
   .map-pin { animation: none; }
   .social-link:hover { transform: none; }
+  .lightbox, .lightbox__stage { transition: none; }
+  .lightbox__close:hover { transform: none; }
   .reveal.is-in .skill__fill { animation: none; }
   .status-dot::after { animation: none; }
   .btn:hover, .btn:hover .btn__arrow, .logo:hover .logo-mark { transform: none; }

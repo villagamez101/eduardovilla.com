@@ -19,6 +19,8 @@ interface Props {
   class?: string;
   style?: string;
   loading?: "lazy" | "eager";
+  lightbox?: boolean;
+  zoomLabel?: string;
 }
 
 const {
@@ -31,6 +33,8 @@ const {
   class: cls,
   style,
   loading = "lazy",
+  lightbox = false,
+  zoomLabel,
 } = Astro.props;
 
 const hasImage = Boolean(
@@ -63,6 +67,15 @@ const hasImage = Boolean(
         oncontextmenu="return false"
         onerror="this.removeAttribute('src')"
       />
+    )}
+    {hasImage && lightbox && (
+      <button
+        type="button"
+        class="media__zoom"
+        data-lightbox-src={src}
+        data-lightbox-alt={alt}
+        aria-label={zoomLabel ?? alt}
+      ></button>
     )}
   </div>
   {caption && <figcaption class="media__caption label">{caption}</figcaption>}

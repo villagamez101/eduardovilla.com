@@ -1,0 +1,93 @@
+---
+/**
+ * Lightbox — amplía una imagen a pantalla completa sobre un velo azul oscuro.
+ *
+ * Se monta una sola vez (ver Base.astro). Cualquier <Media lightbox /> emite
+ * un botón `.media__zoom` con `data-lightbox-src`; este componente recoge esos
+ * disparadores y muestra la imagen centrada, a color natural y sin filtros,
+ * con una equis para cerrar (clic, Escape o botón).
+ */
+import { t, getLang } from "@i18n/ui";
+
+interface Props {
+  lang: "es" | "en";
+}
+
+const { lang } = Astro.props;
+const l = getLang(lang);
+---
+<div
+  class="lightbox"
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label={t.home.ampliar[l]}
+  hidden
+>
+  <div class="lightbox__backdrop" data-lightbox-close aria-hidden="true"></div>
+  <figure class="lightbox__stage">
+    <img class="lightbox__img" alt="" decoding="async" />
+    <button
+      type="button"
+      class="lightbox__close"
+      data-lightbox-close
+      aria-label={t.home.cerrar[l]}
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </figure>
+</div>
+
+<script is:inline>
+  (() => {
+    const box = document.getElementById("lightbox");
+    if (!box) return;
+    const img = box.querySelector(".lightbox__img");
+    const closeBtn = box.querySelector(".lightbox__close");
+    const triggers = document.querySelectorAll("[data-lightbox-src]");
+    if (!triggers.length) return;
+
+    let lastFocus = null;
+    let hideTimer = 0;
+
+    const open = (src, alt) => {
+      if (!src) return;
+      lastFocus = document.activeElement;
+      window.clearTimeout(hideTimer);
+      img.src = src;
+      img.alt = alt || "";
+      box.hidden = false;
+      requestAnimationFrame(() => box.classList.add("is-open"));
+      document.documentElement.style.overflow = "hidden";
+      closeBtn.focus();
+    };
+
+    const close = () => {
+      box.classList.remove("is-open");
+      document.documentElement.style.overflow = "";
+      hideTimer = window.setTimeout(() => {
+        if (box.classList.contains("is-open")) return;
+        box.hidden = true;
+        img.removeAttribute("src");
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }, 320);
+    };
+
+    triggers.forEach((el) => {
+      el.addEventListener("click", (event) => {
+        event.preventDefault();
+        open(el.dataset.lightboxSrc, el.dataset.lightboxAlt);
+      });
+    });
+
+    box.addEventListener("click", (event) => {
+      if (event.target.closest("[data-lightbox-close]")) close();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !box.hidden) close();
+    });
+  })();
+</script>

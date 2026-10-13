@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import Nav from "@components/Nav.astro";
 import Footer from "@components/Footer.astro";
+import Lightbox from "@components/Lightbox.astro";
 import montserrat400 from "@fontsource/montserrat/files/montserrat-latin-400-normal.woff2?url";
 import montserrat500 from "@fontsource/montserrat/files/montserrat-latin-500-normal.woff2?url";
 import montserrat600 from "@fontsource/montserrat/files/montserrat-latin-600-normal.woff2?url";
@@ -69,6 +70,7 @@ const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslo
       <slot />
     </main>
     <Footer lang={lang} />
+    <Lightbox lang={lang} />
     <script is:inline>
       // Reveal on scroll
       (() => {

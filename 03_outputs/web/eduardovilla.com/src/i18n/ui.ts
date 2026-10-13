@@ -13,7 +13,7 @@ type Dict = { es: string; en: string };
 export const t = {
   nav: {
     inicio: { es: "Inicio", en: "Home" },
-    acerca: { es: "Acerca de", en: "About" },
+    acerca: { es: "Acerca", en: "About" },
     areas: { es: "Áreas", en: "Areas" },
     proyectos: { es: "Proyectos", en: "Projects" },
     blog: { es: "Blog", en: "Blog" },
@@ -45,6 +45,8 @@ export const t = {
       es: "Equipos con los que he construido",
       en: "Teams I've built with",
     } satisfies Dict,
+    ampliar: { es: "Ampliar imagen", en: "Enlarge image" } satisfies Dict,
+    cerrar: { es: "Cerrar", en: "Close" } satisfies Dict,
     imgPlaceholder: { es: "Imagen en camino", en: "Image on the way" } satisfies Dict,
     areasKicker: {
       es: "Seis áreas de interés",

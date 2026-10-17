@@ -61,17 +61,20 @@ const isActive = (href: string) => {
       </nav>
 
       <div class="flex items-center gap-2">
-        <LanguageSwitch lang={lang} />
+        <div class="hidden lg:block">
+          <LanguageSwitch lang={lang} />
+        </div>
         <ThemeSwitch />
         <button
           id="nav-toggle"
-          class="flex h-9 w-9 items-center justify-center rounded-full border border-line lg:hidden"
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-line text-[var(--ink)] transition-colors hover:border-[var(--accent)] lg:hidden"
           aria-expanded="false"
           aria-controls="nav-mobile"
-          aria-label="Menú"
+          aria-label={lang === "es" ? "Menú" : "Menu"}
         >
-          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-            <path class="nav-line-top" d="M4 8h16M4 16h16" />
+          <svg class="nav-toggle__icon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line class="nav-toggle__top" x1="4" y1="9" x2="20" y2="9" />
+            <line class="nav-toggle__bottom" x1="4" y1="15" x2="20" y2="15" />
           </svg>
         </button>
       </div>
@@ -79,26 +82,53 @@ const isActive = (href: string) => {
   </div>
 
   <div id="nav-mobile" class="site-menu glass border-x-0 lg:hidden">
-    <div class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)] pt-4">
+    <div class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)] pb-7 pt-5">
       <p class="flex items-center gap-2.5 text-xs ink-faint">
         <span class="status-dot" aria-hidden="true"></span>
         {t.footer.disponible[l]}
       </p>
+
+      <nav class="mt-4" aria-label={lang === "es" ? "Menú principal" : "Main menu"}>
+        <ul class="border-t border-[var(--line)]">
+          {items.map((item) => (
+            <li class="border-b border-[var(--line)]">
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                class:list={[
+                  "group/item flex items-center justify-between gap-4 py-4 text-base transition-colors",
+                  isActive(item.href)
+                    ? "text-[var(--accent-text)]"
+                    : "text-[var(--ink-soft)] active:text-[var(--ink)]",
+                ]}
+              >
+                <span>{item.label[l]}</span>
+                <svg
+                  class:list={[
+                    "h-4 w-4 flex-none transition-transform group-hover/item:translate-x-1",
+                    isActive(item.href) ? "text-[var(--accent-text)]" : "text-[var(--ink-faint)]",
+                  ]}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="mt-6 flex items-center justify-between gap-4">
+        <span class="label">{lang === "es" ? "Idioma" : "Language"}</span>
+        <LanguageSwitch lang={lang} />
+      </div>
     </div>
-    <nav class="mx-auto grid w-full max-w-[var(--max-w)] grid-cols-2 gap-1 px-[var(--gutter)] py-4">
-      {items.map((item) => (
-        <a
-          href={item.href}
-          aria-current={isActive(item.href) ? "page" : undefined}
-          class:list={[
-            "rounded-lg px-3 py-2 text-sm",
-            isActive(item.href) ? "text-[var(--accent-text)]" : "text-[var(--ink-soft)]",
-          ]}
-        >
-          {item.label[l]}
-        </a>
-      ))}
-    </nav>
   </div>
 </header>
 

@@ -86,6 +86,8 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  /* Los anclajes (#seccion) no quedan bajo la cabecera fija. */
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -182,11 +184,22 @@ input, button, textarea { accent-color: var(--accent); }
 /* Medida de lectura */
 .measure { max-width: var(--measure); }
 
+/* Carril de contenido: la sangría lateral del sistema, ampliada con
+   las zonas seguras del dispositivo (notch, indicador de inicio) para
+   que el contenido nunca quede bajo el hardware en landscape. */
+.rail {
+  padding-inline: max(var(--gutter), env(safe-area-inset-left))
+    max(var(--gutter), env(safe-area-inset-right));
+}
+
 /* Banda de sección: rompe el plano del fondo, sangra hasta el borde
-   del contenedor y realinea el contenido con la retícula. */
+   del contenedor y realinea el contenido con la retícula. El sangrado
+   iguala la sangría del carril, zonas seguras incluidas. */
 .band {
-  margin-inline: calc(var(--gutter) * -1);
-  padding-inline: var(--gutter);
+  margin-inline: calc(-1 * max(var(--gutter), env(safe-area-inset-left)))
+    calc(-1 * max(var(--gutter), env(safe-area-inset-right)));
+  padding-inline: max(var(--gutter), env(safe-area-inset-left))
+    max(var(--gutter), env(safe-area-inset-right));
   background: var(--band);
 }
 
@@ -432,11 +445,14 @@ input, button, textarea { accent-color: var(--accent); }
   color: var(--ink-soft);
 }
 
-@media (min-width: 1024px) {
+/* El hero se parte en dos columnas desde tablet: en una sola columna el
+   retrato 4/5 a todo el ancho domina la pantalla (≈80% del alto en una
+   tablet vertical). Desde 768px el retrato queda acotado junto al texto. */
+@media (min-width: 768px) {
   .hero__grid {
-    grid-template-columns: minmax(0, 1.05fr) minmax(19rem, 0.72fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(16rem, 0.72fr);
     grid-template-rows: auto auto;
-    column-gap: clamp(2.5rem, 6vw, 5.5rem);
+    column-gap: clamp(2rem, 5vw, 5.5rem);
     row-gap: 2.25rem;
     align-items: start;
   }
@@ -766,11 +782,25 @@ input, button, textarea { accent-color: var(--accent); }
     visibility 0s linear var(--dur-slow);
 }
 .site-menu.is-open {
-  max-height: 24rem;
+  max-height: 46rem;
   opacity: 1;
   visibility: visible;
   transition: max-height var(--dur-slow) var(--ease-entrance),
     opacity var(--dur-mid) var(--ease-standard), visibility 0s;
+}
+
+/* Botón de menú móvil: dos trazos que se cruzan en equis al abrir. */
+.nav-toggle__top,
+.nav-toggle__bottom {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-mid) var(--ease-entrance);
+}
+#nav-toggle[aria-expanded="true"] .nav-toggle__top {
+  transform: translateY(3px) rotate(45deg);
+}
+#nav-toggle[aria-expanded="true"] .nav-toggle__bottom {
+  transform: translateY(-3px) rotate(-45deg);
 }
 
 /* Logo */
@@ -790,6 +820,36 @@ input, button, textarea { accent-color: var(--accent); }
 :root[data-theme="light"] .icon-sun { opacity: 0; transform: rotate(90deg) scale(0.4); }
 :root[data-theme="light"] .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
+/* ---------------- Adaptación táctil y zonas seguras ----------------
+   En punteros gruesos (táctil) los controles crecen al mínimo cómodo
+   (~44px); sin hover, el estado :active confirma la pulsación. Las zonas
+   seguras del dispositivo (notch, indicador de inicio) se respetan con
+   env() en la cabecera fija y el pie. */
+.site-header { padding-top: env(safe-area-inset-top, 0px); }
+footer { padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+
+@media (pointer: coarse) {
+  #nav-toggle,
+  #theme-switch { width: 2.75rem; height: 2.75rem; }
+  .lang-switch a { padding-block: 0.5rem; padding-inline: 0.7rem; }
+  .social-link { width: 2.75rem; height: 2.75rem; }
+  .btn { padding-block: 0.82rem; }
+}
+
+@media (hover: none) {
+  .card:active,
+  .area-card:active {
+    border-color: var(--accent-line);
+    background: var(--surface-2);
+  }
+  .btn:active { border-color: var(--accent); color: var(--accent-text); }
+  .social-link:active,
+  .link-accent:active {
+    color: var(--accent-text);
+    border-color: var(--accent-line);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .rise, .rise-2, .rise-3, .rule-accent { animation: none; }
@@ -806,6 +866,7 @@ input, button, textarea { accent-color: var(--accent); }
   .social-link:hover { transform: none; }
   .lightbox, .lightbox__stage { transition: none; }
   .lightbox__close:hover { transform: none; }
+  .nav-toggle__top, .nav-toggle__bottom { transition: none; }
   .reveal.is-in .skill__fill { animation: none; }
   .status-dot::after { animation: none; }
   .btn:hover, .btn:hover .btn__arrow, .logo:hover .logo-mark { transform: none; }

@@ -24,7 +24,7 @@ const nav = [
   { href: `${base}/contacto`, label: t.nav.contacto },
 ];
 ---
-<footer class="relative mt-28 border-t border-line px-[var(--gutter)] pt-14">
+<footer class="rail relative mt-28 border-t border-line pt-14">
   <div class="mx-auto grid w-full max-w-[var(--max-w)] gap-12 md:grid-cols-[1.5fr_1fr_1.2fr] md:gap-14">
     <!-- 01 · Marca -->
     <div class="flex flex-col gap-5 border-t border-[var(--line)] pt-5">
@@ -45,12 +45,12 @@ const nav = [
       aria-label={lang === "es" ? "Pie de página" : "Footer"}
     >
       <p class="label">{t.footer.navegacion[l]}</p>
-      <ul class="flex flex-col gap-2 text-sm">
+      <ul class="flex flex-col gap-1 text-sm">
         {nav.map((item) => (
           <li>
             <a
               href={item.href}
-              class="text-[var(--ink-soft)] transition-colors hover:text-[var(--accent-text)]"
+              class="inline-block py-1 text-[var(--ink-soft)] transition-colors hover:text-[var(--accent-text)]"
             >
               {item.label[l]}
             </a>
@@ -62,10 +62,10 @@ const nav = [
     <!-- 03 · Contacto -->
     <div class="flex flex-col gap-4 border-t border-[var(--line)] pt-5">
       <p class="label">{t.footer.contacto[l]}</p>
-      <div class="flex flex-col gap-2 text-sm">
-        <a class="link-accent w-fit" href={`mailto:${contacto.email}`}>{contacto.email}</a>
-        <a class="link-accent w-fit" href={wa} target="_blank" rel="noopener">{contacto.telefono}</a>
-        <span class="w-fit ink-soft">{contacto.ubicacion}</span>
+      <div class="flex flex-col gap-0.5 text-sm">
+        <a class="link-accent inline-block w-fit py-1" href={`mailto:${contacto.email}`}>{contacto.email}</a>
+        <a class="link-accent inline-block w-fit py-1" href={wa} target="_blank" rel="noopener">{contacto.telefono}</a>
+        <span class="w-fit py-1 ink-soft">{contacto.ubicacion}</span>
       </div>
       <SocialLinks
         class="mt-1"

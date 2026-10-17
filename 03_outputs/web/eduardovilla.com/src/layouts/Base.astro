@@ -23,7 +23,7 @@ const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslo
 <html lang={lang} data-theme="dark">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -52,6 +52,13 @@ const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslo
       h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; margin: 0; }
       h4, h5, h6 { font-weight: 600; margin: 0; }
     </style>
+    {/* Solo en dev: Vite sirve el CSS por JS (tras el parseo) y el primer
+       pintado sale sin estilos. Un <link> bloqueante al mismo archivo lo
+       carga como hoja de estilos antes del render y elimina el parpadeo.
+       En producción Astro ya emite el <link> al CSS compilado. */}
+    {import.meta.env.DEV && (
+      <link rel="stylesheet" href="/src/styles/global.css" />
+    )}
     <script is:inline>
       // Tema y colores base antes del primer pintado (evita flash).
       (() => {
@@ -66,7 +73,7 @@ const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslo
   </head>
   <body>
     <Nav lang={lang} />
-    <main id="main" class="mx-auto w-full max-w-[var(--max-w)] px-[var(--gutter)]">
+    <main id="main" class="rail mx-auto w-full max-w-[var(--max-w)]">
       <slot />
     </main>
     <Footer lang={lang} />
@@ -130,8 +137,5 @@ const fonts = [montserrat400, montserrat500, montserrat600, montserrat700, caslo
         els.forEach((el) => io.observe(el));
       })();
     </script>
-  <!-- impeccable-live-start -->
-<script is:inline src="http://localhost:8400/live.js?token=63acf955-63d7-45e7-be6f-d9c2505932cb"></script>
-<!-- impeccable-live-end -->
 </body>
 </html>

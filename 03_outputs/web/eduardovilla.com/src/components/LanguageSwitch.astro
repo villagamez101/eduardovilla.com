@@ -12,7 +12,7 @@ const esHref = bare === "/" ? "/" : bare;
 const enHref = bare === "/" ? "/en" : `/en${bare}`;
 const current = isEn ? "en" : "es";
 ---
-<div class="flex items-center gap-0.5 rounded-full border border-line p-0.5 text-xs font-semibold" aria-label="Idioma">
+<div class="lang-switch flex items-center gap-0.5 rounded-full border border-line p-0.5 text-xs font-semibold" aria-label="Idioma">
   <a
     href={esHref}
     class:list={["rounded-full px-2.5 py-1 transition-colors", current === "es" ? "bg-accent lang-switch__active" : "text-[var(--ink-faint)] hover:text-[var(--ink)]"]}

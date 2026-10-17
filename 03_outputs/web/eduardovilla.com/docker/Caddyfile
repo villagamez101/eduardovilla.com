@@ -1,0 +1,7 @@
+# Caddy para desarrollo: sirve el dev server de Astro (127.0.0.1:4321)
+# con SSL automatico de Let's Encrypt en el subdominio de pruebas.
+# Corre en red host para alcanzar el dev server y usar los puertos 80/443.
+
+dev.eduardovilla.com {
+	reverse_proxy 127.0.0.1:4321
+}

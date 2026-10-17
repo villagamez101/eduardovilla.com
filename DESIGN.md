@@ -200,9 +200,10 @@ and prose is capped at **66ch** so lines stay readable. Sections are separated b
 a **6rem** top rhythm (Tailwind `mt-24`) and a full-width 1px hairline rule, so
 the page reads as a sequence of ruled bands rather than a stack of cards.
 
-The homepage hero is a two-column grid from the `lg` breakpoint: a `1.05fr`
-narrative column (name over lede and CTAs) beside a `0.72fr` media column holding
-a 4/5 portrait. Below that, "Seis lentes" and the services list use a
+The homepage hero is a two-column grid from the `md` breakpoint (tablet and up):
+a `1.05fr` narrative column (name over lede and CTAs) beside a `0.72fr` media
+column holding a 4/5 portrait. Splitting at `md` keeps the portrait bounded on
+tablets; stacked full-width it would dominate the viewport. Below that, "Seis lentes" and the services list use a
 number / title / description / affordance grid (`3rem` · `15–16rem` · `1fr` ·
 auto) that collapses to a stacked layout on small screens. Stats run as a
 2-up → 4-up tabular grid. The layout never centers a narrow column inside a wide

@@ -1,0 +1,18 @@
+{
+  "name": "eduardovilla-automation",
+  "private": true,
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Scripts mecánicos del proyecto (sin IA): mover, formatear, optimizar.",
+  "scripts": {
+    "optimizar": "node optimizar-imagenes.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@jsquash/webp": "^1.5.0",
+    "@napi-rs/canvas": "^1.0.11",
+    "pdfjs-dist": "^6.4.299"
+  }
+}

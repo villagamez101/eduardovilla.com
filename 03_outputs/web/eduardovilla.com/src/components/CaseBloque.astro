@@ -1,0 +1,88 @@
+---
+/**
+ * Renderiza un bloque de composición de un caso de estudio (ver el esquema
+ * de `proyectos` en content.config.ts). Cada `tipo` mapea a una pieza del
+ * sistema editorial: prosa medida, cita a sangre, imagen, rejilla o paleta.
+ */
+import Media from "@components/Media.astro";
+
+interface Bloque {
+  tipo: "texto" | "destacado" | "imagen" | "galeria" | "paleta";
+  [key: string]: any;
+}
+
+interface Props {
+  bloque: Bloque;
+  zoomLabel?: string;
+  placeholder?: string;
+}
+
+const { bloque, zoomLabel, placeholder } = Astro.props;
+const parrafos = (texto: string) =>
+  texto
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+---
+
+{bloque.tipo === "texto" && (
+  <div class="case-text measure reveal">
+    {bloque.titulo && <h2 class="display-3 case-text__title">{bloque.titulo}</h2>}
+    <div class="case-text__body">
+      {parrafos(bloque.cuerpo).map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+)}
+
+{bloque.tipo === "destacado" && (
+  <blockquote class="case-quote reveal">
+    <p class="case-quote__text">{bloque.texto}</p>
+    {bloque.autor && <cite class="label case-quote__cite">{bloque.autor}</cite>}
+  </blockquote>
+)}
+
+{bloque.tipo === "imagen" && (
+  <Media
+    class="case-figure reveal"
+    src={bloque.src}
+    alt={bloque.alt ?? ""}
+    ratio={bloque.ratio ?? "16 / 10"}
+    caption={bloque.caption}
+    lightbox
+    zoomLabel={zoomLabel}
+    placeholder={placeholder}
+  />
+)}
+
+{bloque.tipo === "galeria" && (
+  <div class:list={["case-galeria", bloque.columnas === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"]}>
+    {bloque.imagenes.map((img: any, i: number) => (
+      <Media
+        class="reveal"
+        style={`--d:${Math.min(i * 60, 240)}ms`}
+        src={img.src}
+        alt={img.alt ?? ""}
+        ratio={img.ratio ?? "4 / 3"}
+        caption={img.caption}
+        lightbox
+        zoomLabel={zoomLabel}
+        placeholder={placeholder}
+      />
+    ))}
+  </div>
+)}
+
+{bloque.tipo === "paleta" && (
+  <ul class="case-palette">
+    {bloque.colores.map((c: any) => (
+      <li class="case-swatch">
+        <span class="case-swatch__chip" style={`background:${c.hex}`} aria-hidden="true"></span>
+        <span class="case-swatch__body">
+          <span class="case-swatch__name">{c.nombre}</span>
+          <span class="label tabular-nums case-swatch__hex">{c.hex}</span>
+          {c.nota && <span class="case-swatch__nota ink-soft">{c.nota}</span>}
+        </span>
+      </li>
+    ))}
+  </ul>
+)}

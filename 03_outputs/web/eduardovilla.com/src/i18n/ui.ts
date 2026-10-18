@@ -64,6 +64,36 @@ export const t = {
   areas: {
     indexTitle: { es: "Áreas", en: "Areas" } satisfies Dict,
     back: { es: "← Todas las áreas", en: "← All areas" } satisfies Dict,
+    enEstaArea: { es: "En esta área", en: "In this area" } satisfies Dict,
+    sinProyectos: {
+      es: "Todavía no hay proyectos publicados en esta área.",
+      en: "No projects published in this area yet.",
+    } satisfies Dict,
+  },
+
+  proyectos: {
+    back: { es: "← Proyectos", en: "← Projects" } satisfies Dict,
+    verPresentacion: {
+      es: "Ver presentación original",
+      en: "View original presentation",
+    } satisfies Dict,
+    ficha: { es: "Ficha del proyecto", en: "Project details" } satisfies Dict,
+    cliente: { es: "Cliente", en: "Client" } satisfies Dict,
+    anio: { es: "Año", en: "Year" } satisfies Dict,
+    rol: { es: "Rol", en: "Role" } satisfies Dict,
+    areasLabel: { es: "Áreas", en: "Areas" } satisfies Dict,
+    entregables: { es: "Entregables", en: "Deliverables" } satisfies Dict,
+    herramientas: { es: "Herramientas", en: "Tools" } satisfies Dict,
+    masEn: { es: "Más en", en: "More in" } satisfies Dict,
+    relacionados: {
+      es: "Proyectos relacionados",
+      en: "Related projects",
+    } satisfies Dict,
+    verProyecto: { es: "Ver proyecto", en: "View project" } satisfies Dict,
+    menosProyectos: {
+      es: "El trabajo real llega cuando está listo.",
+      en: "Real work arrives when it's ready.",
+    } satisfies Dict,
   },
 
   contacto: {

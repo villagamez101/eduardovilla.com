@@ -1,0 +1,66 @@
+---
+/**
+ * Tarjeta de proyecto: miniatura 4/3 y una leyenda compacta — título serif,
+ * un extracto corto y el área con el año como marginalia. Reutilizada en el
+ * índice de proyectos, los destacados del inicio y los relacionados de áreas
+ * y casos. El extracto se recorta a dos líneas; el texto completo vive en la
+ * página del caso. Sigue el card editorial del sistema: borde de 1px,
+ * superficie tenue y el azul como única voz de interacción.
+ */
+import Media from "@components/Media.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  areaLabel: string;
+  year?: string;
+  cover?: string;
+  coverAlt?: string;
+  coverRatio?: string;
+  index?: string;
+  placeholder?: string;
+  delay?: number;
+}
+
+const {
+  href,
+  title,
+  description,
+  areaLabel,
+  year,
+  cover,
+  coverAlt = "",
+  coverRatio = "4 / 3",
+  index,
+  placeholder,
+  delay = 0,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class="card project-card reveal group"
+  style={`--d:${Math.min(delay, 300)}ms`}
+>
+  <Media
+    class="project-card__media"
+    src={cover}
+    alt={coverAlt}
+    ratio={coverRatio}
+    index={index}
+    placeholder={placeholder}
+  />
+
+  <div class="project-card__body">
+    <div class="project-card__head">
+      <h3 class="display-3 project-card__title">{title}</h3>
+      <span class="project-card__arrow" aria-hidden="true">→</span>
+    </div>
+    <p class="project-card__desc">{description}</p>
+    <div class="project-card__meta">
+      <span class="project-card__area label">{areaLabel}</span>
+      {year && <span class="project-card__year label tabular-nums">{year}</span>}
+    </div>
+  </div>
+</a>

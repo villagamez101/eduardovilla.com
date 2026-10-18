@@ -1,0 +1,20 @@
+---
+import ProjectCase from "@components/ProjectCase.astro";
+import { getCollection } from "astro:content";
+import { proyectoSlug } from "@/lib/proyectos";
+
+export async function getStaticPaths() {
+  const proyectos = await getCollection(
+    "proyectos",
+    ({ data }) => data.lang === "en" && !data.draft
+  );
+  return proyectos.map((proyecto) => ({
+    params: { slug: proyectoSlug(proyecto.id) },
+    props: { proyecto },
+  }));
+}
+
+const { proyecto } = Astro.props;
+---
+
+<ProjectCase proyecto={proyecto} lang="en" />

@@ -1,6 +1,9 @@
 ---
 import Base from "@layouts/Base.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 import { t, getLang } from "@i18n/ui";
+import { proyectoSlug } from "@/lib/proyectos";
 import areas from "@data/areas.json";
 
 export async function getStaticPaths() {
@@ -12,6 +15,15 @@ const l = getLang("en");
 const ordenadas = [...areas].sort((a, b) => a.orden - b.orden);
 const pos = ordenadas.findIndex((x) => x.slug === area.slug) + 1;
 const relacionadas = areas.filter((x) => x.slug !== area.slug).slice(0, 3);
+const proyectos = (
+  await getCollection(
+    "proyectos",
+    ({ data }) =>
+      data.lang === "en" &&
+      !data.draft &&
+      (data.area === area.slug || data.areaSecundaria === area.slug)
+  )
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 <Base
   lang="en"
@@ -38,10 +50,6 @@ const relacionadas = areas.filter((x) => x.slug !== area.slug).slice(0, 3);
 
       <aside class="reveal flex flex-col gap-10">
         <div>
-          <p class="label border-t border-[var(--line)] pt-3">In this area</p>
-          <p class="mt-3 text-sm ink-soft">Real projects and writings arrive once the content is ready — placeholder for now.</p>
-        </div>
-        <div>
           <p class="label border-t border-[var(--line)] pt-3">Crosses with</p>
           <ul class="mt-4 flex flex-col">
             {relacionadas.map((r) => (
@@ -56,5 +64,26 @@ const relacionadas = areas.filter((x) => x.slug !== area.slug).slice(0, 3);
         </div>
       </aside>
     </div>
+
+    {proyectos.length > 0 && (
+      <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="area-proyectos">
+        <h2 id="area-proyectos" class="display-2 reveal">{t.areas.enEstaArea.en}</h2>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {proyectos.map((p, i) => (
+            <ProjectCard
+              href={`/en/proyectos/${proyectoSlug(p.id)}/`}
+              title={p.data.shortTitle ?? p.data.title}
+              description={p.data.description}
+              areaLabel={area.titulo[l]}
+              year={p.data.year}
+              cover={p.data.cover}
+              coverAlt={p.data.coverAlt}
+              placeholder={t.home.imgPlaceholder.en}
+              delay={i * 60}
+            />
+          ))}
+        </div>
+      </section>
+    )}
   </article>
 </Base>

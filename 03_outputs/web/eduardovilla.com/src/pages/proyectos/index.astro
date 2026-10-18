@@ -1,43 +1,52 @@
 ---
 import Base from "@layouts/Base.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 import { t } from "@i18n/ui";
+import { proyectoSlug } from "@/lib/proyectos";
 import areas from "@data/areas.json";
 
 const byslug = Object.fromEntries(areas.map((a) => [a.slug, a]));
-const demo = [
-  { area: "comercio-electronico", title: "Lorem ipsum storefront", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.", year: "2026" },
-  { area: "inteligencia-artificial", title: "Lorem ipsum automations", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.", year: "2025" },
-  { area: "branding-marca", title: "Lorem ipsum identity", desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse.", year: "2025" },
-  { area: "desarrollo-web", title: "Lorem ipsum ERP", desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa.", year: "2024" },
-];
+const proyectos = (
+  await getCollection("proyectos", ({ data }) => data.lang === "es" && !data.draft)
+).sort(
+  (a, b) =>
+    Number(b.data.destacado) - Number(a.data.destacado) ||
+    b.data.date.valueOf() - a.data.date.valueOf()
+);
 ---
+
 <Base
   lang="es"
   title={`${t.listas.indexTitle.es} — Eduardo Villa`}
-  description="Proyectos de Eduardo Villa: tiendas, sistemas, marcas y experimentos. El trabajo real, cuando esté listo."
+  description="Proyectos de Eduardo Villa: marcas, tiendas, sistemas y experimentos, cada uno con su proceso."
 >
   <section class="mt-14 border-t border-[var(--line)] pt-12">
     <h1 class="display-2 rise measure">Lo construido.</h1>
     <p class="rise-2 mt-6 measure ink-soft">
-      {t.listas.vacio.es} Cada proyecto se etiqueta con su área.
+      Cada proyecto se etiqueta con su área y su año. El trabajo real, con su proceso.
     </p>
   </section>
 
   <section class="mt-14">
-    <ul class="border-t border-[var(--line)]">
-      {demo.map((p, i) => (
-        <li class="border-b border-[var(--line)]">
-          <article class="reveal grid gap-2 py-8 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8" style={`--d:${Math.min(i * 60, 240)}ms`}>
-            <div>
-              <span class="label">{byslug[p.area]?.titulo.es ?? p.area}</span>
-              <h2 class="display-3 mt-2">{p.title}</h2>
-              <p class="measure mt-2 text-sm ink-soft">{p.desc}</p>
-            </div>
-            <span class="label tabular-nums">{p.year}</span>
-          </article>
-          <span class="label -mt-4 mb-8 block">Placeholder — se reemplaza con el proyecto real</span>
-        </li>
+    {proyectos.length === 0 && (
+      <p class="border-t border-[var(--line)] pt-6 text-sm ink-soft">{t.listas.vacio.es}</p>
+    )}
+    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+      {proyectos.map((p, i) => (
+        <ProjectCard
+          href={`/proyectos/${proyectoSlug(p.id)}/`}
+          title={p.data.shortTitle ?? p.data.title}
+          description={p.data.description}
+          areaLabel={byslug[p.data.area]?.titulo.es ?? p.data.area}
+          year={p.data.year}
+          cover={p.data.cover}
+          coverAlt={p.data.coverAlt}
+          index={String(i + 1).padStart(2, "0")}
+          placeholder={t.home.imgPlaceholder.es}
+          delay={i * 60}
+        />
       ))}
-    </ul>
+    </div>
   </section>
 </Base>

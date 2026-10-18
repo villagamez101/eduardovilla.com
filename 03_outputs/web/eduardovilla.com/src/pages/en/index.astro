@@ -3,7 +3,10 @@ import Base from "@layouts/Base.astro";
 import Media from "@components/Media.astro";
 import AreaCard from "@components/AreaCard.astro";
 import ThinkBox from "@components/ThinkBox.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 import { t } from "@i18n/ui";
+import { proyectoSlug } from "@/lib/proyectos";
 import areas from "@data/areas.json";
 import contacto from "@data/contacto.json";
 
@@ -20,11 +23,15 @@ const stats = [
   { n: "20+", label: "marketplace account" },
   { n: "25+", label: "parallel projects" },
 ];
-const proyectos = [
-  { area: "comercio-electronico", title: "Multi-marketplace storefront", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.", year: "2026" },
-  { area: "inteligencia-artificial", title: "AI automations", desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.", year: "2025" },
-  { area: "desarrollo-web", title: "Custom ERP", desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa.", year: "2024" },
-];
+const proyectos = (
+  await getCollection("proyectos", ({ data }) => data.lang === "en" && !data.draft)
+)
+  .sort(
+    (a, b) =>
+      Number(b.data.destacado) - Number(a.data.destacado) ||
+      b.data.date.valueOf() - a.data.date.valueOf()
+  )
+  .slice(0, 5);
 const articulos = [
   { title: "Why this site exists", desc: "A generalist needs a refuge of their own.", date: "2026-10-01" },
   { title: "A digital diagnosis in one afternoon", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", date: "2026-09-01" },
@@ -186,26 +193,29 @@ const articulos = [
   </section>
 
   <!-- Projects -->
-  <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="proyectos-title">
-    <div class="flex items-end justify-between gap-4">
-      <h2 id="proyectos-title" class="display-2 reveal">{t.home.proyectosTitle.en}</h2>
-      <a href="/en/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.en} →</a>
-    </div>
-    <ul class="mt-10 border-t border-[var(--line)]">
-      {proyectos.map((p, i) => (
-        <li class="border-b border-[var(--line)]">
-          <a href="/en/proyectos" class="reveal group grid gap-2 py-8 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8" style={`--d:${Math.min(i * 60, 240)}ms`}>
-            <span>
-              <span class="label">{byslug[p.area]?.titulo.en ?? p.area}</span>
-              <span class="display-3 mt-2 block transition-colors group-hover:text-[var(--accent-text)]">{p.title}</span>
-              <span class="measure mt-2 block text-sm ink-soft">{p.desc}</span>
-            </span>
-            <span class="label tabular-nums">{p.year}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+  {proyectos.length > 0 && (
+    <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="proyectos-title">
+      <div class="flex items-end justify-between gap-4">
+        <h2 id="proyectos-title" class="display-2 reveal">{t.home.proyectosTitle.en}</h2>
+        <a href="/en/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.en} →</a>
+      </div>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {proyectos.map((p, i) => (
+          <ProjectCard
+            href={`/en/proyectos/${proyectoSlug(p.id)}/`}
+            title={p.data.shortTitle ?? p.data.title}
+            description={p.data.description}
+            areaLabel={byslug[p.data.area]?.titulo.en ?? p.data.area}
+            year={p.data.year}
+            cover={p.data.cover}
+            coverAlt={p.data.coverAlt}
+            placeholder={t.home.imgPlaceholder.en}
+            delay={i * 60}
+          />
+        ))}
+      </div>
+    </section>
+  )}
 
   <!-- Articles -->
   <section class="band mt-24 py-14" aria-labelledby="articulos-title">

@@ -899,3 +899,155 @@ footer { padding-bottom: max(0px, env(safe-area-inset-bottom)); }
 .prose-custom code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface-2); padding: 0.1rem 0.35rem; border-radius: 0.35rem; }
 .prose-custom pre { background: var(--elev); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1rem; overflow-x: auto; margin-top: 1.2rem; }
 .prose-custom img { border-radius: var(--radius-sm); margin-top: 1.5rem; }
+
+/* ---------------- Tarjeta de proyecto ----------------
+   El card editorial con una miniatura 4/3 encima y una leyenda compacta:
+   título serif, y área y año como marginalia. Reutilizada en el índice de
+   proyectos, los destacados del inicio y los relacionados de áreas y casos.
+   La descripción vive en la página del caso; aquí solo entra lo que se lee
+   de un vistazo. La superficie no se mueve: cambian borde, color y flecha. */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.55rem;
+  text-decoration: none;
+}
+.project-card__media { width: 100%; }
+.project-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.85rem 0.4rem 0.45rem;
+}
+.project-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.project-card__title {
+  font-size: clamp(1.05rem, 0.55vw + 0.85rem, 1.35rem);
+  line-height: 1.18;
+  transition: color var(--dur-mid) var(--ease-standard);
+}
+.project-card__desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.project-card__arrow {
+  flex: none;
+  color: var(--accent-text);
+  opacity: 0;
+  transform: translateX(-0.25rem);
+  transition: opacity var(--dur-mid) var(--ease-standard),
+    transform var(--dur-mid) var(--ease-entrance);
+}
+.project-card__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.project-card__area {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-card__year { flex: none; color: var(--ink-soft); }
+.project-card:hover { border-color: var(--accent-line); }
+.project-card:hover .project-card__title { color: var(--accent-text); }
+.project-card:hover .project-card__arrow,
+.project-card:focus-visible .project-card__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* La tarjeta entera es el enlace: el marco y la miniatura responden aunque
+   el puntero no esté sobre la imagen. */
+.project-card:hover .media__frame { border-color: var(--accent-line); }
+.project-card:hover .media__img { transform: scale(1.035); }
+
+/* ---------------- Caso de estudio ----------------
+   El recorrido de un proyecto: prosa medida, citas, figuras, rejillas y
+   paleta. Todo se apoya en el sistema editorial (reglas de 1px, aire). */
+.case-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.case-text__title { margin-bottom: 1rem; }
+.case-text__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  color: var(--ink-soft);
+}
+.case-text__body p { text-wrap: pretty; }
+
+.case-quote {
+  margin: 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+}
+.case-quote__text {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lede);
+  line-height: 1.45;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.case-quote__cite {
+  display: block;
+  margin-top: 0.85rem;
+  font-style: normal;
+  color: var(--ink-faint);
+}
+
+.case-figure { width: 100%; }
+
+.case-galeria {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.case-palette {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .case-palette { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.case-swatch {
+  display: flex;
+  align-items: stretch;
+  gap: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  background: var(--surface);
+}
+.case-swatch__chip {
+  flex: none;
+  width: 3.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+}
+.case-swatch__body { display: flex; flex-direction: column; gap: 0.15rem; }
+.case-swatch__name { font-size: 0.95rem; }
+.case-swatch__nota { font-size: 0.82rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__title,
+  .project-card__arrow { transition: none; }
+  .project-card:hover .media__img { transform: none; }
+}
+

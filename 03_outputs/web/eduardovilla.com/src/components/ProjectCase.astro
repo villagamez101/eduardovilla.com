@@ -1,0 +1,156 @@
+---
+/**
+ * Caso de estudio completo. Es una "página-componente": monta el layout Base
+ * y todo el recorrido del proyecto (portada, narrativa, bloques, ficha y
+ * relacionados). Se comparte entre ES y EN para que ambas versiones no se
+ * desincronicen; las rutas [slug].astro de cada idioma solo la invocan.
+ */
+import Base from "@layouts/Base.astro";
+import Media from "@components/Media.astro";
+import ProjectCard from "@components/ProjectCard.astro";
+import CaseBloque from "@components/CaseBloque.astro";
+import { getCollection, render } from "astro:content";
+import { t, getLang } from "@i18n/ui";
+import { proyectoSlug } from "@/lib/proyectos";
+import areas from "@data/areas.json";
+
+interface Props {
+  proyecto: any;
+  lang: "es" | "en";
+}
+
+const { proyecto, lang } = Astro.props;
+const data = proyecto.data;
+const l = getLang(lang);
+const base = lang === "en" ? "/en" : "";
+const slug = proyectoSlug(proyecto.id);
+
+const byslug = Object.fromEntries(areas.map((a) => [a.slug, a]));
+const areaTitulo = (s?: string) => (s ? byslug[s]?.titulo[l] ?? s : undefined);
+const areasLabels = [data.area, data.areaSecundaria]
+  .filter(Boolean)
+  .map((s) => areaTitulo(s as string))
+  .filter(Boolean) as string[];
+const year = data.year ?? String(new Date(data.date).getFullYear());
+
+const { Content } = await render(proyecto);
+const hasBody = Boolean(proyecto.body && proyecto.body.trim());
+
+const relacionados = (
+  await getCollection(
+    "proyectos",
+    ({ id, data: d }) =>
+      d.lang === lang &&
+      !d.draft &&
+      proyectoSlug(id) !== slug &&
+      (d.area === data.area ||
+        d.area === data.areaSecundaria ||
+        d.areaSecundaria === data.area)
+  )
+)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const ficha = [
+  { label: t.proyectos.cliente[l], valor: data.cliente },
+  { label: t.proyectos.anio[l], valor: year },
+  { label: t.proyectos.rol[l], valor: data.rol },
+  { label: t.proyectos.areasLabel[l], valor: areasLabels.join(" · ") },
+  { label: t.proyectos.entregables[l], valor: data.entregables.join(", ") },
+  { label: t.proyectos.herramientas[l], valor: data.herramientas.join(", ") },
+].filter((f) => Boolean(f.valor));
+---
+
+<Base
+  lang={lang}
+  title={`${data.title} — Eduardo Villa`}
+  description={data.description}
+>
+  <article class="mt-14 border-t border-[var(--line)] pt-12">
+    <a href={`${base}/proyectos`} class="link-accent text-sm">{t.proyectos.back[l]}</a>
+
+    <header class="mt-10">
+      {areasLabels.length > 0 && (
+        <p class="label">{areasLabels[0]} · {year}</p>
+      )}
+      <h1 class="display-page rise measure mt-3">{data.title}</h1>
+      <p class="rise-2 mt-6 measure lede ink-soft">{data.description}</p>
+    </header>
+
+    {data.cover && (
+      <div class="mt-12">
+        <Media
+          class="case-cover"
+          src={data.cover}
+          alt={data.coverAlt ?? data.title}
+          ratio={data.coverRatio}
+          lightbox
+          zoomLabel={t.home.ampliar[l]}
+          placeholder={t.home.imgPlaceholder[l]}
+          loading="eager"
+        />
+      </div>
+    )}
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16">
+      <div class="case-flow">
+        {hasBody && (
+          <div class="prose-custom measure case-intro reveal">
+            <Content />
+          </div>
+        )}
+        {data.bloques.map((bloque: any) => (
+          <CaseBloque
+            bloque={bloque}
+            zoomLabel={t.home.ampliar[l]}
+            placeholder={t.home.imgPlaceholder[l]}
+          />
+        ))}
+      </div>
+
+      <aside class="reveal lg:sticky lg:top-24 lg:self-start">
+        <p class="label border-t border-[var(--line)] pt-3">{t.proyectos.ficha[l]}</p>
+        <dl class="mt-2 flex flex-col">
+          {ficha.map((f) => (
+            <div class="border-b border-[var(--line)] py-3">
+              <dt class="label">{f.label}</dt>
+              <dd class="mt-1 text-sm">{f.valor}</dd>
+            </div>
+          ))}
+        </dl>
+        {data.enlace && (
+          <a
+            href={data.enlace}
+            target="_blank"
+            rel="noopener"
+            class="btn mt-6 w-full justify-center"
+          >
+            {data.enlaceLabel ?? t.proyectos.verPresentacion[l]}
+            <span class="btn__arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
+      </aside>
+    </div>
+
+    {relacionados.length > 0 && (
+      <section class="mt-24 border-t border-[var(--line)] pt-14">
+        <h2 class="display-2 reveal">{t.proyectos.relacionados[l]}</h2>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          {relacionados.map((r, i) => (
+            <ProjectCard
+              href={`${base}/proyectos/${proyectoSlug(r.id)}/`}
+              title={r.data.shortTitle ?? r.data.title}
+              description={r.data.description}
+              areaLabel={areaTitulo(r.data.area) ?? r.data.area}
+              year={r.data.year}
+              cover={r.data.cover}
+              coverAlt={r.data.coverAlt}
+              placeholder={t.home.imgPlaceholder[l]}
+              delay={i * 60}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</Base>

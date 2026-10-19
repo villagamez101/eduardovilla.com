@@ -24,15 +24,15 @@ const stats = [
   { n: "20+", label: "cuenta marketplace" },
   { n: "25+", label: "proyectos paralelo" },
 ];
-const proyectos = (
+const ordenProyectos = (a, b) =>
+  Number(b.data.destacado) - Number(a.data.destacado) ||
+  b.data.date.valueOf() - a.data.date.valueOf();
+const todosProyectos = (
   await getCollection("proyectos", ({ data }) => data.lang === "es" && !data.draft)
-)
-  .sort(
-    (a, b) =>
-      Number(b.data.destacado) - Number(a.data.destacado) ||
-      b.data.date.valueOf() - a.data.date.valueOf()
-  )
-  .slice(0, 5);
+).sort(ordenProyectos);
+const logotipos = todosProyectos.filter((p) => p.data.categoria === "logo").slice(0, 4);
+const tarjetas = todosProyectos.filter((p) => p.data.categoria === "tarjeta").slice(0, 4);
+const webs = todosProyectos.filter((p) => p.data.categoria === "web").slice(0, 4);
 const articulos = [
   { title: "Por qué este sitio existe", desc: "Un generalista necesita un refugio propio.", date: "2026-10-01" },
   { title: "Diagnóstico digital en una tarde", desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", date: "2026-09-01" },
@@ -193,25 +193,81 @@ const articulos = [
     </dl>
   </section>
 
-  <!-- Proyectos -->
-  {proyectos.length > 0 && (
-    <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="proyectos-title">
+  <!-- Logotipos -->
+  {logotipos.length > 0 && (
+    <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="logos-title">
       <div class="flex items-end justify-between gap-4">
-        <h2 id="proyectos-title" class="display-2 reveal">{t.home.proyectosTitle.es}</h2>
+        <h2 id="logos-title" class="display-2 reveal">{t.proyectos.seccionLogos.es}</h2>
         <a href="/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.es} →</a>
       </div>
-      <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {proyectos.map((p, i) => (
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {logotipos.map((p, i) => (
           <ProjectCard
             href={`/proyectos/${proyectoSlug(p.id)}/`}
             title={p.data.shortTitle ?? p.data.title}
             description={p.data.description}
             areaLabel={byslug[p.data.area]?.titulo.es ?? p.data.area}
             year={p.data.year}
+            miniatura={p.data.miniatura}
+            miniaturaRatio={p.data.miniaturaRatio}
             cover={p.data.cover}
             coverAlt={p.data.coverAlt}
             placeholder={t.home.imgPlaceholder.es}
-            delay={i * 60}
+            delay={i * 50}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Tarjetas de presentación -->
+  {tarjetas.length > 0 && (
+    <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="tarjetas-title">
+      <div class="flex items-end justify-between gap-4">
+        <h2 id="tarjetas-title" class="display-2 reveal">{t.proyectos.seccionTarjetas.es}</h2>
+        <a href="/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.es} →</a>
+      </div>
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {tarjetas.map((p, i) => (
+          <ProjectCard
+            href={`/proyectos/${proyectoSlug(p.id)}/`}
+            title={p.data.shortTitle ?? p.data.title}
+            description={p.data.description}
+            areaLabel={byslug[p.data.area]?.titulo.es ?? p.data.area}
+            year={p.data.year}
+            miniatura={p.data.miniatura}
+            miniaturaRatio={p.data.miniaturaRatio}
+            cover={p.data.cover}
+            coverAlt={p.data.coverAlt}
+            placeholder={t.home.imgPlaceholder.es}
+            delay={i * 50}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Sitios web -->
+  {webs.length > 0 && (
+    <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="webs-title">
+      <div class="flex items-end justify-between gap-4">
+        <h2 id="webs-title" class="display-2 reveal">{t.proyectos.seccionWeb.es}</h2>
+        <a href="/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.es} →</a>
+      </div>
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {webs.map((p, i) => (
+          <ProjectCard
+            href={`/proyectos/${proyectoSlug(p.id)}/`}
+            title={p.data.shortTitle ?? p.data.title}
+            description={p.data.description}
+            areaLabel={byslug[p.data.area]?.titulo.es ?? p.data.area}
+            year={p.data.year}
+            miniatura={p.data.miniatura}
+            miniaturaRatio={p.data.miniaturaRatio}
+            cover={p.data.cover}
+            coverAlt={p.data.coverAlt}
+            placeholder={t.home.imgPlaceholder.es}
+            delay={i * 50}
           />
         ))}
       </div>

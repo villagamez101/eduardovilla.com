@@ -73,6 +73,16 @@ export const t = {
 
   proyectos: {
     back: { es: "← Proyectos", en: "← Projects" } satisfies Dict,
+    seccionLogos: { es: "Logotipos", en: "Logos" } satisfies Dict,
+    seccionTarjetas: { es: "Tarjetas de presentación", en: "Business cards" } satisfies Dict,
+    seccionWeb: { es: "Sitios web", en: "Websites" } satisfies Dict,
+    seccionIA: {
+      es: "Inteligencia artificial",
+      en: "Artificial intelligence",
+    } satisfies Dict,
+    filtroTodos: { es: "Todos", en: "All" } satisfies Dict,
+    anterior: { es: "Anterior", en: "Previous" } satisfies Dict,
+    siguiente: { es: "Siguiente", en: "Next" } satisfies Dict,
     verPresentacion: {
       es: "Ver presentación original",
       en: "View original presentation",

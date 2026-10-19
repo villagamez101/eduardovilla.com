@@ -129,6 +129,17 @@ const ficha = [
             <span class="btn__arrow" aria-hidden="true">↗</span>
           </a>
         )}
+        {data.enlaceSecundario && (
+          <a
+            href={data.enlaceSecundario}
+            target="_blank"
+            rel="noopener"
+            class="btn mt-3 w-full justify-center"
+          >
+            {data.enlaceSecundarioLabel ?? t.proyectos.verPresentacion[l]}
+            <span class="btn__arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
       </aside>
     </div>
 
@@ -145,6 +156,8 @@ const ficha = [
               year={r.data.year}
               cover={r.data.cover}
               coverAlt={r.data.coverAlt}
+              miniatura={r.data.miniatura}
+              miniaturaRatio={r.data.miniaturaRatio}
               placeholder={t.home.imgPlaceholder[l]}
               delay={i * 60}
             />

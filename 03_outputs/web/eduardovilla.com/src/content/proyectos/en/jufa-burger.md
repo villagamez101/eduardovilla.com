@@ -8,6 +8,8 @@ areaSecundaria: "diseno-grafico"
 year: "2021"
 rol: "Visual identity, packaging design and applications"
 cliente: "Jufa Burger"
+categoria: "logo"
+miniatura: "/img/proyectos/jufa-burger/imagotipo.webp"
 entregables:
   - "Symbol, logo and imagotype"
   - "Color palette"

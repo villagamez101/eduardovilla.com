@@ -9,6 +9,8 @@ areaSecundaria: "diseno-grafico"
 year: "2021"
 rol: "Identidad visual, diseño gráfico y aplicaciones"
 cliente: "R&R Remodeling Texas"
+categoria: "logo"
+miniatura: "/img/proyectos/rr-remodeling-texas/version-positiva.webp"
 entregables:
   - "Isotipo y logotipo"
   - "Sistema de color"
@@ -77,20 +79,9 @@ bloques:
   - tipo: "texto"
     titulo: "El sistema, en uso"
     cuerpo: |
-      Probamos la marca llevándola a las piezas donde se juega el negocio: la
-      tarjeta, las lonas y publicaciones para redes, la rotulación de la
-      fachada y la publicidad de calle.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/rr-remodeling-texas/tarjeta-01.webp"
-        alt: "Tarjeta de presentación de R&R, frente"
-        caption: "Tarjeta, frente"
-        ratio: "3 / 2"
-      - src: "/img/proyectos/rr-remodeling-texas/tarjeta-02.webp"
-        alt: "Tarjeta de presentación de R&R, reverso"
-        caption: "Tarjeta, reverso"
-        ratio: "3 / 2"
+      Probamos la marca llevándola a las piezas donde se juega el negocio: las
+      lonas y publicaciones para redes, la rotulación de la fachada y la
+      publicidad de calle.
   - tipo: "galeria"
     columnas: 3
     imagenes:

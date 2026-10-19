@@ -9,6 +9,8 @@ areaSecundaria: "diseno-grafico"
 year: "2021"
 rol: "Visual identity, graphic design and applications"
 cliente: "R&R Remodeling Texas"
+categoria: "logo"
+miniatura: "/img/proyectos/rr-remodeling-texas/version-positiva.webp"
 entregables:
   - "Symbol and logo"
   - "Color system"
@@ -80,17 +82,6 @@ bloques:
       We tested the brand on the pieces where the business is played out: the
       business card, banners and social posts, the facade signage and street
       advertising.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/rr-remodeling-texas/tarjeta-01.webp"
-        alt: "R&R business card, front"
-        caption: "Card, front"
-        ratio: "3 / 2"
-      - src: "/img/proyectos/rr-remodeling-texas/tarjeta-02.webp"
-        alt: "R&R business card, back"
-        caption: "Card, back"
-        ratio: "3 / 2"
   - tipo: "galeria"
     columnas: 3
     imagenes:

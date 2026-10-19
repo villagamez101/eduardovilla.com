@@ -1,6 +1,6 @@
 ---
 import Base from "@layouts/Base.astro";
-import ProjectCard from "@components/ProjectCard.astro";
+import CarruselProyectos from "@components/CarruselProyectos.astro";
 import { getCollection } from "astro:content";
 import { t, getLang } from "@i18n/ui";
 import { proyectoSlug } from "@/lib/proyectos";
@@ -67,22 +67,16 @@ const proyectos = (
 
     {proyectos.length > 0 && (
       <section class="mt-24 border-t border-[var(--line)] pt-14" aria-labelledby="area-proyectos">
-        <h2 id="area-proyectos" class="display-2 reveal">{t.areas.enEstaArea.es}</h2>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-          {proyectos.map((p, i) => (
-            <ProjectCard
-              href={`/proyectos/${proyectoSlug(p.id)}/`}
-              title={p.data.shortTitle ?? p.data.title}
-              description={p.data.description}
-              areaLabel={area.titulo[l]}
-              year={p.data.year}
-              cover={p.data.cover}
-              coverAlt={p.data.coverAlt}
-              placeholder={t.home.imgPlaceholder.es}
-              delay={i * 60}
-            />
-          ))}
+        <div class="flex items-end justify-between gap-4">
+          <h2 id="area-proyectos" class="display-2 reveal">{t.areas.enEstaArea.es}</h2>
+          <a href="/proyectos" class="link-accent hidden text-sm sm:inline">{t.home.verTodos.es} →</a>
         </div>
+        <CarruselProyectos
+          proyectos={proyectos}
+          lang="es"
+          areaLabel={area.titulo.es}
+          placeholder={t.home.imgPlaceholder.es}
+        />
       </section>
     )}
   </article>

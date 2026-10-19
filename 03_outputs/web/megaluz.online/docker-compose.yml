@@ -1,0 +1,80 @@
+# Megaluz Online — stack de restauración local
+# WordPress 6.5.3 (versión del backup) + MySQL 5.7 + phpMyAdmin
+# Servicio en http://localhost:8089
+#
+# Uso (ver scripts/restore.sh para el flujo completo):
+#   docker compose up -d
+#   bash scripts/restore.sh
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: megaluz-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: megaluzroot
+      MYSQL_DATABASE: megaluz
+      MYSQL_USER: megaluz
+      MYSQL_PASSWORD: megaluzpass
+    ports:
+      - "33089:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci --sql-mode=""
+
+  wp:
+    image: wordpress:6.5.3-apache
+    container_name: megaluz-wp
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: megaluz
+      WORDPRESS_DB_USER: megaluz
+      WORDPRESS_DB_PASSWORD: megaluzpass
+      WORDPRESS_TABLE_PREFIX: VNygc50WF_
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_MEMORY_LIMIT', '512M');
+        define('WP_MAX_MEMORY_LIMIT', '512M');
+    ports:
+      - "8089:80"
+    volumes:
+      - wp_data:/var/www/html
+      - ./site:/var/www/html/wp-content
+
+  pma:
+    image: phpmyadmin:latest
+    container_name: megaluz-pma
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: megaluzroot
+    ports:
+      - "8090:80"
+
+  wpcli:
+    image: wordpress:cli-php8.0
+    container_name: megaluz-wpcli
+    depends_on:
+      - db
+      - wp
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: megaluz
+      WORDPRESS_DB_USER: megaluz
+      WORDPRESS_DB_PASSWORD: megaluzpass
+      WORDPRESS_TABLE_PREFIX: VNygc50WF_
+    user: "33:33"
+    volumes:
+      - wp_data:/var/www/html
+      - ./site:/var/www/html/wp-content
+      - ./scripts:/scripts
+
+volumes:
+  db_data:
+  wp_data:

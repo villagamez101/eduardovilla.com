@@ -8,6 +8,8 @@ areaSecundaria: "diseno-grafico"
 year: "2026"
 rol: "Visual identity, personal brand and applications"
 cliente: "Own project"
+categoria: "logo"
+miniatura: "/img/proyectos/eduardo-villa/historia-2026.webp"
 entregables:
   - "Symbol, logo and imagotype"
   - "Color system"
@@ -81,17 +83,6 @@ bloques:
       form, and the symbol stands on its own when space is tight. It was tested
       where the brand has to introduce itself without an explanation: the
       business card, with what I do and how to reach me.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/eduardo-villa/tarjeta-frente.webp"
-        alt: "Eduardo Villa's business card, front"
-        caption: "Card, front"
-        ratio: "7 / 4"
-      - src: "/img/proyectos/eduardo-villa/tarjeta-reverso.webp"
-        alt: "Eduardo Villa's business card, back"
-        caption: "Card, back"
-        ratio: "7 / 4"
   - tipo: "texto"
     titulo: "The result"
     cuerpo: |

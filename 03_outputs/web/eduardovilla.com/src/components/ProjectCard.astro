@@ -1,11 +1,10 @@
 ---
 /**
- * Tarjeta de proyecto: miniatura 4/3 y una leyenda compacta — título serif,
- * un extracto corto y el área con el año como marginalia. Reutilizada en el
- * índice de proyectos, los destacados del inicio y los relacionados de áreas
- * y casos. El extracto se recorta a dos líneas; el texto completo vive en la
- * página del caso. Sigue el card editorial del sistema: borde de 1px,
- * superficie tenue y el azul como única voz de interacción.
+ * Tarjeta de proyecto.
+ *
+ * Si el proyecto trae `miniatura`, se muestra la pieza principal tal cual
+ * (logotipo o tarjeta) centrada sobre un fondo claro, sin recorte: es la
+ * miniatura estandarizada de la retícula. Si no, cae al `cover` con marco.
  */
 import Media from "@components/Media.astro";
 
@@ -18,6 +17,8 @@ interface Props {
   cover?: string;
   coverAlt?: string;
   coverRatio?: string;
+  miniatura?: string;
+  miniaturaRatio?: string;
   index?: string;
   placeholder?: string;
   delay?: number;
@@ -32,6 +33,8 @@ const {
   cover,
   coverAlt = "",
   coverRatio = "4 / 3",
+  miniatura,
+  miniaturaRatio = "16 / 10",
   index,
   placeholder,
   delay = 0,
@@ -43,24 +46,35 @@ const {
   class="card project-card reveal group"
   style={`--d:${Math.min(delay, 300)}ms`}
 >
-  <Media
-    class="project-card__media"
-    src={cover}
-    alt={coverAlt}
-    ratio={coverRatio}
-    index={index}
-    placeholder={placeholder}
-  />
+  {miniatura ? (
+    <div class="project-card__thumb" style={`aspect-ratio: ${miniaturaRatio}`}>
+      <img
+        class="project-card__thumb-img"
+        src={miniatura}
+        alt={coverAlt || title}
+        loading="lazy"
+        decoding="async"
+        draggable="false"
+        oncontextmenu="return false"
+      />
+    </div>
+  ) : (
+    <Media
+      class="project-card__media"
+      src={cover}
+      alt={coverAlt}
+      ratio={coverRatio}
+      index={index}
+      placeholder={placeholder}
+    />
+  )}
 
   <div class="project-card__body">
-    <div class="project-card__head">
-      <h3 class="display-3 project-card__title">{title}</h3>
-      <span class="project-card__arrow" aria-hidden="true">→</span>
-    </div>
-    <p class="project-card__desc">{description}</p>
     <div class="project-card__meta">
-      <span class="project-card__area label">{areaLabel}</span>
-      {year && <span class="project-card__year label tabular-nums">{year}</span>}
+      <span class="label">{areaLabel}</span>
+      {year && <span class="label tabular-nums">{year}</span>}
     </div>
+    <h3 class="display-3 project-card__title">{title}</h3>
+    <p class="project-card__desc">{description}</p>
   </div>
 </a>

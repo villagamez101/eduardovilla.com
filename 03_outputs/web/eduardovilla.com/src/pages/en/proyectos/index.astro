@@ -7,46 +7,105 @@ import { proyectoSlug } from "@/lib/proyectos";
 import areas from "@data/areas.json";
 
 const byslug = Object.fromEntries(areas.map((a) => [a.slug, a]));
-const proyectos = (
+const orden = (a, b) =>
+  Number(b.data.destacado) - Number(a.data.destacado) ||
+  b.data.date.valueOf() - a.data.date.valueOf();
+const todos = (
   await getCollection("proyectos", ({ data }) => data.lang === "en" && !data.draft)
-).sort(
-  (a, b) =>
-    Number(b.data.destacado) - Number(a.data.destacado) ||
-    b.data.date.valueOf() - a.data.date.valueOf()
-);
+).sort(orden);
+const logos = todos.filter((p) => p.data.categoria === "logo");
+const tarjetas = todos.filter((p) => p.data.categoria === "tarjeta");
+const ia = todos.filter((p) => p.data.categoria === "ia");
+const webs = todos.filter((p) => p.data.categoria === "web");
+const secciones = [
+  { id: "logos", titulo: t.proyectos.seccionLogos.en, items: logos },
+  { id: "web", titulo: t.proyectos.seccionWeb.en, items: webs },
+  { id: "tarjetas", titulo: t.proyectos.seccionTarjetas.en, items: tarjetas },
+  { id: "ia", titulo: t.proyectos.seccionIA.en, items: ia },
+].filter((s) => s.items.length > 0);
 ---
 
 <Base
   lang="en"
   title={`${t.listas.indexTitle.en} — Eduardo Villa`}
-  description="Eduardo Villa's projects: brands, stores, systems and experiments, each with its process."
+  description="Eduardo Villa's projects: logos, websites and business cards, each piece with its process."
 >
   <section class="mt-14 border-t border-[var(--line)] pt-12">
     <h1 class="display-2 rise measure">Built work.</h1>
     <p class="rise-2 mt-6 measure ink-soft">
-      Each project is tagged with its area and year. The real work, with its process.
+      Logos and identities, websites, and the business cards as a separate
+      piece. Each project is tagged with its area and year.
     </p>
   </section>
 
-  <section class="mt-14">
-    {proyectos.length === 0 && (
-      <p class="border-t border-[var(--line)] pt-6 text-sm ink-soft">{t.listas.vacio.en}</p>
-    )}
-    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-      {proyectos.map((p, i) => (
-        <ProjectCard
-          href={`/en/proyectos/${proyectoSlug(p.id)}/`}
-          title={p.data.shortTitle ?? p.data.title}
-          description={p.data.description}
-          areaLabel={byslug[p.data.area]?.titulo.en ?? p.data.area}
-          year={p.data.year}
-          cover={p.data.cover}
-          coverAlt={p.data.coverAlt}
-          index={String(i + 1).padStart(2, "0")}
-          placeholder={t.home.imgPlaceholder.en}
-          delay={i * 60}
-        />
-      ))}
+  <section class="mt-10">
+    <div class="filtros" role="group" aria-label="Filter projects">
+      <button type="button" class="filtro" data-filtro="todos" aria-pressed="true">
+        {t.proyectos.filtroTodos.en}
+      </button>
+      {logos.length > 0 && (
+        <button type="button" class="filtro" data-filtro="logos" aria-pressed="false">
+          {t.proyectos.seccionLogos.en}
+        </button>
+      )}
+      {webs.length > 0 && (
+        <button type="button" class="filtro" data-filtro="web" aria-pressed="false">
+          {t.proyectos.seccionWeb.en}
+        </button>
+      )}
+      {tarjetas.length > 0 && (
+        <button type="button" class="filtro" data-filtro="tarjetas" aria-pressed="false">
+          {t.proyectos.seccionTarjetas.en}
+        </button>
+      )}
+      {ia.length > 0 && (
+        <button type="button" class="filtro" data-filtro="ia" aria-pressed="false">
+          {t.proyectos.seccionIA.en}
+        </button>
+      )}
     </div>
   </section>
+
+  {secciones.map((s) => (
+    <section class="mt-14" data-seccion={s.id} aria-labelledby={`sec-${s.id}`}>
+      <div class="flex items-end justify-between gap-4 border-t border-[var(--line)] pt-6">
+        <h2 id={`sec-${s.id}`} class="display-2 reveal">{s.titulo}</h2>
+        <span class="label tabular-nums">{String(s.items.length).padStart(2, "0")}</span>
+      </div>
+      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {s.items.map((p, i) => (
+          <ProjectCard
+            href={`/en/proyectos/${proyectoSlug(p.id)}/`}
+            title={p.data.title}
+            description={p.data.description}
+            areaLabel={byslug[p.data.area]?.titulo.en ?? p.data.area}
+            year={p.data.year}
+            cover={p.data.cover}
+            coverAlt={p.data.coverAlt}
+            miniatura={p.data.miniatura}
+            miniaturaRatio={p.data.miniaturaRatio}
+            index={String(i + 1).padStart(2, "0")}
+            placeholder={t.home.imgPlaceholder.en}
+            delay={i * 50}
+          />
+        ))}
+      </div>
+    </section>
+  ))}
 </Base>
+
+<script>
+  (() => {
+    const botones = document.querySelectorAll("[data-filtro]");
+    const secciones = document.querySelectorAll("[data-seccion]");
+    botones.forEach((b) =>
+      b.addEventListener("click", () => {
+        const f = b.getAttribute("data-filtro");
+        botones.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        secciones.forEach((s) => {
+          s.hidden = f !== "todos" && s.getAttribute("data-seccion") !== f;
+        });
+      })
+    );
+  })();
+</script>

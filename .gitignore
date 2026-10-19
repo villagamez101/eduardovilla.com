@@ -16,6 +16,11 @@
 *.AIN
 *.mp4
 
+# Megaluz Online — restauración WordPress (demasiado pesado para git)
+*.wpress
+03_outputs/web/megaluz.online/site/
+03_outputs/web/megaluz.online/db/
+
 # OS / editor noise
 .DS_Store
 Thumbs.db

@@ -8,6 +8,8 @@ areaSecundaria: "diseno-grafico"
 year: "2026"
 rol: "Identidad visual, marca personal y aplicaciones"
 cliente: "Proyecto propio"
+categoria: "logo"
+miniatura: "/img/proyectos/eduardo-villa/historia-2026.webp"
 entregables:
   - "Isotipo, logotipo e imagotipo"
   - "Sistema de color"
@@ -77,20 +79,7 @@ bloques:
       El monograma junta las dos letras: la E, resuelta en tres barras, y la V,
       un trazo que sube como una firma, con el corte diagonal de la última barra
       repitiendo el ángulo de la V. Vive en horizontal y en vertical, y el
-      símbolo se basta solo cuando el espacio aprieta. Se probó donde la marca
-      tiene que presentarse sin explicación: la tarjeta de presentación, con lo
-      que hago y cómo encontrarme.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/eduardo-villa/tarjeta-frente.webp"
-        alt: "Tarjeta de presentación de Eduardo Villa, frente"
-        caption: "Tarjeta, frente"
-        ratio: "7 / 4"
-      - src: "/img/proyectos/eduardo-villa/tarjeta-reverso.webp"
-        alt: "Tarjeta de presentación de Eduardo Villa, reverso"
-        caption: "Tarjeta, reverso"
-        ratio: "7 / 4"
+      símbolo se basta solo cuando el espacio aprieta.
   - tipo: "texto"
     titulo: "El resultado"
     cuerpo: |

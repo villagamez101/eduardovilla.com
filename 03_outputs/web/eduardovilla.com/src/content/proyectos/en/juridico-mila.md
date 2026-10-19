@@ -8,6 +8,8 @@ areaSecundaria: "diseno-grafico"
 year: "2021"
 rol: "Visual identity, graphic design and applications"
 cliente: "Jurídico Mila"
+categoria: "logo"
+miniatura: "/img/proyectos/juridico-mila/imagotipo.webp"
 entregables:
   - "Symbol and logo"
   - "Color system"
@@ -67,17 +69,6 @@ bloques:
       travels with the symbol wherever it needs explaining. We tested the
       system by taking it to the firm's everyday pieces: the business card, the
       stationery, the facade sign and the working material.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/juridico-mila/tarjeta-01.webp"
-        alt: "Jurídico Mila business card, front"
-        caption: "Card, front"
-        ratio: "5 / 3"
-      - src: "/img/proyectos/juridico-mila/tarjeta-02.webp"
-        alt: "Jurídico Mila business card, back"
-        caption: "Card, back"
-        ratio: "5 / 3"
   - tipo: "galeria"
     columnas: 2
     imagenes:

@@ -107,6 +107,35 @@ const PROYECTOS = {
       { pdf: "Eduardo BC.pdf", pagina: 2, a: "tarjeta-reverso.webp", ancho: 1600, ratio: "7:4", calidad: 80 },
     ],
   },
+  "expanda": {
+    origen: path.join(FUENTES, "expanda"),
+    destino: path.join(PUBLIC, "expanda"),
+    trabajos: [
+      // Portada: logotipo negativo sobre el azul de marca (4:3).
+      { de: "Expanda_Negativo.png", a: "portada.webp", trim: true, ancho: 2000, lienzo: { color: "#22356a", ratio: 4 / 3, escala: 0.66 } },
+      // Símbolo y logotipo.
+      { de: "Expanda_Isotipo.png", a: "isotipo.webp", trim: true, ancho: 1200, lienzo: { color: "#ffffff", ratio: 1, escala: 0.7 } },
+      { de: "Expanda_Positivo.png", a: "imagotipo.webp", trim: true, ancho: 2000, lienzo: { color: "#ffffff", ratio: 9 / 2, escala: 0.9 } },
+      // Versiones de color.
+      { de: "Expanda_Blue.png", a: "version-azul.webp", trim: true, ancho: 1400, lienzo: { color: "#ffffff", ratio: 2, escala: 0.88 } },
+      { de: "Expanda_Yellow.png", a: "version-amarillo.webp", trim: true, ancho: 1400, lienzo: { color: "#ffffff", ratio: 2, escala: 0.88 } },
+      { de: "Expanda_Negativo.png", a: "version-blanco.webp", trim: true, ancho: 1400, lienzo: { color: "#22356a", ratio: 2, escala: 0.88 } },
+      // Aplicación: tarjeta de presentación (recorte de la tarjeta dentro del PDF).
+      { pdf: "Expanda BC.pdf", pagina: 1, recorte: { left: 166, top: 166, width: 1269, height: 703 }, a: "tarjeta-frontal.webp", ancho: 1600, ratio: "9:5", calidad: 80 },
+      { pdf: "Expanda BC.pdf", pagina: 2, recorte: { left: 166, top: 166, width: 1269, height: 703 }, a: "tarjeta-reverso.webp", ancho: 1600, ratio: "9:5", calidad: 80 },
+    ],
+  },
+  "akapella": {
+    origen: path.join(FUENTES, "akapella"),
+    destino: path.join(PUBLIC, "akapella"),
+    trabajos: [
+      // Portada: el símbolo del carrito-cítrico centrado sobre blanco (4:3).
+      { de: "Akapella - Logo.png", a: "portada.webp", recorte: { left: 960, top: 643, width: 1175, height: 1012 }, ancho: 2000, lienzo: { color: "#ffffff", ratio: 4 / 3, escala: 0.86 } },
+      // Símbolo e imagotipo.
+      { de: "Akapella - Logo.png", a: "isotipo.webp", recorte: { left: 960, top: 643, width: 1175, height: 1012 }, ancho: 1400, escalar: true, fondo: "#ffffff" },
+      { de: "Akapella - Logo.png", a: "imagotipo.webp", trim: true, ancho: 2000, lienzo: { color: "#ffffff", ratio: 10 / 9, escala: 0.92 } },
+    ],
+  },
   "rr-remodeling-texas": {
     origen: path.join(FUENTES, "rr-remodeling-texas"),
     destino: path.join(PUBLIC, "rr-remodeling-texas"),
@@ -130,15 +159,47 @@ const PROYECTOS = {
       { pdf: "R&R Remodeling Texas.pdf", pagina: 19, recorte: { left: 246, top: 246, width: 920, height: 632 }, a: "publicidad.jpg", ancho: 1500, calidad: 84 },
     ],
   },
+  "fast-solutions": {
+    origen: path.join(FUENTES, "fast-solutions"),
+    destino: path.join(PUBLIC, "fast-solutions"),
+    trabajos: [
+      // Portada: el logotipo sobre el montaje industrial.
+      { de: "Banners/Logotipo - Fast Solutions-01.png", a: "portada.webp", ancho: 2000, ratio: "16:10", calidad: 80 },
+      // Identidad.
+      { de: "Isotipo Positivo.png", a: "isotipo.webp", ancho: 1400, lienzo: { color: "#ffffff", ratio: 1, escala: 0.5 } },
+      { de: "Isotipo Negativo.png", a: "isotipo-negativo.webp", ancho: 1400, lienzo: { color: "#3a3f44", ratio: 1, escala: 0.5 } },
+      { de: "Horizontal Slogan.png", a: "logotipo.webp", ancho: 1900, lienzo: { color: "#ffffff", ratio: 20 / 9, escala: 0.6 } },
+      { de: "Horizontal.png", a: "version-horizontal.webp", ancho: 1200, lienzo: { color: "#ffffff", ratio: 1, escala: 0.85 } },
+      { de: "Vertical.png", a: "version-vertical.webp", ancho: 1200, lienzo: { color: "#ffffff", ratio: 1, escala: 0.5 } },
+      { de: "Vertical Mono.png", a: "version-mono.webp", ancho: 1200, lienzo: { color: "#ffffff", ratio: 1, escala: 0.5 } },
+      // Aplicaciones (recortes de la presentación).
+      { pdf: "Fast Solutions Presentation.pdf", pagina: 15, renderAncho: 1920, recorte: { left: 110, top: 335, width: 1750, height: 650 }, trim: { background: "#ffffff", threshold: 14 }, a: "aplicacion-tarjetas.webp", ancho: 1600 },
+      { pdf: "Fast Solutions Presentation.pdf", pagina: 16, renderAncho: 1920, recorte: { left: 110, top: 335, width: 1750, height: 650 }, trim: { background: "#ffffff", threshold: 14 }, a: "aplicacion-uniformes.webp", ancho: 1600 },
+      { pdf: "Fast Solutions Presentation.pdf", pagina: 17, renderAncho: 1920, recorte: { left: 110, top: 335, width: 1750, height: 650 }, trim: { background: "#ffffff", threshold: 14 }, a: "aplicacion-seguridad.webp", ancho: 1600 },
+      { pdf: "Fast Solutions Presentation.pdf", pagina: 18, renderAncho: 1920, recorte: { left: 110, top: 335, width: 1750, height: 650 }, trim: { background: "#ffffff", threshold: 14 }, a: "aplicacion-vehiculo.webp", ancho: 1600 },
+      { de: "Banners/7. Before  After.png", a: "antes-despues.webp", ancho: 1300, calidad: 80 },
+      // Presencia digital (banners crudos).
+      { de: "Banners/1. Servicios Profesionales.png", a: "digital-hvac.webp", ancho: 1300, calidad: 80 },
+      { de: "Banners/8. Testimony.png", a: "digital-testimonio.webp", ancho: 1300, calidad: 80 },
+    ],
+  },
+  taxi: {
+    origen: path.join(FUENTES, "taxi"),
+    destino: path.join(PUBLIC, "tarjetas-taxi"),
+    trabajos: [
+      { de: "Business CardMesa de trabajo 1.png", a: "tarjeta-01.webp", ancho: 1400, fondo: "#ffffff", calidad: 86 },
+      { de: "Business CardMesa de trabajo 2.png", a: "tarjeta-02.webp", ancho: 1400, fondo: "#ffffff", calidad: 86 },
+    ],
+  },
 };
 
-async function renderPaginaPdf(archivo, pagina) {
+async function renderPaginaPdf(archivo, pagina, ancho = 1600) {
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
   const { createCanvas } = await import("@napi-rs/canvas");
   const data = new Uint8Array(fs.readFileSync(archivo));
   const doc = await pdfjs.getDocument({ data, disableFontFace: true, isEvalSupported: false, useSystemFonts: true }).promise;
   const page = await doc.getPage(pagina);
-  const escala = 1600 / page.getViewport({ scale: 1 }).width;
+  const escala = ancho / page.getViewport({ scale: 1 }).width;
   const viewport = page.getViewport({ scale: escala });
   const canvas = createCanvas(Math.round(viewport.width), Math.round(viewport.height));
   const ctx = canvas.getContext("2d");
@@ -148,8 +209,10 @@ async function renderPaginaPdf(archivo, pagina) {
   return canvas.toBuffer("image/png");
 }
 
+const opcionesTrim = (t) => (typeof t === "object" ? t : { threshold: t === true ? 12 : t });
+
 async function procesar(t, origen, destino) {
-  const entrada = t.pdf ? await renderPaginaPdf(resolver(t.pdf, origen), t.pagina) : resolver(t.de, origen);
+  const entrada = t.pdf ? await renderPaginaPdf(resolver(t.pdf, origen), t.pagina, t.renderAncho ?? 1600) : resolver(t.de, origen);
   const salida = path.join(destino, t.a);
   const calidad = t.calidad ?? 82;
   const ext = path.extname(salida).toLowerCase();
@@ -160,7 +223,9 @@ async function procesar(t, origen, destino) {
     const W = t.ancho;
     const H = Math.round(W / t.lienzo.ratio);
     let base = sharp(entrada);
-    if (t.trim) base = base.trim({ threshold: t.trim === true ? 12 : t.trim });
+    // `extract` y `trim` no conviven bien en una sola tubería: se separan.
+    if (t.recorte) base = sharp(await base.extract(t.recorte).png().toBuffer());
+    if (t.trim) base = base.trim(opcionesTrim(t.trim));
     const arte = await base
       .resize({ width: Math.round(W * t.lienzo.escala), fit: "inside" })
       .toBuffer();
@@ -179,7 +244,7 @@ async function procesar(t, origen, destino) {
     const recortado = await img.extract(t.recorte).png().toBuffer();
     img = sharp(recortado);
   }
-  if (t.trim) img = img.trim({ threshold: t.trim === true ? 12 : t.trim });
+  if (t.trim) img = img.trim(opcionesTrim(t.trim));
   if (t.ratio) {
     const [w, h] = t.ratio.split(":").map(Number);
     img = img.resize(t.ancho, Math.round((t.ancho * h) / w), { fit: "cover", position: "attention" });

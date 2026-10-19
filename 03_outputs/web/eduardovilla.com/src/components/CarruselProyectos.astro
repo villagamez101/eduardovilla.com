@@ -1,0 +1,106 @@
+---
+/**
+ * Carrusel de proyectos: una sola fila que se recorre de izquierda a derecha.
+ * Flechas para avanzar, desplazamiento suave con snap y un enlace "ver más"
+ * que manda al índice de proyectos. Sin bibliotecas: scroll nativo + JS mínimo.
+ */
+import ProjectCard from "@components/ProjectCard.astro";
+import { t, getLang } from "@i18n/ui";
+import { proyectoSlug } from "@/lib/proyectos";
+
+interface Props {
+  proyectos: any[];
+  lang: "es" | "en";
+  areaLabel: string;
+  verMasHref?: string;
+  placeholder?: string;
+}
+
+const { proyectos, lang, areaLabel, verMasHref, placeholder } = Astro.props;
+const l = getLang(lang);
+const base = lang === "en" ? "/en" : "";
+---
+
+<div class="carrusel">
+  <div class="carrusel__bar">
+    <button
+      type="button"
+      class="carrusel__btn"
+      data-carrusel-dir="-1"
+      aria-label={t.proyectos.anterior[l]}
+      disabled
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M11 6l-6 6 6 6" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="carrusel__btn"
+      data-carrusel-dir="1"
+      aria-label={t.proyectos.siguiente[l]}
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </button>
+  </div>
+
+  <ul
+    class="carrusel__pista"
+    tabindex="0"
+    aria-label={t.proyectos.relacionados[l]}
+  >
+    {proyectos.map((p) => (
+      <li class="carrusel__item">
+        <ProjectCard
+          href={`${base}/proyectos/${proyectoSlug(p.id)}/`}
+          title={p.data.shortTitle ?? p.data.title}
+          description={p.data.description}
+          areaLabel={areaLabel}
+          year={p.data.year}
+          cover={p.data.cover}
+          coverAlt={p.data.coverAlt}
+          miniatura={p.data.miniatura}
+          miniaturaRatio={p.data.miniaturaRatio}
+          placeholder={placeholder}
+        />
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  document.querySelectorAll(".carrusel").forEach((c) => {
+    const pista = c.querySelector(".carrusel__pista");
+    if (!pista) return;
+    const botones = c.querySelectorAll(".carrusel__btn");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const paso = () => {
+      const item = pista.querySelector(".carrusel__item");
+      return item ? item.getBoundingClientRect().width + 16 : pista.clientWidth * 0.8;
+    };
+
+    const actualizar = () => {
+      const max = pista.scrollWidth - pista.clientWidth;
+      botones.forEach((b) => {
+        const dir = Number(b.getAttribute("data-carrusel-dir"));
+        b.disabled = dir < 0 ? pista.scrollLeft <= 2 : pista.scrollLeft >= max - 2;
+      });
+    };
+
+    botones.forEach((b) =>
+      b.addEventListener("click", () => {
+        pista.scrollBy({
+          left: Number(b.getAttribute("data-carrusel-dir")) * paso(),
+          behavior: reduce ? "auto" : "smooth",
+        });
+      })
+    );
+
+    pista.addEventListener("scroll", actualizar, { passive: true });
+    window.addEventListener("resize", actualizar);
+    actualizar();
+  });
+</script>

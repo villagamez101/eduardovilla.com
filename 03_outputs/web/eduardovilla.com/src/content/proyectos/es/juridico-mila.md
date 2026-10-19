@@ -8,6 +8,8 @@ areaSecundaria: "diseno-grafico"
 year: "2021"
 rol: "Identidad visual, diseño gráfico y aplicaciones"
 cliente: "Jurídico Mila"
+categoria: "logo"
+miniatura: "/img/proyectos/juridico-mila/imagotipo.webp"
 entregables:
   - "Isotipo y logotipo"
   - "Sistema de color"
@@ -65,19 +67,8 @@ bloques:
     cuerpo: |
       El lema «asesorar, solucionar y dar justicia» resume el servicio y
       acompaña al símbolo donde hace falta explicarlo. El sistema se probó
-      llevándolo a las piezas del día a día del despacho: la tarjeta, la
-      papelería, el rótulo de la fachada y el material de trabajo.
-  - tipo: "galeria"
-    columnas: 2
-    imagenes:
-      - src: "/img/proyectos/juridico-mila/tarjeta-01.webp"
-        alt: "Tarjeta de presentación de Jurídico Mila, frente"
-        caption: "Tarjeta, frente"
-        ratio: "5 / 3"
-      - src: "/img/proyectos/juridico-mila/tarjeta-02.webp"
-        alt: "Tarjeta de presentación de Jurídico Mila, reverso"
-        caption: "Tarjeta, reverso"
-        ratio: "5 / 3"
+      llevándolo a las piezas del día a día del despacho: la papelería, el
+      rótulo de la fachada y el material de trabajo.
   - tipo: "galeria"
     columnas: 2
     imagenes:
